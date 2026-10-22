@@ -50,3 +50,31 @@ Then open the printed URL.
 Upload the repository contents as-is to any static host (Netlify, Vercel,
 GitHub Pages, S3/CloudFront, Cloudflare Pages, …). No build step. Just make
 sure the `vendor/` directory ships alongside `index.html`.
+
+## Website analytics
+
+Every public HTML page includes `/assets/analytics.js`. This is the single place
+for the EU PostHog project configuration and privacy controls. Include it once,
+with `defer`, when adding a page. `docs/` currently contains assets/evidence, not
+an HTML documentation site. The reachable `v2/` and `mockup1/`–`mockup7/` pages
+are public and are tracked too.
+
+Only `$pageview` is sent. Autocapture, recordings, surveys, performance and error
+capture are off. An event-property allowlist removes query strings, fragments,
+referrers, titles, attribution and form contents. Anonymous IDs persist using
+PostHog's default storage, in a website-specific namespace separate from the app.
+No user is identified and no person profile is created. Test/preview hosts set
+`tracelayer_test: true`. Ad blockers are respected.
+
+The Android redirect waits up to 1.5 seconds for the SDK and sends its pageview
+using a beacon before navigating. A two-second meta refresh is the no-JavaScript
+fallback. An SDK failure never prevents the download.
+
+Before deployment, the operator must resolve the EU analytics consent requirement.
+No banner or consent policy is introduced by this change. Pageviews cannot recover
+past visitors or supply signup, activation or revenue events.
+
+Browser verification: install local-only tooling with `npm install --no-save
+playwright`, serve this directory on port 8000, then run
+`node docs/analytics/verify.cjs`. It sends test-marked events to the real project.
+See `docs/analytics/REVIEW.md` for evidence and remaining dependencies.
