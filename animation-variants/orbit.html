@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TraceLayer · The future is now</title>
+  <link rel="icon" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="orbit.css">
+</head>
+<body class="orbit-study">
+<header><a class="brand" href="orbit.html"><img src="assets/tracelayer-logo.svg" alt="">tracelayer</a><span class="prototype">A new way to work together</span></header>
+<main>
+  <section class="intro">
+    <div><p class="eyebrow"><i></i> Your people. Your tools. One place to create.</p><h1>All that switching.<br>Imagine just <em>creating.</em></h1></div>
+    <p class="lead">The conversation, the tasks, the knowledge and the AI. Together in TraceLayer, so your team can get on with the work.</p>
+  </section>
+  <section class="comparison" aria-label="Your old tools versus your new stack">
+    <section class="old-stack" aria-labelledby="old-heading">
+      <div class="comparison-heading"><p>It used to be like this.</p><h2 id="old-heading">Your old tools</h2></div>
+      <div class="orbit-space" id="visual" aria-label="Interactive orbit of your old tools" aria-describedby="orbit-instructions">
+        <div class="orbit-track track-outer" aria-hidden="true"></div>
+        <div class="orbit-track track-inner" aria-hidden="true"></div>
+        <svg class="orbit-spark" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="50" rx="49.8" ry="49.8" pathLength="100"/></svg>
+        <div class="orbit-copy" aria-hidden="true"><span>Chats. Tasks. AI.</span><strong>A little bit everywhere.</strong><span class="orbit-dots"><i></i><i></i><i></i></span></div>
+        <div id="tool-nodes"></div>
+      </div>
+      <div class="orbit-controls"><p id="orbit-instructions">Drag to rearrange · Select two to swap</p><button id="reset-orbit" aria-label="Reset orbit arrangement">Reset orbit</button></div>
+      <p id="orbit-announcement" class="sr-only" role="status" aria-live="polite"></p>
+    </section>
+    <div class="versus" aria-label="versus"><span>vs</span></div>
+    <section class="new-stack" aria-labelledby="new-heading">
+      <div class="comparison-heading"><p>The future is now.</p><h2 id="new-heading">Your new stack</h2></div>
+      <div class="new-stack-content">
+        <div class="brand-element">
+          <div class="hub"><div class="hub-block"><img src="assets/tracelayer-logo.svg" alt=""></div><strong>tracelayer</strong><small>All here. One workspace.</small></div>
+          <div class="brand-connection" aria-hidden="true"><i></i></div>
+        </div>
+        <div class="workspace-side"><article class="workspace"><div class="window-top"><div><img src="assets/tracelayer-logo.svg" alt="">tracelayer <span>/</span> Launch studio</div><span class="window-menu">···</span></div><div class="workspace-body"><div class="task-heading"><div><small>WEBSITE / ELON</small><h2>Build Elon’s next launch.</h2></div><span id="status" class="status">Brief received</span></div><div class="team"><div class="avatar rebecca" role="img" aria-label="Rebecca"></div><div><b>Rebecca</b><small>Project Manager</small></div><div class="team-stack"><span class="avatar mrbeast" role="img" aria-label="MrBeast"></span><span class="avatar spielberg" role="img" aria-label="Steven Spielberg"></span><span class="avatar jony" role="img" aria-label="Jony Ive"></span><span class="team-count">Your launch team</span></div></div><div class="brief"><span class="avatar elon" role="img" aria-label="Elon Musk"></span><div><b>Elon <span>· The brief</span></b><p>Build a website for my next launch. Bold, simple, and ready for the world. Let’s get the best team on it.</p></div></div><div class="invitation"><span class="avatar rebecca" role="img" aria-label="Rebecca"></span><div><b>Rebecca <span>· Team invited</span></b><p>Bringing in the best for your launch.</p><div class="invitees"><span><i class="avatar mrbeast" role="img" aria-label="MrBeast"></i>MrBeast</span><span><i class="avatar spielberg" role="img" aria-label="Steven Spielberg"></i>Spielberg</span><span><i class="avatar jony" role="img" aria-label="Jony Ive"></i>Jony Ive</span></div></div></div><div class="context"><span>Launch brief</span><span>Brand direction</span><span>Shared with the team</span></div><div id="conversation" class="conversation"></div><div class="result"><div class="mini-site"><span>BEYOND<br>WHAT’S NEXT.</span><div class="planet"></div></div><div><b>Elon’s launch website</b><small id="result-detail">Brief attached · Team assembled</small></div><span id="result-action">In progress ↗</span></div><div class="window-footer"><span class="avatar elon" role="img" aria-label="Elon Musk"></span><span>One conversation, from first idea to final review.</span><span>Enter</span></div></div><aside class="float-card"><span id="float-avatar" class="avatar rebecca" role="img" aria-label="Rebecca"></span><div><b id="float-title">Rebecca brought the team together.</b><small id="float-subtitle">MrBeast, Spielberg and Jony have your brief.</small></div><span class="check">✓</span></aside></article></div>
+      </div>
+    </section>
+  </section>
+  <footer class="motion-footer"><p><span class="live-dot"></span> One brief. The right people. All together.</p><div class="play-controls"><span id="step-label">01 / Brief</span><button id="replay" aria-label="Replay animation">Replay</button><button id="pause" aria-pressed="false">Pause</button></div></footer>
+  <div class="story-track" aria-label="Story progress"><button data-step="0">01 <span>The brief</span></button><button data-step="1">02 <span>The design</span></button><button data-step="2">03 <span>The build</span></button><button data-step="3">04 <span>Your review</span></button></div>
+  <p class="footnote">Illustrative project, not a customer endorsement.</p>
+  <details class="portrait-credits"><summary>Portrait credits</summary><div><a href="https://commons.wikimedia.org/wiki/File:Elon_Musk_-_54820081119_%28cropped%29.jpg">Elon Musk</a> by Gage Skidmore · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> · Cropped to a circular avatar.</div><div><a href="https://commons.wikimedia.org/wiki/File:Jonathan_Ive_%28OTRS%29.jpg">Jony Ive</a> by Marcus Dawes · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> · Cropped to a circular avatar.</div><div><a href="https://commons.wikimedia.org/wiki/File:MrBeast_in_2026_%28cropped_4%29.png">MrBeast</a> by Tyren Redd · <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a> · Cropped to a circular avatar.</div><div><a href="https://commons.wikimedia.org/wiki/File:MKr25402_Steven_Spielberg_%28Berlinale_2023%29_%283x4_cropped%29.jpg">Steven Spielberg</a> by Martin Kraft · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> · Cropped to a circular avatar.</div></details>
+</main>
+<script src="orbit.js"></script>
+</body>
+</html>

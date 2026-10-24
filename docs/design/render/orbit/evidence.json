@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-10-24T19:54:56.468Z",
+  "base": "http://localhost:8000/animation-variants/orbit.html",
+  "measurements": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "imagesLoaded": true,
+      "toolsInBounds": true,
+      "toolsOverlap": false
+    },
+    {
+      "width": 1280,
+      "overflow": false,
+      "imagesLoaded": true,
+      "toolsInBounds": true,
+      "toolsOverlap": false
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "imagesLoaded": true,
+      "toolsInBounds": true,
+      "toolsOverlap": false
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "imagesLoaded": true,
+      "toolsInBounds": true,
+      "toolsOverlap": false
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "imagesLoaded": true,
+      "toolsInBounds": true,
+      "toolsOverlap": false
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "imagesLoaded": true,
+      "toolsInBounds": true,
+      "toolsOverlap": false
+    }
+  ],
+  "checks": [
+    "local assets",
+    "logo on new stack only",
+    "Elon brief and team invitation",
+    "no overflow or overlapping orbit tools",
+    "automatic orbit",
+    "pause all motion",
+    "keyboard swap and Escape",
+    "pointer drag and persistence",
+    "reset",
+    "four story stages",
+    "pause and replay",
+    "automatic story progression",
+    "reduced motion including replay",
+    "no browser errors"
+  ]
+}

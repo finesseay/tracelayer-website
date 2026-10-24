@@ -1,0 +1,139 @@
+.orbit-study {
+  background-image: radial-gradient(ellipse at 3% 65%, #13404a80, transparent 56%), radial-gradient(ellipse at 100% 48%, #4d367777, transparent 64%);
+}
+.orbit-study header { height: 76px; }
+.orbit-study main { padding-top: 0; }
+.orbit-study .intro { margin: 47px 0 54px; }
+.orbit-study .intro h1 { font-size: clamp(36px, 4.25vw, 64px); }
+.comparison { display: grid; grid-template-columns: minmax(0, 1fr) 64px minmax(0, 2fr); align-items: stretch; }
+.comparison-heading { margin: 0 0 25px; }
+.comparison-heading p { margin: 0 0 10px; font-size: 11px; color: #96abc3; }
+.comparison-heading h2 { font-size: 17px; letter-spacing: -.4px; font-weight: 500; margin: 0; }
+.new-stack .comparison-heading p { color: #aceedc; }
+.old-stack { min-width: 0; display: flex; flex-direction: column; }
+.orbit-space { position: relative; width: 100%; aspect-ratio: 1 / 1.13; margin: auto 0; isolation: isolate; }
+.orbit-space:before { content: ''; position: absolute; inset: 12% 2%; background: radial-gradient(ellipse, #79afcf0a, transparent 66%); border-radius: 50%; }
+.orbit-track { position: absolute; left: 50%; top: 49%; border: 1px solid #abc8eb2a; border-radius: 50%; pointer-events: none; }
+.track-outer { width: 82%; height: 74%; transform: translate(-50%, -50%); box-shadow: 0 0 0 18px #abc8eb03; }
+.track-inner { width: 65%; height: 48%; transform: translate(-50%, -50%) rotate(-32deg); border-color: #abc8eb16; }
+.orbit-spark { position: absolute; left: 9%; top: 12%; width: 82%; height: 74%; overflow: visible; pointer-events: none; }
+.orbit-spark ellipse { fill: none; stroke: #b1e3e390; stroke-width: 1.5px; vector-effect: non-scaling-stroke; stroke-dasharray: 3 97; animation: orbit-trail 22s linear infinite; }
+@keyframes orbit-trail { to { stroke-dashoffset: -100; } }
+.orbit-copy { position: absolute; top: 49%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 55%; pointer-events: none; }
+.orbit-copy>span:first-child { color: #849cb5; font-size: 10px; letter-spacing: .5px; }
+.orbit-copy strong { display: block; color: #c0cedd; font-size: 14px; line-height: 1.5; font-weight: 500; margin-top: 9px; }
+.orbit-dots { display: flex; gap: 5px; justify-content: center; margin-top: 15px; }
+.orbit-dots i { width: 3px; height: 3px; border-radius: 50%; background: #8aacc057; }
+.orbit-study .tool { transition: none; cursor: grab; gap: 9px; min-width: 62px; user-select: none; }
+.orbit-study .tool-icon { width: 55px; height: 55px; border-radius: 18px; background: linear-gradient(145deg, #f6f9ff, #c9d9e9); box-shadow: 0 4px 0 #8fabc52e, 0 14px 30px #0003, inset 0 0 0 1px #fff6; }
+.tool-mark { width: 27px; height: 27px; background: var(--logo); mask-image: var(--mark); mask-position: center; mask-repeat: no-repeat; mask-size: contain; }
+.orbit-study .tool .tool-label { font-size: 10px; color: #bbcadd; }
+.orbit-study .tool.dragging { cursor: grabbing; z-index: 8; }
+.orbit-study .tool.dragging .tool-icon { transform: scale(1.08); box-shadow: 0 0 0 2px #a5efd9, 0 15px 30px #0004; }
+.orbit-controls { display: flex; justify-content: center; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 13px 0 10px; }
+.orbit-controls p { font-size: 9px; color: #8fa6bc; margin: 0; }
+.orbit-controls button { padding: 5px 0; color: #a6b7cb; font-size: 9px; background: none; border: 0; border-bottom: 1px solid #a6b7cb30; }
+.versus { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 22px; padding-top: 40px; }
+.versus:before, .versus:after { content: ''; width: 1px; height: 115px; background: linear-gradient(transparent, #a7b7ce25); }
+.versus:after { transform: rotate(180deg); }
+.versus span { color: #9aacc0; font-size: 10px; letter-spacing: 2px; }
+.new-stack { min-width: 0; }
+.new-stack-content { display: grid; grid-template-columns: 138px minmax(0, 1fr); gap: 24px; align-items: center; }
+.brand-element { position: relative; display: grid; place-items: center; align-self: stretch; }
+.orbit-study .hub { position: relative; left: auto; top: auto; transform: none; width: 138px; }
+.orbit-study .hub-block { width: 110px; height: 110px; margin: auto; border-radius: 32px; }
+.orbit-study .hub img { width: 76px; height: 76px; }
+.orbit-study .hub strong { font-size: 24px; margin-top: 31px; letter-spacing: -1.3px; }
+.orbit-study .hub small { font-size: 9px; margin-top: 9px; }
+.brand-connection { position: absolute; top: calc(50% - 36px); left: calc(50% + 55px); width: 38px; height: 1px; background: #b3c8e650; z-index: -1; }
+.brand-connection i { display: block; height: 2px; width: 13px; background: #abf4e1; box-shadow: 0 0 8px #8bdfd9; animation: brand-signal 3s linear infinite; }
+@keyframes brand-signal { 0% { opacity: 0; transform: translateX(0); } 25%, 75% { opacity: .9; } 100% { opacity: 0; transform: translateX(27px); } }
+.orbit-study .workspace { border-radius: 14px; }
+.orbit-study .workspace-body { padding: 19px; }
+.orbit-study .team-count { display: none; }
+.orbit-study .float-card { min-width: 0; max-width: calc(100% - 22px); right: -8px; bottom: -23px; padding: 16px; animation-name: orbit-card-in, hover; }
+@keyframes orbit-card-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+.orbit-study .float-card b { line-height: 1.5; }
+.orbit-study .float-card small { line-height: 1.5; }
+.orbit-study .check { flex-shrink: 0; }
+.orbit-study .context { gap: 10px; font-size: 8px; flex-wrap: wrap; }
+.orbit-study .conversation { min-height: 79px; }
+.orbit-study .invitees { gap: 10px; flex-wrap: wrap; }
+.motion-footer { margin-top: 57px; margin-bottom: 22px; }
+.motion-footer p { margin: 0; font-size: 11px; color: #a5b8ca; }
+.orbit-study .story-track { margin-left: calc((100% - 64px) / 3 + 64px + 162px); }
+.orbit-study .footnote { margin-top: 24px; }
+.orbit-study .portrait-credits { margin-bottom: 6px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.paused .orbit-spark ellipse, .paused .brand-connection i { animation-play-state: paused; }
+@media (min-width: 1600px) { .orbit-study main, .orbit-study header { max-width: 1512px; } .new-stack-content { grid-template-columns: 162px minmax(0, 1fr); gap: 30px; } .brand-connection { width: 56px; } .orbit-study .story-track { margin-left: calc((100% - 64px) / 3 + 64px + 192px); } }
+@media (max-width: 1190px) {
+  .comparison { grid-template-columns: minmax(0, .9fr) 54px minmax(0, 1.1fr); }
+  .new-stack-content { grid-template-columns: 1fr; gap: 28px; }
+  .brand-element { min-height: 130px; }
+  .orbit-study .hub { width: auto; display: grid; grid-template-columns: 85px auto; column-gap: 23px; text-align: left; align-items: center; }
+  .orbit-study .hub-block { grid-row: 1 / 3; width: 85px; height: 85px; border-radius: 26px; }
+  .orbit-study .hub img { width: 58px; height: 58px; }
+  .orbit-study .hub strong { margin: 15px 0 0; font-size: 25px; }
+  .orbit-study .hub small { align-self: start; margin-top: 5px; font-size: 10px; }
+  .brand-connection { left: calc(50% - 74px); top: 110px; width: 1px; height: 49px; background: linear-gradient(#b3c8e650, #abf4e180); }
+  .brand-connection i { display: none; }
+  .orbit-study .story-track { margin-left: calc((100% - 54px) * .45 + 54px); }
+  .orbit-study .intro h1 { font-size: 49px; }
+  .orbit-study .lead { max-width: 260px; font-size: 13px; }
+}
+@media (max-width: 900px) and (min-width: 761px) {
+  .orbit-study main, .orbit-study header { padding-left: 24px; padding-right: 24px; }
+  .comparison { grid-template-columns: minmax(0, .8fr) 34px minmax(0, 1.2fr); }
+  .orbit-study .tool-icon { width: 45px; height: 45px; border-radius: 15px; }
+  .orbit-study .tool { min-width: 52px; gap: 8px; }
+  .orbit-study .tool .tool-label { font-size: 9px; }
+  .tool-mark { width: 24px; height: 24px; }
+  .orbit-copy strong { font-size: 12px; }
+  .orbit-copy>span:first-child { font-size: 9px; }
+  .orbit-study .intro h1 { font-size: 42px; }
+  .orbit-study .lead { max-width: 215px; font-size: 12px; }
+  .orbit-study .story-track { margin-left: 0; }
+}
+@media (max-width: 760px) {
+  .orbit-study header { height: 65px; }
+  .orbit-study .intro { margin: 36px 0 39px; }
+  .orbit-study .intro h1 { font-size: clamp(35px, 10.7vw, 58px); }
+  .orbit-study .lead { max-width: 420px; font-size: 12px; margin-top: 22px; }
+  .comparison { grid-template-columns: 1fr; gap: 27px; }
+  .comparison-heading { margin-bottom: 15px; }
+  .comparison-heading p { font-size: 10px; margin-bottom: 8px; }
+  .comparison-heading h2 { font-size: 17px; }
+  .orbit-space { max-width: 430px; margin: 0 auto; aspect-ratio: 1 / 1.05; }
+  .orbit-study .tool-icon { width: 48px; height: 48px; border-radius: 16px; }
+  .tool-mark { width: 25px; height: 25px; }
+  .orbit-study .tool { gap: 8px; min-width: 56px; }
+  .orbit-study .tool .tool-label { font-size: 9px; }
+  .orbit-copy strong { font-size: 13px; }
+  .orbit-controls { margin: 6px 0 0; }
+  .versus { padding: 0; flex-direction: row; gap: 19px; }
+  .versus:before, .versus:after { width: 90px; height: 1px; background: linear-gradient(90deg, transparent, #a7b7ce25); }
+  .new-stack-content { gap: 19px; }
+  .brand-element { min-height: 140px; }
+  .brand-connection { height: 50px; }
+  .orbit-study .workspace-body { padding: 15px; }
+  .orbit-study .task-heading h2 { font-size: 19px; }
+  .orbit-study .float-card { right: -4px; padding: 13px; gap: 9px; }
+  .orbit-study .float-card .check { margin-left: 0; }
+  .motion-footer { margin-top: 53px; gap: 22px; }
+  .motion-footer p { font-size: 10px; }
+  .motion-footer .play-controls { margin-left: 0; }
+  .orbit-study .story-track { margin-left: 0; }
+  .orbit-study .invitees { gap: 8px; }
+  .orbit-study .window-footer { line-height: 1.5; }
+}
+@media (max-width: 360px) {
+  .orbit-study main, .orbit-study header { padding-left: 16px; padding-right: 16px; }
+  .orbit-study .task-heading h2 { font-size: 16px; }
+  .orbit-study .task-heading .status { font-size: 8px; padding: 5px; }
+  .orbit-study .invitees { gap: 7px; }
+  .orbit-study #result-action { font-size: 8px; }
+  .orbit-study .result { gap: 8px; }
+  .orbit-study .mini-site { width: 51px; }
+  .orbit-study .tool-icon { width: 43px; height: 43px; }
+}
