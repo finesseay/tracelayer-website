@@ -9,3 +9,16 @@ body[data-variant="4"] .row-labels{display:none}body[data-variant="4"] .hub{left
 .check{font-family:Arial,sans-serif;font-size:0}.check:after{content:'';width:8px;height:4px;border-left:1.5px solid #58987e;border-bottom:1.5px solid #58987e;transform:rotate(-45deg)}.context span:before{content:'';display:inline-block;width:4px;height:4px;background:#79a68e;border-radius:50%;margin-right:4px}.context{font-size:9px}.tools-side{position:relative}.tools-side:after{content:'';position:absolute;top:calc(47% + 35px);left:88%;width:calc(12% + 50px);height:1px;background:linear-gradient(90deg,#acc7e54d,#adf6e4b3);z-index:-1}body[data-variant="2"] .tools-side:after{left:60%;width:calc(40% + 50px)}@media(max-width:760px){.tools-side:after{display:none}}
 
 .tools-side:after{display:none}
+
+/* Old tools stay separate from the new TraceLayer stack. */
+.avatar.elon{background-image:url('assets/elon.jpg');background-size:cover;background-position:center 25%}
+.avatar.mrbeast{background-image:url('assets/mrbeast.png');background-size:cover;background-position:center 25%}
+.avatar.spielberg{background-image:url('assets/spielberg.jpg');background-size:cover;background-position:center 25%}
+.avatar.jony{background-image:url('assets/jony.jpg');background-size:cover;background-position:center 25%}
+.invitation{display:flex;gap:9px;padding:12px;margin-top:10px;background:#f4f2fb;border:1px solid #e3dfef;border-radius:8px;animation:appear .6s both}
+.invitation b{font-size:11px}.invitation b>span{font-size:9px;color:#8c9a94;font-weight:400}.invitation p{font-size:11px;margin:5px 0 9px}
+.invitees{display:flex;gap:14px}.invitees>span{display:flex;align-items:center;gap:5px;font-size:10px;white-space:nowrap}.invitees .avatar{width:27px;height:27px}
+@media(max-width:1050px){.invitees{gap:8px}.invitees>span{font-size:9px}.invitees .avatar{width:24px;height:24px}}
+
+.avatar.jony{background-size:260%;background-position:50% 16%}
+.portrait-credits{margin:12px auto 0;text-align:center;font-size:9px;color:#72889d;line-height:1.8}.portrait-credits summary{cursor:pointer}.portrait-credits a{color:inherit}

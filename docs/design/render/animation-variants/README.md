@@ -21,3 +21,11 @@ Reproduce: serve the repository on port 8000 (`python3 -m http.server 8000`), in
 - Existing repository analytics browser contract also passed: `node --test docs/analytics/verify.cjs` (16 tests, zero failures). Its generated evidence is copied into this folder to preserve the prior analytics record.
 - Hosted preview inspection revealed the static host's `connect-src 'none'` policy and entry-folder asset boundary. Embedded tool SVGs in the local script and copied the existing brand/font assets into the prototype folder, so rendering requires no fetch calls or parent-directory assets.
 - Final self-contained version passed the full prototype check again. Hosted Chromium smoke check loaded all eight logos, switched all four versions, and reported zero JavaScript, console, or HTTP errors.
+
+## Refinement — Old Tools / New Stack
+
+Updated all four studies with the requested comparison headings. Removed the TraceLayer hub from the old tools side; Orbit connects tools around its empty centre and retains drag/swap interaction. The chat now has Elon's photographic avatar and “Let’s get the best team on it”, followed immediately by Rebecca's invitation bubble with MrBeast, Steven Spielberg and Jony Ive portraits. Shared story stages and floating updates refer to the new team. Existing colours, tool treatments, controls and floating card remain.
+
+Portraits are local Wikimedia Commons thumbnails, with source and license metadata in `animation-variants/assets/portrait-credits.json` and visible attribution in the prototype's expandable Portrait credits. Jony's portrait uses a closer CSS crop.
+
+Verification: syntax check and browser suite passed on the revision. All four studies rendered at 1440px and 390px without horizontal overflow, missing assets or page errors. Checked invitation presence and copy, absence of the old-tools hub, orbit drag/swap, stage controls, pause/replay, automatic progression and reduced motion. Screenshots refreshed beside this record. Desktop Orbit, Collections, Flow and mobile Connected inspected visually.
