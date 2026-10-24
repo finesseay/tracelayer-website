@@ -1,4 +1,4 @@
-/* Two standalone composition studies; the original orbit remains unchanged. */
+/* Standalone composition studies; the original orbit remains unchanged. */
 .layout-study .intro { display: block; text-align: center; margin: 42px 0 52px; }
 .layout-study .eyebrow { justify-content: center; }
 .layout-study .intro h1 { margin: 0; }
@@ -6,6 +6,7 @@
 .layout-nav a { padding: 9px 12px; border: 1px solid #ffffff16; border-radius: 7px; color: #a4b7ca; text-decoration: none; font-size: 11px; }
 .layout-nav a[aria-current] { color: #b2f0df; background: #b1efd20d; border-color: #b2f0df55; }
 .layout-focus .comparison { grid-template-columns: minmax(0, .8fr) 54px minmax(0, 2.2fr); }
+.layout-focus-centered .comparison-heading { text-align: center; }
 .layout-focus .story-track { margin-left: calc((100% - 54px) * .8 / 3 + 54px + 162px); }
 .layout-balanced .comparison { grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr); }
 .layout-balanced .comparison-heading { text-align: center; }
