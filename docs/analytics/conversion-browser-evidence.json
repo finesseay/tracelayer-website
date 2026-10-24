@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-24T12:49:55.016Z",
+  "sdkSha256": "6a178c1b374d2cfa6cd7a194be64c86661974f17ff4f7f80cbb8047f5ed56abc",
+  "liveIngestion": false,
+  "checks": [
+    "real SDK sends sanitized capable pageviews and keeps anonymous/session identity",
+    "only real signup/download destinations count, including keyboard and middle clicks",
+    "canceled clicks do not count and arbitrary property enrichment is stripped",
+    "referrer is host only and sensitive campaign tags are rejected",
+    "preview, mockup, unknown/private paths, internal and test visits load no SDK",
+    "dnt prevents collection and downloads still redirect",
+    "gpc prevents collection and downloads still redirect",
+    "local-optout prevents collection and downloads still redirect",
+    "sdk-optout prevents collection and downloads still redirect",
+    "revoking privacy choice stops later clicks and pageleave",
+    "engagement measures visible time, scroll and deduplicated leave/resume",
+    "automatic download redirect is not a click; SDK {}",
+    "automatic download redirect is not a click; SDK {\"blockSdk\":true}",
+    "automatic download redirect is not a click; SDK {\"slowSdk\":true}",
+    "unavailable browser storage does not break page use"
+  ]
+}

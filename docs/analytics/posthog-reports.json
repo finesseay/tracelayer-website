@@ -1,0 +1,74 @@
+{
+  "projectId": 312428,
+  "sourceCheckpoint": "129d391deb26a158f46e15b9c7b42f7a59de2765",
+  "productDashboard": "https://eu.posthog.com/project/312428/dashboard/1051591",
+  "websiteDashboard": "https://eu.posthog.com/project/312428/dashboard/1051338",
+  "liveDeployment": false,
+  "reports": [
+    {
+      "key": "coverage",
+      "name": "TraceLayer | Delivery coverage",
+      "description": "Per-event delivery certificates, checked against distinct ingested event IDs. No rows means server instrumentation has not established coverage. Measured means last 30 complete UTC days are covered. Partial means some period or ingested events are missing. Counts in other charts are observations; consult this report before treating an empty chart as zero.",
+      "sql": "WITH d AS (SELECT DISTINCT event,timestamp t,toString(properties.$insert_id) id FROM events WHERE properties.tracelayer_surface='server' AND properties.tracelayer_schema=1 AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true AND event!='measurement_coverage'),c AS (SELECT toString(properties.metric) metric,argMax(toString(properties.coverage_start),timestamp) coverage_from,argMax(toString(properties.covered_until),timestamp) coverage_to,argMax(toFloat(properties.expected_events),timestamp) expected FROM events WHERE properties.tracelayer_surface='server' AND properties.tracelayer_schema=1 AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true AND event='measurement_coverage' AND timestamp<now()-INTERVAL 5 MINUTE GROUP BY metric) SELECT c.metric,c.coverage_from AS coverage_start,c.coverage_to AS covered_until,c.expected AS expected_events,toFloat(countIf(d.id!='' AND d.t<parseDateTimeBestEffort(c.coverage_to))) AS ingested_events,if(c.expected=ingested_events AND parseDateTimeBestEffort(c.coverage_from)<=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND parseDateTimeBestEffort(c.coverage_to)>=toStartOfDay(now(),'UTC'),'Measured','Partial') AS coverage FROM c LEFT JOIN d ON d.event=c.metric GROUP BY c.metric,c.coverage_from,c.coverage_to,c.expected ORDER BY c.metric",
+      "url": "https://eu.posthog.com/project/312428/insights/jW6qywks"
+    },
+    {
+      "key": "lifecycle",
+      "name": "TraceLayer | Signup and onboarding events",
+      "description": "Observed events in the last 30 complete UTC days. Completed signup means a created account, including unverified registration. Verification, provisioning and activation are separately counted period events, not a cohort funnel. Empty means no observed events, not measured zero. Check Delivery coverage.",
+      "sql": "WITH d AS (SELECT DISTINCT event,distinct_id,timestamp t,toString(properties.$insert_id) id FROM events WHERE properties.tracelayer_surface='server' AND properties.tracelayer_schema=1 AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true) SELECT event,count() AS observed_events,uniqExact(distinct_id) AS accounts FROM d WHERE t>=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND t<toStartOfDay(now(),'UTC') AND event IN ('signup_completed','email_verified','workspace_ready','customer_activated') GROUP BY event ORDER BY event",
+      "url": "https://eu.posthog.com/project/312428/insights/jTnxJ4N5"
+    },
+    {
+      "key": "funnel",
+      "name": "TraceLayer | Signup cohort activation funnel",
+      "description": "Accounts registered in the last 30 complete UTC days, followed through ordered verification, workspace provisioning and first verified Review before period end. Empty cohort yields null counts/rate. This is an observed cohort; coverage must be checked separately. Website browser identities are not joined to accounts.",
+      "sql": "WITH d AS (SELECT DISTINCT event,distinct_id,timestamp t,toString(properties.$insert_id) id FROM events WHERE properties.tracelayer_surface='server' AND properties.tracelayer_schema=1 AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true),a AS (SELECT distinct_id,minIf(t,event='signup_completed') signup,minIf(t,event='email_verified') verified,minIf(t,event='workspace_ready') ready,minIf(t,event='customer_activated') activated FROM d GROUP BY distinct_id),b AS (SELECT * FROM a WHERE signup>=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND signup<toStartOfDay(now(),'UTC')) SELECT if(count()=0,NULL,toFloat(count())) AS signups,if(count()=0,NULL,toFloat(countIf(verified>=signup AND verified<toStartOfDay(now(),'UTC')))) AS verified_accounts,if(count()=0,NULL,toFloat(countIf(verified>=signup AND ready>=verified AND ready<toStartOfDay(now(),'UTC')))) AS ready_workspaces,if(count()=0,NULL,toFloat(countIf(verified>=signup AND ready>=verified AND activated>=ready AND activated<toStartOfDay(now(),'UTC')))) AS activated_accounts,if(count()=0,NULL,100.0*countIf(verified>=signup AND ready>=verified AND activated>=ready AND activated<toStartOfDay(now(),'UTC'))/count()) AS activation_percent FROM b",
+      "url": "https://eu.posthog.com/project/312428/insights/MlJsSBfv"
+    },
+    {
+      "key": "activity",
+      "name": "TraceLayer | Active accounts and workspaces",
+      "description": "Observed active customers in the last 1, 7 and 30 complete UTC days. Activity means creating a Task or starting an interactive turn. Background and scheduled turns are excluded. No observed 30-day activity yields no row, not a claim of measured zero. Check Delivery coverage.",
+      "sql": "WITH d AS (SELECT DISTINCT event,distinct_id,timestamp t,toString(properties.$insert_id) id,toString(properties.workspace_id) workspace,properties.interactive interactive FROM events WHERE properties.tracelayer_surface='server' AND properties.tracelayer_schema=1 AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true) SELECT uniqExactIf(distinct_id,t>=toStartOfDay(now(),'UTC')-INTERVAL 1 DAY) AS daily_active,uniqExactIf(distinct_id,t>=toStartOfDay(now(),'UTC')-INTERVAL 7 DAY) AS weekly_active,uniqExact(distinct_id) AS monthly_active,uniqExactIf(workspace,workspace!='') AS active_workspaces FROM d WHERE t>=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND t<toStartOfDay(now(),'UTC') AND (event='task_created' OR (event='task_run_started' AND interactive=true)) HAVING count()>0",
+      "url": "https://eu.posthog.com/project/312428/insights/IV8iTjgu"
+    },
+    {
+      "key": "retention",
+      "name": "TraceLayer | Week-two signup retention",
+      "description": "Observed signups from the last 30 complete UTC days with at least 14 complete days available. Retained means Task creation or an interactive turn on days 7–13 after registration. Null means no eligible signup cohort. Consult Delivery coverage for signup, task_created and task_run_started before interpreting the rate.",
+      "sql": "WITH d AS (SELECT DISTINCT event,distinct_id,timestamp t,toString(properties.$insert_id) id,properties.interactive interactive FROM events WHERE properties.tracelayer_surface='server' AND properties.tracelayer_schema=1 AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true),s AS (SELECT distinct_id,min(t) signup FROM d WHERE event='signup_completed' AND t>=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND t<toStartOfDay(now(),'UTC') GROUP BY distinct_id HAVING signup<=toStartOfDay(now(),'UTC')-INTERVAL 14 DAY),a AS (SELECT DISTINCT distinct_id,t FROM d WHERE event='task_created' OR (event='task_run_started' AND interactive=true)),r AS (SELECT s.distinct_id,countIf(a.t>=s.signup+INTERVAL 7 DAY AND a.t<s.signup+INTERVAL 14 DAY) visits FROM s LEFT JOIN a ON a.distinct_id=s.distinct_id GROUP BY s.distinct_id) SELECT if(count()=0,NULL,toFloat(count())) eligible_signups,if(count()=0,NULL,toFloat(countIf(visits>0))) retained_week_two,if(count()=0,NULL,100.0*countIf(visits>0)/count()) retention_percent FROM r",
+      "url": "https://eu.posthog.com/project/312428/insights/jt4wQo7X"
+    },
+    {
+      "key": "reliability",
+      "name": "TraceLayer | Task outcomes and elapsed time",
+      "description": "Observed customer Task events, last 30 complete UTC days. Verification passed/failed counts runs, completion counts Tasks. A settled turn is not a success claim. Median seconds uses only available elapsed turn durations. No events means an empty chart, not measured zero. Check Delivery coverage.",
+      "sql": "WITH d AS (SELECT DISTINCT event,distinct_id,timestamp t,toString(properties.$insert_id) id,toString(properties.outcome) outcome,toFloat(properties.duration_seconds) seconds FROM events WHERE properties.tracelayer_surface='server' AND properties.tracelayer_schema=1 AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true) SELECT event,outcome,count() observed_events,if(count(seconds)=0,NULL,toFloat(median(seconds))) median_seconds,count(seconds) duration_samples FROM d WHERE t>=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND t<toStartOfDay(now(),'UTC') AND event IN ('task_created','task_run_started','task_verified','task_verification_failed','task_completed','task_run_finished') GROUP BY event,outcome ORDER BY event,outcome",
+      "url": "https://eu.posthog.com/project/312428/insights/JNoIScLz"
+    },
+    {
+      "key": "usage",
+      "name": "TraceLayer | Observed engine tokens and cost",
+      "description": "Last 30 complete UTC days. Engine-reported node-attempt usage only, without prompts or content. Missing amounts are null, not zero. Coverage counts show how many attempts supplied each amount. Observed cost is USD bookkeeping, not invoices, revenue or subscription spend. Check Delivery coverage.",
+      "sql": "WITH d AS (SELECT DISTINCT event,distinct_id,timestamp t,toString(properties.$insert_id) id,toString(properties.engine) engine,toString(properties.usage_source) source,toFloat(properties.input_tokens) input,toFloat(properties.output_tokens) output,toFloat(properties.reported_cost_usd) cost FROM events WHERE properties.tracelayer_surface='server' AND properties.tracelayer_schema=1 AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true) SELECT engine,count() attempts,countIf(source='engine-reported') observed_attempts,if(count(input)=0,NULL,toFloat(sum(input))) input_tokens,count(input) input_samples,if(count(output)=0,NULL,toFloat(sum(output))) output_tokens,count(output) output_samples,if(count(cost)=0,NULL,toFloat(sum(cost))) reported_cost_usd,count(cost) cost_samples FROM d WHERE t>=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND t<toStartOfDay(now(),'UTC') AND event='engine_usage' GROUP BY engine ORDER BY engine",
+      "url": "https://eu.posthog.com/project/312428/insights/u58b32m8"
+    },
+    {
+      "key": "website_actions",
+      "name": "TraceLayer | Website conversion and engagement events",
+      "dashboardName": "TraceLayer | Website acquisition",
+      "description": "Observed website events over 30 complete UTC days (schema 1). Signup clicks are links to customer signup, not waitlist joins or registrations. Downloads are link clicks, not installs. Engaged means ten foreground seconds. Browsers are anonymous and are not joined to accounts. Empty means no observations, not measured zero. Overview checks capability coverage.",
+      "sql": "SELECT event,count() AS observed_events,uniqExact(distinct_id) AS anonymous_browsers FROM events WHERE properties.tracelayer_surface='website' AND properties.tracelayer_schema=1 AND lower(domain(properties.$current_url)) IN ('tracelayer.com','www.tracelayer.com') AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true AND timestamp>=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND timestamp<toStartOfDay(now(),'UTC') AND event IN ('website_signup_click','website_download','website_engaged') GROUP BY event ORDER BY event",
+      "url": "https://eu.posthog.com/project/312428/insights/PAo8eImt"
+    },
+    {
+      "key": "website_attribution",
+      "name": "TraceLayer | Sanitized website campaign and referrer",
+      "dashboardName": "TraceLayer | Website acquisition",
+      "description": "Last 30 complete UTC days of schema 1 pageviews. Campaigns are bounded non-personal tags and referrers are host-only. Not available means no attribution was observed, not proof of Direct traffic. Historical pageviews are excluded because the old script stripped these properties. Anonymous browsers are unique across this whole period, not summed daily visitors.",
+      "sql": "SELECT coalesce(nullIf(toString(properties.utm_source),''),'Not available') AS source,coalesce(nullIf(toString(properties.utm_medium),''),'Not available') AS medium,coalesce(nullIf(toString(properties.utm_campaign),''),'Not available') AS campaign,coalesce(nullIf(toString(properties.$referring_domain),''),'Not available') AS referrer_host,count() AS pageviews,uniqExact(distinct_id) AS anonymous_browsers FROM events WHERE properties.tracelayer_surface='website' AND properties.tracelayer_schema=1 AND lower(domain(properties.$current_url)) IN ('tracelayer.com','www.tracelayer.com') AND coalesce(properties.tracelayer_internal,false)!=true AND coalesce(properties.tracelayer_test,false)!=true AND timestamp>=toStartOfDay(now(),'UTC')-INTERVAL 30 DAY AND timestamp<toStartOfDay(now(),'UTC') AND event='$pageview' GROUP BY source,medium,campaign,referrer_host ORDER BY pageviews DESC LIMIT 25",
+      "url": "https://eu.posthog.com/project/312428/insights/MhAAjTNK"
+    }
+  ]
+}

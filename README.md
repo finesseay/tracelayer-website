@@ -53,28 +53,36 @@ sure the `vendor/` directory ships alongside `index.html`.
 
 ## Website analytics
 
-Every public HTML page includes `/assets/analytics.js`. This is the single place
-for the EU PostHog project configuration and privacy controls. Include it once,
-with `defer`, when adding a page. `docs/` currently contains assets/evidence, not
-an HTML documentation site. The reachable `v2/` and `mockup1/`–`mockup7/` pages
-are public and are tracked too.
+`assets/analytics.js` configures the EU PostHog project and the website privacy
+boundary. Public pages include it once with `defer`. Production collection is limited
+to the known `/`, `/v2/` and `/download/android/` page categories on `tracelayer.com`
+and `www.tracelayer.com`. Mockups, unknown/private paths, local/preview hosts and
+explicit internal/test visits are excluded.
 
-Only `$pageview` is sent. Autocapture, recordings, surveys, performance and error
-capture are off. An event-property allowlist removes query strings, fragments,
-referrers, titles, attribution and form contents. Anonymous IDs persist using
-PostHog's default storage, in a website-specific namespace separate from the app.
-No user is identified and no person profile is created. Test/preview hosts set
-`tracelayer_test: true`. Ad blockers are respected.
+The script records anonymous pageviews, session IDs, page exits, a ten-second
+foreground engagement event, signup-link clicks and Android download-link clicks.
+It sends bounded campaign tags and host-only referrers. It never sends query strings,
+fragments, emails, form contents, page titles, raw link targets or person profiles.
+Autocapture, replay, surveys, exception capture and performance capture remain off.
+DNT, Global Privacy Control, PostHog opt-out and local opt-out flags are respected.
+Anonymous browser storage remains separate from the app.
 
-The Android redirect waits up to 1.5 seconds for the SDK and sends its pageview
-using a beacon before navigating. A two-second meta refresh is the no-JavaScript
-fallback. An SDK failure never prevents the download.
+Downloads remain independent of analytics. The Android page retains its bounded
+SDK wait and no-JavaScript redirect. An automatic redirect is not a download click
+or proof of installation. A waitlist button is not an account signup.
 
-Before deployment, the operator must resolve the EU analytics consent requirement.
-No banner or consent policy is introduced by this change. Pageviews cannot recover
-past visitors or supply signup, activation or revenue events.
+The homepage currently has placeholder links and no live signup CTA. The v2 page's
+“Sign up” button opens its waitlist. Neither is reported as an account signup click.
+The handler recognizes real links to the customer `/signup` route when present.
+Completed registrations, verification and activation come from the separately
+implemented server events, not the public website.
 
-Browser verification: install local-only tooling with `npm install --no-save
-playwright`, serve this directory on port 8000, then run
-`node docs/analytics/verify.cjs`. It sends test-marked events to the real project.
-See `docs/analytics/REVIEW.md` for evidence and remaining dependencies.
+Run `npm install --no-save --package-lock=false playwright`, then
+`node --test docs/analytics/verify.cjs`. Chromium is required. Tests fetch the public
+SDK but intercept ingestion and external service requests locally. They never add
+synthetic data to the production project. `POSTHOG_SDK_PATH` can point to a downloaded
+SDK for repeatable runs; its SHA-256 is recorded with the evidence.
+
+See [the current contract and rollout record](docs/analytics/CONVERSIONS.md).
+The earlier pageview-only work is retained in `docs/analytics/REVIEW.md` as historical
+evidence. This change does not deploy the website or change its existing consent policy.

@@ -1,5 +1,8 @@
 # Website PostHog tracking — 2026-10-22
 
+Historical pageview-only evidence. See [CONVERSIONS.md](CONVERSIONS.md) for the
+2026-10-24 implementation, exclusions and current test command.
+
 ## Scope and project verification
 
 All ten existing public HTML documents include one shared `assets/analytics.js`.
