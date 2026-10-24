@@ -73,7 +73,10 @@ or proof of installation. A waitlist button is not an account signup.
 
 The homepage currently has placeholder links and no live signup CTA. The v2 page's
 “Sign up” button opens its waitlist. Neither is reported as an account signup click.
-The handler recognizes real links to the customer `/signup` route when present.
+The live customer routes are `https://tracelayer.com/signup` and
+`https://tracelayer.com/login`. The handler recognizes signup links when present;
+login links never count as signups. These routes are served by the application,
+not by this static website repository.
 Completed registrations, verification and activation come from the separately
 implemented server events, not the public website.
 

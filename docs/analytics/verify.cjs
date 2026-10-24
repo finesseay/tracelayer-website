@@ -119,14 +119,16 @@ test('website analytics browser contract', async t => {
     try {
       await f.view();
       await f.click('https://tracelayer.com/signup?token=SECRET#SECRET', true);
+      await f.click('https://tracelayer.com/signup');
+      await f.click('https://www.tracelayer.com/signup/');
       await f.click('/download/android/');
       await f.click('https://app.tracelayer.com/download/tracelayer.apk?token=SECRET');
       await f.page.locator('#analytics-test-link').click({button:'middle'}); await f.settle();
-      assert.equal(f.events.filter(e => e.event === 'website_signup_click').length, 1);
+      assert.equal(f.events.filter(e => e.event === 'website_signup_click').length, 3);
       assert.equal(f.events.filter(e => e.event === 'website_download').length, 3);
       const stableEvents = () => f.events.filter(e => e.event !== 'website_engaged').length;
       const count = stableEvents();
-      for (const href of ['#', '/login', 'https://tracelayer.com.evil.example/signup', 'mailto:user@example.com', 'https://app.tracelayer.com/signup', 'http://tracelayer.com/signup']) await f.click(href);
+      for (const href of ['#', '/login', 'https://tracelayer.com/login', 'https://www.tracelayer.com/login/', 'https://tracelayer.com.evil.example/signup', 'mailto:user@example.com', 'https://app.tracelayer.com/signup', 'http://tracelayer.com/signup']) await f.click(href);
       await f.page.evaluate(() => document.getElementById('analytics-test-link').click());
       await f.page.evaluate(() => {
         posthog.capture('form_submitted', {email:'SECRET_EMAIL'});

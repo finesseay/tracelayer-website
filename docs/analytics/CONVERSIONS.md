@@ -39,8 +39,18 @@ not account-signup clicks. The old waitlist UI can show locally stored provision
 success after API failure, so it must not be used as proof of registration.
 This change sends no `website_waitlist_joined` event or capability.
 
-A real link to the separately implemented customer `/signup` route is recognized
-when present. The `app.tracelayer.com` operator login is not a customer signup route.
+The customer routes are live at `https://tracelayer.com/signup` and
+`https://tracelayer.com/login`, as confirmed by the operator. Both returned HTTP 200
+on 2026-10-24 and served the application shell (release
+`f9ef3092ce51d893e46720891ccb434a008a8b4f`). This checks route availability,
+not successful account creation or live event ingestion.
+
+The website handler already recognizes links to that exact signup destination.
+Login clicks are excluded from signup counts. The public entry limitations above
+refer to links on the static marketing pages, not availability of registration.
+These customer routes belong to the application repository and are deliberately
+outside this static website's page allowlist. Completed registration is measured
+by the server's `signup_completed` event, never by a click or pageview.
 No CTA destination or signup availability was changed by this analytics Task.
 
 ## Privacy and attribution
