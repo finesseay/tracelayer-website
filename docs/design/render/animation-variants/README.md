@@ -18,3 +18,4 @@ Assets: TraceLayer logo and fonts from the repository. Portraits from the existi
 - Visual inspection caught paused entrance animations hiding content. Fixed so entrance finishes while ongoing motion pauses. Final screenshots preserve the floating card and conversation.
 
 Reproduce: serve the repository on port 8000 (`python3 -m http.server 8000`), install Playwright as described in the repository README, then run the check above. Screenshots live beside this record.
+- Existing repository analytics browser contract also passed: `node --test docs/analytics/verify.cjs` (16 tests, zero failures). Its generated evidence is copied into this folder to preserve the prior analytics record.
