@@ -45,4 +45,3 @@ Existing website dashboard filters and existing insights were preserved.
 Exact final SQL, descriptions and links are in `posthog-reports.json`.
 The browser was used through the governed TraceLayer tools, without raw browser
 JavaScript, API credential extraction or alternate browser identities.
-
