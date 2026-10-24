@@ -19,3 +19,4 @@ Assets: TraceLayer logo and fonts from the repository. Portraits from the existi
 
 Reproduce: serve the repository on port 8000 (`python3 -m http.server 8000`), install Playwright as described in the repository README, then run the check above. Screenshots live beside this record.
 - Existing repository analytics browser contract also passed: `node --test docs/analytics/verify.cjs` (16 tests, zero failures). Its generated evidence is copied into this folder to preserve the prior analytics record.
+- Hosted preview inspection revealed the static host's `connect-src 'none'` policy and entry-folder asset boundary. Embedded tool SVGs in the local script and copied the existing brand/font assets into the prototype folder, so rendering requires no fetch calls or parent-directory assets.
