@@ -14,3 +14,7 @@ The homepage footer now has one `Legal` link to `/legal`, replacing its two plac
 - `git diff --check` passed.
 
 This change does not deploy the website.
+
+## Hosted preview limitation
+
+The static preview serves explicit files, including `legal/index.html`, but returns 404 for directory paths and root-relative `/legal`. The homepage link remains `/legal` as requested and works with the local static server, which resolves directory indexes. The hosted preview cannot demonstrate that click end to end. An application-preview request returned a platform internal error. No production routing was changed or deployment attempted.
