@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-10-28T09:03:12.580Z",
+  "checks": [
+    "desktop: single footer link, keyboard navigation, /legal redirect, documents, company/contact/date, no draft labels, no horizontal overflow, local links/assets/downloads, theme toggle, no browser errors",
+    "mobile: single footer link, keyboard navigation, /legal redirect, documents, company/contact/date, no draft labels, no horizontal overflow, local links/assets/downloads, theme toggle, no browser errors",
+    "PDF signatures and editable text content verified; downloaded assets match recorded source hashes"
+  ]
+}

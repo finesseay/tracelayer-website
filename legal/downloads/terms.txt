@@ -1,0 +1,140 @@
+# Terms of service
+
+2026
+
+These terms govern your use of TraceLayer’s hosted agent workspace, related applications and services. TraceLayer provides software for connecting and coordinating AI engines, tools and accounts. You direct the work and decide how to use its results. Sections 3–5 and 11–12 explain your responsibilities, AI risks and the limits of our liability.
+
+## 01 / The agreement
+
+In these terms, **TraceLayer**, **we** and **us** refer to **Sway Labs Ltd**, trading as TraceLayer. You can contact us at [hello@tracelayer.com](mailto:hello@tracelayer.com). **You** means the person using the service or the organisation they are authorised to represent. If you accept these terms for an organisation, you confirm that you have authority to bind it.
+
+By using the hosted service, you agree to these terms. A signed order or negotiated agreement takes priority where it expressly conflicts with these terms. A data processing agreement takes priority for the personal-data processing it covers. The Privacy Policy explains how personal data is handled; it is not a blanket consent to processing.
+
+Separately distributed open-source software is governed by its accompanying licence. These hosted-service terms do not replace that licence. If you operate your own deployment, you are responsible for its configuration, access and data handling. Any TraceLayer-hosted features you connect remain subject to the applicable service terms.
+
+Our correspondence address is Sway Labs, 4th Floor, Silverstream House, 45 Fitzroy Street, Fitzrovia, London, W1T 6EB, United Kingdom.
+
+## 02 / Your account
+
+You must be at least 18 and legally able to enter this agreement. Give accurate account information, protect your sign-in methods and promptly tell us about suspected unauthorised access. Use only accounts, repositories, devices and information that you have permission to access.
+
+You are responsible for instructions issued through your account and for the permissions you grant, subject to applicable law and our own obligations. Where workspace administration or sharing is available, people with the relevant access may see the work and records shared with them. Do not share a personal sign-in as a substitute for supported access controls.
+
+You are responsible for people you authorise to use your workspace, their instructions and the access you grant them. Set permissions and spending limits appropriate to the work, protect connected credentials and promptly revoke access that is no longer needed. This does not make you responsible for unauthorised access caused by our breach of this agreement or duties imposed by law.
+
+## 03 / Instructions and agent actions
+
+TraceLayer coordinates AI agents that can use tools, read and change files, run code, interact with connected services and prepare or carry out work. Tasks can continue after you leave the interface and can resume from saved records after an interruption. A recurring instruction authorises work at the scheduled times until it is changed, paused or stopped.
+
+TraceLayer supplies the workspace and orchestration software. Third-party AI engines generate responses and choose steps within the connected workflow. Providing that workflow does not mean we independently verify, endorse or professionally supervise each instruction, output or action. We do not guarantee the accuracy, legality, suitability or success of AI-generated work.
+
+You are responsible for the lawful purpose and scope of your instructions, the rights and permissions needed for the work, the accounts and tools you choose to connect, and your decision to rely on, publish or otherwise use outputs. Test generated code, check facts and rights, keep independent backups and obtain qualified review where the consequences warrant it. If you permit work to proceed without reviewing each step, you accept the risks of that choice, subject to section 12 and rights that cannot lawfully be excluded. These responsibilities do not authorise actions outside your instructions or granted permissions.
+
+You authorise work within your instructions, the permissions granted to the service and any applicable approval requirements. Connecting an account provides access within that grant. It is not, by itself, an instruction to send messages, publish material, deploy changes or make other commitments. Some authorised work proceeds without a separate confirmation for every step.
+
+TraceLayer’s governed workflow requires authorisation for deployment, sending email and publication. An explicit instruction can provide that authorisation in the applicable workflow. Completing a Task alone does not deploy it. Scheduled checks do not deploy changes. You should make recipients, destinations, limits and any required review clear in your instructions.
+
+Actions in external services can change or disclose information and may be difficult or impossible to reverse. A stop or revocation prevents further work as it takes effect; it does not recall a sent message, undo a completed deployment or necessarily cancel a request already accepted by another service. Review consequential outputs and action details before authorising their use. Check an uncertain external outcome before asking for the action again.
+
+## 04 / Models, tools and connections
+
+TraceLayer can pass relevant task context to the model providers, tools and services selected for the work. Context can include instructions, conversation history, files, source code, tool results and browser content. Using your own model account or API key does not mean the processing is entirely local or that the provider retains nothing.
+
+Third-party services have their own terms, permissions, availability, charges and privacy practices. You must maintain any required subscriptions, licences and permissions and ensure that your provider permits the way you connect and use its service through TraceLayer. A paid subscription or possession of a credential does not automatically permit third-party integrations, automated use or every available feature. An available connection is not a representation that your particular plan permits it. Do not use TraceLayer to bypass a provider’s restrictions.
+
+Unless expressly included in a plan or order, TraceLayer does not supply or resell your third-party AI subscription. You are responsible for provider charges incurred by work you authorise, including repeated or unsuccessful attempts within that authority. We do not control independent providers’ models, outputs, account decisions, availability or changes to their terms. We remain responsible for our own obligations and for service providers where the law or our agreement makes us responsible.
+
+Only connect services and install tools you trust. Third-party content, plugins and tool results can contain malicious or misleading instructions. TraceLayer’s controls reduce risk but do not guarantee that an agent will recognise every attack or that a connected service will behave correctly. You can revoke a connection through the controls available in TraceLayer or at the provider. Revocation is separate from deletion of records already created.
+
+## 05 / Your content and outputs
+
+**Customer Content** includes the instructions, conversations, files, source code, attachments and connected-service information you provide or authorise us to access, together with generated outputs and associated task and run records. You retain your existing rights in that content. As between you and TraceLayer, we assign to you any rights we may have in outputs generated for you, to the extent those rights can legally be assigned. Third-party and open-source rights remain with their owners.
+
+You give us a limited, non-exclusive licence to host, copy, transmit, process and display Customer Content as necessary to provide, secure, maintain and support the service and carry out your authorised instructions. This includes processing by providers engaged for those purposes. It does not give us an unrestricted right to publish your private content or sell it. The licence ends when the relevant content is deleted, except for limited retention required or permitted under the Privacy Policy and applicable law.
+
+TraceLayer will not use Customer Content to train shared or general-purpose AI models without your separate, informed opt-in. Model providers’ own use depends on the provider, account, product and settings you use.
+
+Outputs may be inaccurate, incomplete, unsafe, non-unique or subject to third-party rights. Review generated code, factual claims and licences before relying on or distributing them. No term promises that an output qualifies for copyright or is free of infringement. Feedback about the service may be used to improve it, but giving feedback does not grant a general training or publication licence over unrelated Customer Content.
+
+You use and act on outputs at your own risk, subject to section 12 and your mandatory legal rights. You remain responsible for the decisions, communications, publications, deployments and other uses you authorise. We do not undertake to check every output or provide legal, financial, medical or other professional advice. A task’s completion or an approval prompt is not our certification that the result is safe, correct or lawful.
+
+## 06 / Privacy and confidentiality
+
+The [Privacy Policy](../privacy.html) explains the information processed by the service, including full execution records. Workspace content may contain personal data about people other than you. You must have a lawful basis and any necessary permissions or notices for providing it and directing its use.
+
+We will handle non-public Customer Content as confidential and limit its use and disclosure to providing the service, authorised support, permitted providers and legally required disclosures. Confidentiality does not apply to information independently developed without using your content, lawfully obtained without restriction or made public without a breach. Where lawful and appropriate, we will give notice of a legally compelled disclosure.
+
+Where we process personal data on an organisation’s behalf, appropriate data processing terms must be agreed. This public policy is not a substitute for them. Do not submit data that requires sector-specific safeguards or a separate agreement, such as regulated health records or payment-card data, unless we have confirmed that the service and agreement support that use. No healthcare, payment-card or similar compliance certification is implied.
+
+## 07 / Acceptable use
+
+Do not use TraceLayer to break the law, infringe rights, access accounts without permission, commit fraud, distribute malware, harass people, conduct unlawful surveillance or expose another person’s private information without authority. Do not interfere with the service, evade usage limits or defeat access and approval controls.
+
+Do not use the service as an emergency system or as the sole basis for a decision with legal or similarly significant effects on a person. Professional, regulated and consequential decisions require appropriate qualified review. Security testing must stay within an expressly authorised scope.
+
+We may investigate credible misuse and take proportionate action to protect users, providers and the service. These restrictions do not prevent activity that applicable law expressly protects, including lawful interoperability or research rights.
+
+## 08 / Fees and cancellation
+
+Any price, billing period, renewal, usage allowance, taxes and cancellation terms must be shown before you agree to a paid plan or order. We will not treat merely connecting an external account as acceptance of an undisclosed TraceLayer charge. Separate model, hosting or tool-provider charges may apply under your agreements with those providers.
+
+Billing, refunds, trial conversion and renewal terms are set out in the plan or order you accept. Nothing in these terms removes mandatory cancellation, withdrawal or refund rights. We will notify you of material price changes before they apply to a future billing period.
+
+## 09 / Availability and service changes
+
+We aim to provide a reliable service, but do not promise uninterrupted access, error-free outputs or completion of every task. Model limits, provider outages, network problems and maintenance can affect work. Any service-level commitment must be expressly agreed in writing.
+
+We may improve or change the service. We will give reasonable advance notice of a material reduction to a paid service where practicable, except where urgent action is needed for security, legal compliance or a provider withdrawal. Preview and experimental features can change or be withdrawn and should be evaluated before being used for important work.
+
+## 10 / Suspension, ending use and records
+
+You can stop using the service and request account closure. Cancel any paid plan using its stated procedure and revoke connected accounts when they are no longer needed. Closing a browser tab does not itself stop an active task or recurring instruction.
+
+We may suspend access where reasonably necessary to address a material breach, a security threat, unlawful use or unpaid charges after appropriate notice. We will explain the reason and allow a reasonable opportunity to resolve it where doing so is lawful and would not increase the risk. We may terminate for a material breach that remains unresolved, or end the service with reasonable notice.
+
+Keep copies of outputs you need. Contact [hello@tracelayer.com](mailto:hello@tracelayer.com) for help with access, exports or deletion when closing your account. Deleting a Task or Space does not necessarily delete repository history, immutable output snapshots, retained run evidence or backups. We will handle retained personal data under the Privacy Policy and applicable law, rather than treating technical immutability as permission to keep it forever.
+
+Terms needed to resolve existing obligations survive termination, including accrued payments, confidentiality, applicable liability provisions and disputes. Content-processing rights survive only to the limited extent needed for lawful retained records.
+
+## 11 / AI limitations and warranties
+
+AI can make plausible mistakes, misinterpret instructions and fail to detect malicious content. An output or task status is not a professional opinion, a guarantee of safety or proof that an external action succeeded. Approval, checkpoint and recovery controls do not guarantee that every error, duplicate action or loss will be prevented.
+
+For business customers, to the extent permitted by law, the service and outputs are provided “as is” and “as available”, without implied warranties of fitness for a particular purpose, merchantability, satisfactory quality or non-infringement. We do not warrant that AI work will meet a particular objective, produce a commercial return, preserve every record or operate without interruption or error. You must assess whether the service is suitable for your intended use.
+
+These disclaimers do not override express commitments in this agreement or a signed agreement, or warranties and standards that applicable law requires, including any duty to use reasonable care and skill. Consumers retain their statutory rights to services and digital content that meet applicable legal requirements. Section 12 governs all risk allocations and disclaimers in these terms.
+
+## 12 / Liability
+
+**Rights and liabilities that remain protected.** Nothing in these terms excludes or limits liability for fraud or fraudulent misrepresentation, death or personal injury caused by negligence, deliberate misconduct, or any other liability that applicable law does not allow to be excluded or limited. Mandatory consumer remedies, including any required refund, price reduction, repair or repeat performance, remain available. Nothing limits an individual’s non-waivable data-protection rights or compensation rights, or a regulator’s powers. These protections take priority over every disclaimer, risk allocation, exclusion and cap in these terms.
+
+**Business customers only.** The exclusions and €100 cap below apply only when you use the service for your trade, business, craft or profession, and only to the extent permitted by applicable law. They apply to free accounts, trials and paid plans. They do not apply to consumers using the service for purposes outside their trade, business, craft or profession.
+
+**Excluded losses.** Subject to the protections above, we are not liable to business customers for:
+
+- losses to the extent caused by your unlawful instructions, content you had no right to provide, permissions you improperly granted, or use in breach of these terms;
+- inaccuracies, omissions or unsuitable outputs generated by independent third-party AI services, or losses from your reliance on or use of those outputs;
+- failures, outages, account restrictions, changes or acts of independent third-party services you connect; or
+- loss of profits, revenue, anticipated savings, business opportunities or goodwill; business interruption; loss or corruption of data; or indirect, consequential, special or punitive damages, whether or not the possibility of the loss was known. The listed business losses are excluded whether direct or indirect.
+
+The exclusions relating to your conduct, AI outputs and connected services do not excuse a separate breach by TraceLayer of its own express obligations. Any liability for that breach remains subject to the other applicable exclusions and cap in this section, and to the protected liabilities above.
+
+**Fixed aggregate cap.** Subject to the protections above, our total aggregate liability to a business customer arising out of or in connection with the service, outputs or this agreement is limited to **€100 (one hundred euros)**. This is one combined cap for all claims under this agreement, not a separate allowance per claim, event, task, user, workspace or subscription period. It is not calculated by reference to subscription fees and does not reset on renewal. It applies whether a claim arises in contract, tort (including negligence), breach of statutory duty or otherwise, but only where the law permits that liability to be limited. It also applies to contractual confidentiality and data-processing claims between us to the extent they may lawfully be capped. An expressly agreed different limit in a signed agreement or applicable data processing agreement takes priority for the claims it covers.
+
+**Consumer claims.** If you are a consumer, our liability is determined by applicable law. You do not waive statutory remedies or accept the business exclusions or €100 cap by agreeing to these terms. Your responsibility for your own instructions and use does not transfer to you liability that the law places on us.
+
+These limits do not create liability where none would otherwise arise. Each exclusion and the cap operates separately to the extent lawful. If a court finds a provision unenforceable, that provision will not apply; the remaining provisions apply only if they can lawfully stand independently.
+
+## 13 / Disputes and your legal rights
+
+Please contact us first so that we can try to resolve a concern. Doing so does not restrict your right to complain to a regulator or bring a claim within a legal time limit.
+
+If you are a consumer, any mandatory protections and court rights in your country of habitual residence continue to apply where required by law. These terms do not impose mandatory arbitration or a class-action waiver.
+
+If a provision cannot be enforced, the rest of the agreement remains effective to the extent permitted by law. Neither party loses a right merely by not enforcing it immediately. You may not transfer this agreement without our consent, which we will not unreasonably withhold. We may transfer it as part of a merger, reorganisation or sale, provided your legal rights and our obligations are preserved and we give appropriate notice.
+
+## 14 / Changes and contact
+
+We will identify when these terms are updated. Material changes will be notified in the service or through an appropriate account contact before taking effect, except where an immediate change is legally or urgently required. Changes will not retroactively expand rights over previously provided content. We will obtain fresh agreement where required by law.
+
+For legal, service and privacy enquiries, contact Sway Labs Ltd, trading as TraceLayer, at [hello@tracelayer.com](mailto:hello@tracelayer.com), or write to our correspondence address: Sway Labs, 4th Floor, Silverstream House, 45 Fitzroy Street, Fitzrovia, London, W1T 6EB, United Kingdom.

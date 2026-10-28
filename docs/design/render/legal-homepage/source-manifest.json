@@ -1,0 +1,72 @@
+{
+  "source": "https://preview-4be9fa16f3a3b401a8de12.tracelayer.com/task-preview/spc_a559386c-e81f-42ba-922a-789aff6bab89/54170eb120c23074743ea168cc5e354d173adacf1904512662db257e6430dd84/legal/",
+  "transportRestoration": "Decoded Cloudflare email obfuscation and removed its injected decoding script; policy wording and assets unchanged.",
+  "files": [
+    {
+      "path": "legal/index.html",
+      "sourceSha256": "52ce7196f310c2982382ad6d1078f9da377de94fd40cf4b22e54a51dc518b140",
+      "savedSha256": "cad06517d9e8c424904fdea7cd190e2e9858237dca6637d7d6467eb299bc934c",
+      "bytes": 28221
+    },
+    {
+      "path": "legal/privacy.html",
+      "sourceSha256": "b51ecd097428bfaac4d0c84884e9446b86d2450383b6102f5fb8eb6bf96e9e9a",
+      "savedSha256": "584128c81650d28d58c81a9e07fd43b9357ae48a648dd4da8e01ac358a702ad1",
+      "bytes": 24722
+    },
+    {
+      "path": "legal/assets/logo.svg",
+      "sourceSha256": "e945c26ea88aba905360285f8258ac938c7e3572efa09493934f163d10d7d39f",
+      "savedSha256": "e945c26ea88aba905360285f8258ac938c7e3572efa09493934f163d10d7d39f",
+      "bytes": 717
+    },
+    {
+      "path": "legal/assets/legal.css",
+      "sourceSha256": "a02443716e84a60ad6d4faadbcf87408765d6420b5f1c6ec87935b2f348aa239",
+      "savedSha256": "a02443716e84a60ad6d4faadbcf87408765d6420b5f1c6ec87935b2f348aa239",
+      "bytes": 10230
+    },
+    {
+      "path": "legal/assets/legal.js",
+      "sourceSha256": "21b6bf5561206c1f0616b8f0004d79f3de891e91a40d572821258636bc103ead",
+      "savedSha256": "21b6bf5561206c1f0616b8f0004d79f3de891e91a40d572821258636bc103ead",
+      "bytes": 1549
+    },
+    {
+      "path": "legal/downloads/terms.pdf",
+      "sourceSha256": "7c0ff941b9f036c5e465b17e8ffdeb94d8339bb07a0e4210ebfa1a7c5b579821",
+      "savedSha256": "7c0ff941b9f036c5e465b17e8ffdeb94d8339bb07a0e4210ebfa1a7c5b579821",
+      "bytes": 283159
+    },
+    {
+      "path": "legal/downloads/terms.txt",
+      "sourceSha256": "9e6192f80303eacb2fce1dedf339f912779a5304da5a8feb83c9584ae8ddb08f",
+      "savedSha256": "9e6192f80303eacb2fce1dedf339f912779a5304da5a8feb83c9584ae8ddb08f",
+      "bytes": 20711
+    },
+    {
+      "path": "legal/downloads/privacy.pdf",
+      "sourceSha256": "8d5e4943d94faf844bcd63b9490a1f30945f39b8798624cb2e49d9f259067d80",
+      "savedSha256": "8d5e4943d94faf844bcd63b9490a1f30945f39b8798624cb2e49d9f259067d80",
+      "bytes": 286307
+    },
+    {
+      "path": "legal/downloads/privacy.txt",
+      "sourceSha256": "bbc31cbfb7a0fcd81f7fead195511f33a5f6c66ac3f9035729ec633fa1e24827",
+      "savedSha256": "bbc31cbfb7a0fcd81f7fead195511f33a5f6c66ac3f9035729ec633fa1e24827",
+      "bytes": 16846
+    },
+    {
+      "path": "legal/assets/InterVariable.woff2",
+      "sourceSha256": "693b77d4f32ee9b8bfc995589b5fad5e99adf2832738661f5402f9978429a8e3",
+      "savedSha256": "693b77d4f32ee9b8bfc995589b5fad5e99adf2832738661f5402f9978429a8e3",
+      "bytes": 352240
+    },
+    {
+      "path": "legal/assets/Inter-LICENSE.txt",
+      "sourceSha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a",
+      "savedSha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a",
+      "bytes": 4380
+    }
+  ]
+}
