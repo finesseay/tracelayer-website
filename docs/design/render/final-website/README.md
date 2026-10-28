@@ -25,5 +25,6 @@ GitHub Pages has deployed the new release; deployment evidence is recorded separ
 
 The first saved preview exposed a legacy animation library URL that escaped the
 preview prefix. The loader now resolves it relative to its own script URL, and
-`/v2/` uses a relative redirect for the same reason. The website browser suite
+`/v2/` uses a relative redirect to `archive2/index.html` for the same reason.
+The explicit entry file also supports preview hosts without directory indexes. The website browser suite
 passed again after both portability corrections.

@@ -103,7 +103,7 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
         assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
         assert(await page.locator('h1').innerText());
       }
-      await page.goto(base+'/v2/?invite=example#models');await page.waitForURL('**/archive2/?invite=example#models');
+      await page.goto(base+'/v2/?invite=example#models');await page.waitForURL('**/archive2/index.html?invite=example#models');
       assert.deepEqual(missing,[]);assert.deepEqual(errors,[]);
       await context.close();
     });
