@@ -4,8 +4,8 @@
 import http from 'node:http'
 import { readFileSync, writeFileSync, renameSync, mkdirSync, existsSync } from 'node:fs'
 
-const PORT = 4890
-const DIR = '/var/lib/tracelayer-waitlist'
+const PORT = Number(process.env.WAITLIST_PORT || 4890)
+const DIR = process.env.WAITLIST_DATA_DIR || '/var/lib/tracelayer-waitlist'
 const FILE = DIR + '/waitlist.json'
 
 mkdirSync(DIR, { recursive: true })
@@ -53,13 +53,19 @@ function limited(ip) {
 }
 
 const ALLOW = ['https://tracelayer.com', 'https://www.tracelayer.com']
+// Final Website Version's preserved snapshot only. Do not allow arbitrary previews.
+const PREVIEW_ORIGIN = 'https://preview-785bbe1afdedafc265db7c.tracelayer.com'
 
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   const origin = req.headers.origin || ''
+  const previewAllowed = origin === PREVIEW_ORIGIN && req.url === '/waitlist'
+    && (req.method === 'POST' || (req.method === 'OPTIONS'
+      && req.headers['access-control-request-method'] === 'POST'))
   const h = {
-    'Access-Control-Allow-Origin': ALLOW.includes(origin) ? origin : ALLOW[0],
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+    ...(ALLOW.includes(origin) || previewAllowed ? { 'Access-Control-Allow-Origin': origin } : {}),
+    'Access-Control-Allow-Methods': previewAllowed ? 'POST, OPTIONS' : 'POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
+    'Vary': 'Origin, Access-Control-Request-Method',
     'Content-Type': 'application/json',
   }
   if (req.method === 'OPTIONS') { res.writeHead(204, h); res.end(); return }
@@ -102,4 +108,4 @@ http.createServer((req, res) => {
     return
   }
   res.writeHead(404, h); res.end('{"error":"not found"}')
-}).listen(PORT, '127.0.0.1', () => console.log('tracelayer waitlist listening on ' + PORT))
+}).listen(PORT, '127.0.0.1', () => console.log('tracelayer waitlist listening on ' + server.address().port))
