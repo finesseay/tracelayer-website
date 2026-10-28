@@ -1,0 +1,71 @@
+TAP version 13
+# Subtest: selected source assets and preserved archives
+ok 1 - selected source assets and preserved archives
+  ---
+  duration_ms: 66.029846
+  type: 'test'
+  ...
+# Subtest: homepage, archives, navigation, newsletter and native video in Chromium
+    # Subtest: layout and interactions at 1440px
+    ok 1 - layout and interactions at 1440px
+      ---
+      duration_ms: 1728.654679
+      type: 'test'
+      ...
+    # Subtest: layout and interactions at 768px
+    ok 2 - layout and interactions at 768px
+      ---
+      duration_ms: 1475.836923
+      type: 'test'
+      ...
+    # Subtest: layout and interactions at 390px
+    ok 3 - layout and interactions at 390px
+      ---
+      duration_ms: 1413.233727
+      type: 'test'
+      ...
+    # Subtest: mobile navigation, focus and footer at 320px
+    ok 4 - mobile navigation, focus and footer at 320px
+      ---
+      duration_ms: 1069.854323
+      type: 'test'
+      ...
+    # Subtest: mobile navigation, focus and footer at 390px
+    ok 5 - mobile navigation, focus and footer at 390px
+      ---
+      duration_ms: 1066.26801
+      type: 'test'
+      ...
+    # Subtest: mobile navigation, focus and footer at 600px
+    ok 6 - mobile navigation, focus and footer at 600px
+      ---
+      duration_ms: 1143.939203
+      type: 'test'
+      ...
+    # Subtest: mobile navigation, focus and footer at 760px
+    ok 7 - mobile navigation, focus and footer at 760px
+      ---
+      duration_ms: 1054.294512
+      type: 'test'
+      ...
+    # Subtest: mobile navigation links stay available without JavaScript
+    ok 8 - mobile navigation links stay available without JavaScript
+      ---
+      duration_ms: 346.48567
+      type: 'test'
+      ...
+    1..8
+ok 2 - homepage, archives, navigation, newsletter and native video in Chromium
+  ---
+  duration_ms: 9491.925701
+  type: 'test'
+  ...
+1..2
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9864.075261

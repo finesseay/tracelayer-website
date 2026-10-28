@@ -1,0 +1,34 @@
+[
+  {
+    "baseline": "28cb76820fe71591888cc06780b5ef200aca72ca",
+    "width": 390,
+    "header": {
+      "x": 16,
+      "y": 8,
+      "width": 358,
+      "height": 94
+    },
+    "footer": {
+      "x": 0,
+      "y": 119.859375,
+      "width": 390,
+      "height": 942.875
+    }
+  },
+  {
+    "baseline": "28cb76820fe71591888cc06780b5ef200aca72ca",
+    "width": 1440,
+    "header": {
+      "x": 150,
+      "y": 8,
+      "width": 1140,
+      "height": 54
+    },
+    "footer": {
+      "x": 0,
+      "y": 379.890625,
+      "width": 1440,
+      "height": 620
+    }
+  }
+]

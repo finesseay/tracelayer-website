@@ -55,7 +55,7 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
   t.after(()=>browser.close());
   for(const viewport of [{width:1440,height:1000},{width:768,height:1024},{width:390,height:844}]) {
     await t.test(`layout and interactions at ${viewport.width}px`,async()=>{
-      const context=await browser.newContext({viewport,reducedMotion:'reduce'});
+      const context=await browser.newContext({viewport,reducedMotion:'reduce',isMobile:viewport.width<=760,hasTouch:viewport.width<=760});
       t.after(()=>context.close());context.setDefaultTimeout(10000);
       let submissions=0;
       await context.route('**/*',route=>{
@@ -76,7 +76,15 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       await page.goto(base+'/');await page.evaluate(()=>document.fonts.ready);
       assert.match((await page.locator('h1').innerText()).replace(/\s+/g,' '),/Imagine if you could effortlessly integrate AI agents into your team/);
       assert.equal(await page.locator('#tl2Dock').isVisible(),false);
+      if(viewport.width>760) {
+        await page.locator('#tl-header-bar > a[aria-label="TraceLayer home"]').focus();
+        for(const label of ['How It Works','Platform','Log In','Sign Up']) {
+          await page.keyboard.press('Tab');
+          assert.equal(await page.evaluate(()=>document.activeElement.textContent.trim()),label);
+        }
+      }
       for(const target of ['login','signup']){
+        if(target==='login' && viewport.width<=760)await page.getByRole('button',{name:'Open menu',exact:true}).click();
         const link=page.locator(`#tl-header-bar a[href="https://tracelayer.com/${target}"]`).first();
         const popupPromise=context.waitForEvent('page');await link.click();const popup=await popupPromise;
         await popup.waitForURL(`https://tracelayer.com/${target}`);await popup.close();
@@ -110,6 +118,85 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       await context.close();
     });
   }
+  for(const viewport of [{width:320,height:740},{width:390,height:844},{width:600,height:800},{width:760,height:360}]) {
+    await t.test(`mobile navigation, focus and footer at ${viewport.width}px`,async()=>{
+      const context=await browser.newContext({viewport,reducedMotion:'reduce',isMobile:true,hasTouch:true});
+      t.after(()=>context.close());context.setDefaultTimeout(10000);
+      await context.route('**/*',route=>new URL(route.request().url()).origin===base?route.continue():route.abort());
+      const page=await context.newPage();await page.goto(base+'/');await page.evaluate(()=>document.fonts.ready);
+      const toggle=page.locator('.tl-menu-toggle');
+      const links=page.locator('#tl-header-links');
+      const header=page.locator('#tl-header-bar');
+      assert.equal(await links.isVisible(),false);
+      assert((await header.boundingBox()).height<=64);
+      for(const control of [toggle,page.locator('.tl-header-join')]) {
+        const box=await control.boundingBox();assert(box.width>=44&&box.height>=44);
+      }
+      await toggle.focus();await page.keyboard.press('Enter');
+      assert.equal(await toggle.getAttribute('aria-expanded'),'true');
+      assert.equal(await toggle.getAttribute('aria-controls'),await links.getAttribute('id'));
+      assert.equal(await links.isVisible(),true);
+      await page.keyboard.press('Tab');
+      assert.equal(await page.evaluate(()=>document.activeElement.textContent.trim()),'How It Works');
+      await page.keyboard.press('Escape');
+      assert.equal(await links.isVisible(),false);
+      assert.equal(await toggle.evaluate(el=>el===document.activeElement),true);
+
+      // Clicking outside or tabbing beyond the disclosure closes it without a focus trap.
+      await toggle.click();await page.mouse.click(viewport.width-4,viewport.height-8);
+      assert.equal(await links.isVisible(),false);
+      await toggle.focus();await page.keyboard.press('Space');
+      for(let i=0;i<4;i++)await page.keyboard.press('Tab');
+      assert.equal(await links.isVisible(),false);
+      assert.equal(await links.evaluate(el=>el.contains(document.activeElement)),false);
+
+      for(const id of ['team-benefits','platform']) {
+        await toggle.click();await links.locator(`a[href="#${id}"]`).click();
+        assert.equal(await links.isVisible(),false);
+        assert.equal(new URL(page.url()).hash,'#'+id);
+        assert.equal(await page.evaluate(()=>document.activeElement.id),id);
+        const target=await page.locator('#'+id).boundingBox(),bar=await header.boundingBox();
+        assert(target.y>=bar.y+bar.height,`${id} is obscured by the fixed header`);
+        assert(target.y<140,`${id} did not scroll into view`);
+      }
+      await toggle.click();await header.getByRole('link',{name:'TraceLayer home',exact:true}).click();
+      assert.equal(await links.isVisible(),false);
+      assert.equal(await page.evaluate(()=>document.activeElement.id),'main');
+
+      await toggle.click();await page.keyboard.press('Tab');
+      await page.setViewportSize({width:1024,height:800});
+      assert.equal(await page.locator('.tl-menu-toggle').isVisible(),false);
+      assert.equal(await links.isVisible(),true);
+      await page.setViewportSize(viewport);
+      assert.equal(await links.isVisible(),false);
+      assert.equal(await toggle.evaluate(el=>el===document.activeElement),true);
+
+      const signup=page.locator('.tl-header-join');await signup.focus();
+      await page.setViewportSize({width:1024,height:800});
+      assert.equal(await signup.evaluate(el=>el===document.activeElement),true);
+      await page.setViewportSize(viewport);
+      assert.equal(await signup.evaluate(el=>el===document.activeElement),true);
+
+      await page.locator('#footer').scrollIntoViewIfNeeded();
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+      if(viewport.width<=600) {
+        assert((await page.locator('#footer').boundingBox()).height<800);
+        for(const box of await page.locator('.mars-links a,.mars-social a,.mars-contact,.newsletter-trigger').evaluateAll(els=>els.map(el=>({width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}))))assert(box.width>=44&&box.height>=44);
+      }
+      await page.locator('.newsletter-trigger').click();await page.keyboard.press('Escape');
+      assert.equal(await page.locator('.newsletter-trigger').evaluate(el=>el===document.activeElement),true);
+      await context.close();
+    });
+  }
+  await t.test('mobile navigation links stay available without JavaScript',async()=>{
+    const context=await browser.newContext({viewport:{width:320,height:740},javaScriptEnabled:false});
+    t.after(()=>context.close());
+    const page=await context.newPage();await page.goto(base+'/');
+    assert.equal(await page.locator('.tl-menu-toggle').isVisible(),false);
+    for(const link of await page.locator('#tl-header-links a,.tl-header-join').all())assert(await link.isVisible());
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+    await context.close();
+  });
   const range=await fetch(base+'/assets/tracelayer-explainer-subtitled.mp4',{headers:{Range:'bytes=0-1023'}});
   assert.equal(range.status,206);assert.equal(range.headers.get('content-range'),`bytes 0-1023/${explainer.bytes}`);
   for(const asset of ['/legal/downloads/terms.pdf','/legal/downloads/privacy.pdf','/legal/downloads/terms.txt','/legal/downloads/privacy.txt'])assert.equal((await fetch(base+asset)).status,200);
