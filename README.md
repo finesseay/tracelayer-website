@@ -15,7 +15,8 @@ Static source for **https://tracelayer.com**. No build step is required.
 
 The homepage uses the selected native video player, without the later demo cover.
 Archive HTML is excluded from indexing. Its `/assets/harness/`, `/assets/brand/`,
-`/assets/vendor/` and analytics dependencies are retained without changes.
+`/assets/vendor/` and analytics dependencies are retained. The legacy animation
+loader resolves its library relative to its script so saved previews work too.
 The live `/login` and `/signup` routes remain owned by the application repository.
 Newsletter capture uses the existing `api.tracelayer.com/waitlist` service.
 

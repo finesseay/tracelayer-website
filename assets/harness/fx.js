@@ -12,6 +12,7 @@
    Everything is skipped under prefers-reduced-motion. */
 (function () {
   'use strict';
+  var scriptUrl = document.currentScript.src;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) return;
   var touch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
@@ -597,7 +598,7 @@
   function loadThree(cb, fail) {
     if (window.THREE) return cb(window.THREE);
     var s = document.createElement('script');
-    s.src = '/assets/vendor/three.min.js';
+    s.src = new URL('../vendor/three.min.js', scriptUrl).href;
     s.onload = function () { window.THREE ? cb(window.THREE) : fail(); };
     s.onerror = fail;
     document.head.appendChild(s);

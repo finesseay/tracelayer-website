@@ -20,7 +20,9 @@ current `/v2/` at `/archive2/`. The later `245be8de…` demo cover was not selec
   markup, added canonical/description and the unchanged production analytics script.
 - Preserved current production root/v2 HTML from `8793369bb3fdac3a5944ecf4fe45d2b5a6de89ad`
   in archive folders. Added noindex/canonicals and adjusted the archived v2 home link.
-  All legacy asset directories remain unchanged. `/v2/` redirects to `/archive2/`.
+  Legacy assets are retained. Their animation loader resolves Three.js relative to
+  its own script URL, fixing archived animations on prefixed preview URLs.
+  `/v2/` redirects to `/archive2/`.
 - Preserved existing approved legal pages/downloads and licensed font. They match
   the accepted source content and already correct its email obfuscation/missing font.
 - Kept account links absolute. Added the existing exact brand SVG at

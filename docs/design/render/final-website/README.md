@@ -22,3 +22,8 @@ Checked 2026-10-28 with Node v22.23.4 and system Chromium.
 
 Full live auth/preflight evidence is in `docs/website/`. Local tests do not prove
 GitHub Pages has deployed the new release; deployment evidence is recorded separately.
+
+The first saved preview exposed a legacy animation library URL that escaped the
+preview prefix. The loader now resolves it relative to its own script URL, and
+`/v2/` uses a relative redirect for the same reason. The website browser suite
+passed again after both portability corrections.
