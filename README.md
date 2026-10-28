@@ -13,7 +13,10 @@ Static source for **https://tracelayer.com**. No build step is required.
 | `legal/` | Existing approved terms/privacy pages and downloads. |
 | `download/android/` | Existing Android download redirect. |
 
-The homepage uses the selected native video player, without the later demo cover.
+The homepage uses the selected native video player. Its explainer was updated to
+operator-selected snapshot `b4404469ddadc613ec9d1611de597e4be71a636fc9f603a53d1f8c003470d61f`,
+including that video's embedded Mars hotel cover. The separate later demo-cover
+layout is not included.
 Archive HTML is excluded from indexing. Its `/assets/harness/`, `/assets/brand/`,
 `/assets/vendor/` and analytics dependencies are retained. The legacy animation
 loader resolves its library relative to its script so saved previews work too.

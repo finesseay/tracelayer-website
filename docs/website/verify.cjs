@@ -7,10 +7,11 @@ const http = require('node:http');
 const crypto = require('node:crypto');
 const {chromium} = require('playwright');
 const root = path.resolve(__dirname, '../..');
+const manifest = JSON.parse(fs.readFileSync(path.join(__dirname,'source-manifest.json')));
+const explainer = manifest.files.find(item => item.path === 'assets/tracelayer-explainer-subtitled.mp4');
 const types = {'.html':'text/html','.css':'text/css','.js':'application/javascript','.svg':'image/svg+xml','.woff2':'font/woff2','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.mp4':'video/mp4','.pdf':'application/pdf','.txt':'text/plain'};
 
 test('selected source assets and preserved archives', () => {
-  const manifest = JSON.parse(fs.readFileSync(path.join(__dirname,'source-manifest.json')));
   for (const item of manifest.files) {
     if (item.path.endsWith('.html')) continue;
     const data = fs.readFileSync(path.join(root,item.path));
@@ -84,7 +85,8 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       const video=page.locator('video');assert.equal(await video.count(),1);
       await video.evaluate(v=>{v.muted=true;v.load();});
       await page.waitForFunction(()=>document.querySelector('video').readyState>=2);
-      const duration=await video.evaluate(v=>v.duration);assert(duration>130&&duration<133);
+      const duration=await video.evaluate(v=>v.duration);assert(Math.abs(duration-explainer.durationSeconds)<.1);
+      assert.deepEqual(await video.evaluate(v=>[v.videoWidth,v.videoHeight]),[explainer.width,explainer.height]);
       await video.evaluate(v=>v.play());await page.waitForFunction(()=>document.querySelector('video').currentTime>.1);
       await video.evaluate(v=>{v.currentTime=65;});await page.waitForFunction(()=>{const v=document.querySelector('video');return !v.seeking&&v.currentTime>=65;});
       await video.evaluate(v=>v.pause());
@@ -109,6 +111,6 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
     });
   }
   const range=await fetch(base+'/assets/tracelayer-explainer-subtitled.mp4',{headers:{Range:'bytes=0-1023'}});
-  assert.equal(range.status,206);assert.equal(range.headers.get('content-range'),'bytes 0-1023/44461507');
+  assert.equal(range.status,206);assert.equal(range.headers.get('content-range'),`bytes 0-1023/${explainer.bytes}`);
   for(const asset of ['/legal/downloads/terms.pdf','/legal/downloads/privacy.pdf','/legal/downloads/terms.txt','/legal/downloads/privacy.txt'])assert.equal((await fetch(base+asset)).status,200);
 });

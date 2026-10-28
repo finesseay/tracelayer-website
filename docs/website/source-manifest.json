@@ -80,13 +80,19 @@
     },
     {
       "path": "assets/tracelayer-explainer-poster.jpg",
-      "bytes": 53277,
-      "sha256": "7af117f654dfc58778b30536b7d46a8adb17c6a755b48b236f64a3ed1d115cda"
+      "bytes": 86153,
+      "sha256": "007f0e7aaccdc7838a6749ffd2c598c33486c4c57a01c8c73dfa38db5e29f364",
+      "source": "https://preview-f8d66625ef308d41ccee6f.tracelayer.com/task-preview/spc_a559386c-e81f-42ba-922a-789aff6bab89/b4404469ddadc613ec9d1611de597e4be71a636fc9f603a53d1f8c003470d61f/explainer/tracelayer-explainer-subtitled.mp4",
+      "sourceDetail": "Embedded JPEG cover extracted losslessly from the updated explainer video."
     },
     {
       "path": "assets/tracelayer-explainer-subtitled.mp4",
-      "bytes": 44461507,
-      "sha256": "a6953b24fb24b1989397fc62c0496020efa8bc609422e94661b8c774a63e6676"
+      "bytes": 40279532,
+      "sha256": "55f26724476b7d092ba511c88ae0b773dd7a603163b73eefc4f45c6a464e5447",
+      "source": "https://preview-f8d66625ef308d41ccee6f.tracelayer.com/task-preview/spc_a559386c-e81f-42ba-922a-789aff6bab89/b4404469ddadc613ec9d1611de597e4be71a636fc9f603a53d1f8c003470d61f/explainer/tracelayer-explainer-subtitled.mp4",
+      "durationSeconds": 134.8,
+      "width": 1920,
+      "height": 1080
     },
     {
       "path": "features/animation.js",
@@ -288,6 +294,7 @@
   "adaptations": [
     "Homepage: decoded Cloudflare email transport markup, removed noindex, added canonical/description and unchanged analytics include.",
     "Existing legal directory retained: same approved content with decoded emails and licensed Inter font.",
-    "Auth logo: exact existing brand SVG also served at auth-design/logo.svg."
+    "Auth logo: exact existing brand SVG also served at auth-design/logo.svg.",
+    "Explainer updated from operator-selected snapshot b4404469ddadc613ec9d1611de597e4be71a636fc9f603a53d1f8c003470d61f; video is byte-identical and poster uses its embedded cover."
   ]
 }

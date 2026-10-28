@@ -1,0 +1,41 @@
+[
+  {
+    "name": "desktop",
+    "src": "http://127.0.0.1:8000/assets/tracelayer-explainer-subtitled.mp4?v=55f26724476b",
+    "poster": "http://127.0.0.1:8000/assets/tracelayer-explainer-poster.jpg?v=007f0e7aaccd",
+    "duration": 134.8,
+    "width": 1920,
+    "height": 1080,
+    "currentTime": 5.030936,
+    "error": null,
+    "paused": true,
+    "clickToPlayPassed": true,
+    "horizontalOverflow": false
+  },
+  {
+    "name": "tablet",
+    "src": "http://127.0.0.1:8000/assets/tracelayer-explainer-subtitled.mp4?v=55f26724476b",
+    "poster": "http://127.0.0.1:8000/assets/tracelayer-explainer-poster.jpg?v=007f0e7aaccd",
+    "duration": 134.8,
+    "width": 1920,
+    "height": 1080,
+    "currentTime": 5.01955,
+    "error": null,
+    "paused": true,
+    "clickToPlayPassed": true,
+    "horizontalOverflow": false
+  },
+  {
+    "name": "mobile",
+    "src": "http://127.0.0.1:8000/assets/tracelayer-explainer-subtitled.mp4?v=55f26724476b",
+    "poster": "http://127.0.0.1:8000/assets/tracelayer-explainer-poster.jpg?v=007f0e7aaccd",
+    "duration": 134.8,
+    "width": 1920,
+    "height": 1080,
+    "currentTime": 5.010491,
+    "error": null,
+    "paused": true,
+    "clickToPlayPassed": true,
+    "horizontalOverflow": false
+  }
+]
