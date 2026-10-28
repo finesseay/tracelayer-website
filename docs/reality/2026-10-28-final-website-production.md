@@ -49,3 +49,22 @@ of publication. The one-command Task funnel is provided read-only at
 `/context/tracelayer/ops/vps/bin/deploy-task-from-worker.sh` and is invoked from this
 website worktree. Current worker's suffixed workspace Task env must be set to the
 actual Task ID for that command. No raw production push or host operation is allowed.
+
+## Governed deployment attempt
+
+The one-command funnel was invoked once for implementation commit
+`15bada1c54928a822c7c4a52b90d1c22c4fb0037`. It fetched production `8793369`, then
+exited 24 before verification/publication:
+
+> NEEDS UPDATE: checkpoint 15bada1c54928a822c7c4a52b90d1c22c4fb0037 has no unique completed Task
+
+`docs/website/deployment-attempt.log` records the exact result. No production push,
+Pages activation, service change or external registration occurred. The accepted
+operator source is a standalone snapshot; the imported Git checkpoint must settle
+as the Task's repository result with platform verification and recorded deployment
+acceptance. The governed command requires that state and cannot create it during
+its own active producing turn. Do not bypass it with a direct main push. The typed
+Complete & Deploy action is the supported next step once this result is saved.
+
+The release still needs its GitHub Pages build and public homepage/archive/video
+range checks after that delivery. Local evidence does not claim live deployment.
