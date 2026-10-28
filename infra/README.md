@@ -1,6 +1,6 @@
 # tracelayer.com infrastructure notes
 
-- **Site**: this repo is served by GitHub Pages (branch `master`, `CNAME` → tracelayer.com). Push to `master` to deploy.
+- **Site**: GitHub Pages serves branch `main` at `/`, with `CNAME` set to tracelayer.com (GitHub Pages configuration verified 2026-10-28). Production changes go through TraceLayer's governed Task deployment command. Its verified integration push triggers the existing Pages build. Confirm the build's commit and live pages before reporting a deployment. Do not push directly to the production branch.
 - **Waitlist API**: `waitlist.mjs` (zero-dependency Node) runs on the Hetzner VPS as pm2 process `tracelayer-waitlist`, listening on `127.0.0.1:4890`, data in `/var/lib/tracelayer-waitlist/waitlist.json`. Deployed copy: `/opt/tracelayer-waitlist/waitlist.mjs`.
 - **Caddy**: `http://api.tracelayer.com { reverse_proxy 127.0.0.1:4890 }` in `/etc/caddy/Caddyfile` — the VPS firewall only admits Cloudflare IPs on port 80, so the API is reachable exclusively through a **Cloudflare-proxied** DNS record.
 - **DNS required**: tracelayer.com zone on Cloudflare with:

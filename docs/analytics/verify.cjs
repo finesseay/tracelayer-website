@@ -106,8 +106,8 @@ test('website analytics browser contract', async t => {
       assert.equal(again.distinct_id, p.distinct_id);
       assert.equal(again.$session_id, p.$session_id);
       assert.notEqual(again.$pageview_id, p.$pageview_id);
-      await f.view('https://tracelayer.com/v2/');
-      await f.page.locator('[data-join]').first().click(); await f.settle();
+      await f.view('https://tracelayer.com/');
+      await f.page.locator('.newsletter-trigger').first().click(); await f.settle();
       assert.equal(f.events.filter(e => e.event === 'website_signup_click').length, 0, 'waitlist is not signup');
       assert.equal(f.events.filter(e => e.event === '$pageview').at(-1).properties.distinct_id, p.distinct_id);
       assert(!JSON.stringify(f.events).includes('SECRET'));
@@ -167,7 +167,7 @@ test('website analytics browser contract', async t => {
     const f = await fixture();
     try {
       await f.page.route('https://tracelayer.com/task/*', r => r.fulfill({body:fs.readFileSync(path.join(root,'index.html')),contentType:'text/html'}));
-      for (const url of ['https://tracelayer.com/task/SECRET_PRIVATE_PATH', 'https://localhost/', 'https://preview-123.tracelayer.com/', 'https://tracelayer.com/mockup1/', 'https://tracelayer.com/?preview=true', 'https://tracelayer.com/?tracelayer_test=1', 'https://tracelayer.com/?tracelayer_internal=1']) {
+      for (const url of ['https://tracelayer.com/task/SECRET_PRIVATE_PATH', 'https://localhost/', 'https://preview-123.tracelayer.com/', 'https://tracelayer.com/mockup1/', 'https://tracelayer.com/archive1/', 'https://tracelayer.com/archive2/', 'https://tracelayer.com/?preview=true', 'https://tracelayer.com/?tracelayer_test=1', 'https://tracelayer.com/?tracelayer_internal=1']) {
         await f.page.goto(url); await f.settle();
       }
       assert.equal(f.events.length, 0); assert(!f.requests.includes(sdkUrl));

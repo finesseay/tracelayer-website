@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-28T22:31:40.617Z",
+  "checks": [
+    {
+      "url": "https://tracelayer.com/login",
+      "formVisible": true,
+      "headings": [
+        "Welcome back."
+      ],
+      "brokenImages": [],
+      "logoServedFromLocalRelease": true,
+      "submitted": false
+    },
+    {
+      "url": "https://tracelayer.com/signup",
+      "formVisible": true,
+      "headings": [
+        "Make room for your next idea."
+      ],
+      "brokenImages": [],
+      "logoServedFromLocalRelease": true,
+      "submitted": false
+    }
+  ]
+}

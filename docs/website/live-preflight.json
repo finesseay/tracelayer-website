@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://tracelayer.com/login",
+    "status": 200,
+    "finalUrl": "https://tracelayer.com/login",
+    "hasForm": false,
+    "bytes": 930
+  },
+  {
+    "url": "https://tracelayer.com/signup",
+    "status": 200,
+    "finalUrl": "https://tracelayer.com/signup",
+    "hasForm": false,
+    "bytes": 930
+  },
+  {
+    "url": "https://api.tracelayer.com/waitlist",
+    "method": "OPTIONS",
+    "status": 204,
+    "allowedOrigin": "https://tracelayer.com"
+  }
+]

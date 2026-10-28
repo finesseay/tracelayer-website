@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-28T22:30:28.276Z",
+  "checks": [
+    {
+      "url": "https://tracelayer.com/login",
+      "formVisible": true,
+      "headings": [
+        "Welcome back."
+      ],
+      "brokenImages": [
+        "https://tracelayer.com/auth-design/logo.svg",
+        "https://tracelayer.com/auth-design/logo.svg"
+      ],
+      "submitted": false
+    },
+    {
+      "url": "https://tracelayer.com/signup",
+      "formVisible": true,
+      "headings": [
+        "Make room for your next idea."
+      ],
+      "brokenImages": [
+        "https://tracelayer.com/auth-design/logo.svg",
+        "https://tracelayer.com/auth-design/logo.svg"
+      ],
+      "submitted": false
+    }
+  ]
+}

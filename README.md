@@ -1,55 +1,51 @@
-# tracelayer — coming soon
+# TraceLayer public website
 
-A single-page "coming soon" site for **tracelayer**, built around a WebGL
-volumetric fractal orb rendered with a teal → indigo gradient to match the
-brand.
-
-![preview](docs/preview.png)
-
-## What's here
+Static source for **https://tracelayer.com**. No build step is required.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | The entire site — markup, styles, and the orb (three.js module). |
-| `vendor/three/` | three.js r160 core + the addons used (OrbitControls, EffectComposer, RenderPass, ShaderPass, and their deps). Vendored so the site has **no runtime CDN dependency**. |
-| `vendor/fonts/` | Self-hosted Quicksand woff2 (the rounded wordmark). |
+| `index.html` | Accepted Final Website Version, snapshot `fe13630279ebd592ab847e81cbf2eacafe239030440e231cae2a618e4bb82281`. |
+| `hero/`, `features/`, `platform/`, `waitlist/`, `footer-options/` | Website animations, styles, fonts and newsletter popup. |
+| `assets/` | Current images/video plus preserved legacy assets and privacy-aware analytics. |
+| `archive1/` | Previous production homepage, preserved from commit `8793369`. |
+| `archive2/` | Previous `/v2/` page, preserved from the same production commit. |
+| `v2/` | Redirect to `/archive2/`, preserving query and fragment in JavaScript. |
+| `legal/` | Existing approved terms/privacy pages and downloads. |
+| `download/android/` | Existing Android download redirect. |
 
-## The orb
+The homepage uses the selected native video player, without the later demo cover.
+Archive HTML is excluded from indexing. Its `/assets/harness/`, `/assets/brand/`,
+`/assets/vendor/` and analytics dependencies are retained without changes.
+The live `/login` and `/signup` routes remain owned by the application repository.
+Newsletter capture uses the existing `api.tracelayer.com/waitlist` service.
 
-The orb is a ray-marched fractal volume (adapted from the "Magical AI Orb"
-shader) tuned to the tracelayer palette:
+## Local checks
 
-- **Primary / core:** teal `#2ff0c8` (brand color)
-- **Secondary / wisps:** indigo `#4f46e5`
-- A soft teal atmosphere halo + subtle chromatic aberration for the glow.
-
-You can drag to rotate it. All the look-and-feel knobs live in the `params`
-object near the top of the `<script type="module">` block in `index.html`
-(colors, density, rotation speed, fractal iterations, etc.) — the original
-tuning GUI was removed for production.
-
-Accessibility & robustness:
-- Falls back to a static CSS orb if WebGL is unavailable.
-- Honors `prefers-reduced-motion` by calming the animation.
-
-## Running locally
-
-It's static — serve the folder with any static server (ES modules need
-`http://`, not `file://`):
-
-```bash
-npx serve .
-# or
-python3 -m http.server 8000
+```sh
+npm install --no-save --package-lock=false playwright
+node --test docs/website/verify.cjs
+node --test docs/analytics/verify.cjs
+node --test infra/waitlist.test.mjs
 ```
 
-Then open the printed URL.
+Chromium must be available at `/usr/bin/chromium` (or set `CHROMIUM_PATH`).
+Browser tests intercept external requests and never submit production registrations.
+For manual browsing: `python3 -m http.server 8000`.
 
-## Deploying
+## Deployment
 
-Upload the repository contents as-is to any static host (Netlify, Vercel,
-GitHub Pages, S3/CloudFront, Cloudflare Pages, …). No build step. Just make
-sure the `vendor/` directory ships alongside `index.html`.
+GitHub Pages builds the root of `main` with CNAME `tracelayer.com`.
+Use the governed Task command from this repository's worker:
+
+```sh
+TRACELAYER_TASK_ID=<actual-task-id> bash /context/tracelayer/ops/vps/bin/deploy-task-from-worker.sh <accepted-git-checkpoint>
+```
+
+The funnel validates acceptance, integrates with the latest production branch,
+verifies and pushes the combined commit. The existing GitHub Pages build publishes
+that push; no separate publisher is required. Verify its exact build commit and live
+homepage, archives, auth destinations and video range response before calling it live.
+Do not substitute a direct production push or lower-level deployment command.
 
 ## Website analytics
 
@@ -71,8 +67,9 @@ Downloads remain independent of analytics. The Android page retains its bounded
 SDK wait and no-JavaScript redirect. An automatic redirect is not a download click
 or proof of installation. A waitlist button is not an account signup.
 
-The homepage currently has placeholder links and no live signup CTA. The v2 page's
-“Sign up” button opens its waitlist. Neither is reported as an account signup click.
+The homepage links directly to account signup. Its newsletter popup is a waitlist
+subscription, which is not reported as an account signup click. Archive paths are
+excluded from collection; `/v2/` redirects without loading analytics.
 The live customer routes are `https://tracelayer.com/signup` and
 `https://tracelayer.com/login`. The handler recognizes signup links when present;
 login links never count as signups. These routes are served by the application,

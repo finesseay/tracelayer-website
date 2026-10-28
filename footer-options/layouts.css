@@ -1,0 +1,23 @@
+/* All three layouts place the navigation within the illustrated landscape. */
+.waitlist-area .mars-footer{background:#081c18}
+.mars-footer .mars-panorama{position:absolute;inset:0;margin:0;z-index:-2;max-height:none}
+.mars-footer .mars-panorama img{width:100%;height:100%;margin:0;object-fit:cover;object-position:center bottom;mask-image:none}
+.mars-footer:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(5,20,16,.91),rgba(5,20,16,.83) 48%,rgba(5,20,16,.25) 80%,rgba(5,20,16,.78))}
+.mars-footer-inner{padding:84px 64px 30px;min-height:680px;display:flex;flex-direction:column;justify-content:space-between;gap:120px}
+.mars-footer .mars-links a,.mars-newsletter p,.mars-footer-brand p{color:#d4e3dc}
+.mars-footer .mars-links a{padding-block:5px}
+.mars-footer .mars-links{gap:7px}
+.mars-footer-bottom{color:#d4e3dc;margin-top:0;padding-block:22px 0}
+.mars-footer .newsletter-trigger{min-height:44px;color:#d7fff0}
+.mars-footer a:focus-visible,.mars-footer button:focus-visible{outline:3px solid #adf4db;outline-offset:5px}
+html[data-footer="2"] .mars-footer-inner{padding-top:64px;gap:140px}
+html[data-footer="2"] .mars-footer-grid{padding:40px;background:#081d19e8;border:1px solid #a9d5c547;border-radius:24px;box-shadow:0 18px 60px #03120d44;backdrop-filter:blur(12px);gap:30px}
+html[data-footer="2"] .mars-footer:before{background:linear-gradient(#06151030,#06151020 70%,#061510dc)}
+html[data-footer="3"] .mars-footer-grid{grid-template-columns:1.7fr 1fr 1fr;gap:52px}
+html[data-footer="3"] .mars-newsletter{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:1fr auto;align-items:center;padding-bottom:36px;border-bottom:1px solid #a9d5c54d}
+html[data-footer="3"] .mars-newsletter h3{font-size:clamp(30px,4vw,52px);letter-spacing:-1.5px;margin:0 0 12px}
+html[data-footer="3"] .mars-newsletter p{grid-column:1;margin:0}
+html[data-footer="3"] .mars-newsletter button{grid-column:2;grid-row:1/3;background:#d2f3e6;border:0;border-radius:50px;color:#102b22;padding:14px 24px}
+html[data-footer="3"] .mars-footer-inner{gap:100px}
+@media(max-width:1000px){.mars-footer-inner{padding:60px 40px 24px;gap:100px}.mars-footer-grid{gap:36px}html[data-footer="2"] .mars-footer-grid{padding:28px}html[data-footer="3"] .mars-footer-grid{gap:32px}html[data-footer="3"] .mars-newsletter{column-gap:32px}}
+@media(max-width:600px){.mars-footer-inner{padding:48px 24px 24px;gap:90px}.mars-footer .mars-panorama img{object-position:60% bottom}.mars-footer:before{background:linear-gradient(#061812e8,#061812d9 70%,#06181299)}.mars-footer-bottom{gap:12px}.mars-footer .mars-links a{min-height:40px;display:flex;align-items:center}html[data-footer="2"] .mars-footer-inner{padding:24px 16px;gap:100px}html[data-footer="2"] .mars-footer-grid{padding:28px 20px;gap:32px 20px}html[data-footer="3"] .mars-footer-grid{grid-template-columns:1fr 1fr}html[data-footer="3"] .mars-newsletter{display:block}html[data-footer="3"] .mars-newsletter button{margin-top:24px}html[data-footer="3"] .mars-footer-brand{grid-column:1/-1}}

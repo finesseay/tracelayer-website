@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-24T13:14:48.430Z",
-  "sdkSha256": "6a178c1b374d2cfa6cd7a194be64c86661974f17ff4f7f80cbb8047f5ed56abc",
+  "checkedAt": "2026-10-28T22:27:52.241Z",
+  "sdkSha256": "60cfbbb049d442ff3bfc13e176182bcf68db6089990991b589b3263f1ddaabc7",
   "liveIngestion": false,
   "checks": [
     "real SDK sends sanitized capable pageviews and keeps anonymous/session identity",

@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta name="robots" content="noindex,follow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TraceLayer Harness — Everything is a plugin</title>
+<meta name="description" content="TraceLayer Harness is in developer preview: an agent harness where every capability is a plugin — models, tools, skills, sessions, sandboxes, storage, loops, scheduling, and the UI.">
+<link rel="canonical" href="https://tracelayer.com/archive1/">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tracelayer.com/">
+<meta property="og:title" content="TraceLayer Harness — Everything is a plugin">
+<meta property="og:description" content="An agent harness where every capability is a plugin. Every run is traceable. Now in developer preview.">
+<meta property="og:image" content="https://tracelayer.com/assets/brand/og-harness.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TraceLayer Harness — Everything is a plugin">
+<meta name="twitter:description" content="An agent harness where every capability is a plugin. Every run is traceable. Now in developer preview.">
+<meta name="twitter:image" content="https://tracelayer.com/assets/brand/og-harness.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" href="/assets/brand/favicon.png">
+<link rel="shortcut icon" href="/assets/brand/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/harness/site.css">
+<style>
+  /* Production additions: responsive layer + no-JS/reduced-motion safety.
+     Desktop values match the handoff spec exactly; overrides apply below 980px only. */
+  html{scroll-behavior:smooth}
+  @font-face{
+    font-family:"Edit Undo";
+    src:url("/assets/harness/editundo.ttf") format("truetype");
+    font-style:normal;font-weight:400;font-display:swap;
+  }
+  .ds-font-harness{font-family:"Edit Undo","Silkscreen",monospace}
+  .tl-px-word{font-size:50px}
+  @media (max-width:768px){.tl-px-word{font-size:34px}}
+  /* Replace the handoff's difference-blend cursor disc (reads as an odd peach
+     blob over the teal field) with a quiet brand-colored ring. */
+  .ds-cursor-ring.is-blend{width:34px;height:34px;margin-left:-17px;margin-top:-17px;background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.45);mix-blend-mode:normal}
+  .tl-scroll-reveal{opacity:0;visibility:hidden;transition:opacity .4s ease-in-out,visibility 0s .4s}
+  .ds-header-bar.is-scrolled .tl-scroll-reveal{opacity:1;visibility:visible;transition:opacity .4s ease-in-out,visibility 0s}
+  .tl-devprev-chip{flex-shrink:0;display:inline-flex;align-items:center;padding:4px 9px 3px;border-radius:7px;font-family:var(--ds-font-mono);font-size:11px;font-weight:500;line-height:1;background:rgba(45,212,191,.10);color:#9ff0e4;border:1px solid rgba(45,212,191,.28)}
+  .tl-header-github{min-height:34px;padding:0 14px;font-size:13px}
+  @media (max-width:768px){.tl-devprev-chip,.tl-header-github{display:none}}
+  .tl-menu-btn{display:none;align-items:center;justify-content:center;width:40px;height:40px;color:var(--ds-color-text-primary);cursor:pointer}
+  .tl-menu{position:fixed;top:64px;right:max(24px, calc((100% - 1280px)/2));z-index:60;min-width:230px;padding:6px;display:none;flex-direction:column}
+  .tl-menu.open{display:flex}
+  .tl-menu a{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;text-decoration:none;color:var(--ds-color-text-primary);font-size:14px}
+  .tl-menu a:hover{background:var(--ds-color-bg-hover);color:var(--ds-color-text-primary)}
+  .tl-menu a svg{flex-shrink:0}
+  @media (max-width:768px){
+    .tl-menu-btn{display:flex}
+    .tl-locale{display:none}
+  }
+  @media (max-width:980px){
+    .tl-hero-grid{grid-template-columns:1fr !important;gap:48px !important}
+    .tl-eyebrow{white-space:normal !important}
+    .tl-cards3{grid-template-columns:1fr !important;gap:16px !important}
+    .tl-show-grid{grid-template-columns:1fr !important;gap:40px !important}
+    .tl-feat-block{min-height:0 !important;padding:40px 0 !important}
+    .tl-sticky-panel{position:static !important}
+    .tl-get-grid{grid-template-columns:1fr !important}
+    .tl-footer-grid{grid-template-columns:1fr !important;justify-items:center;row-gap:16px !important}
+  }
+  @media (max-width:560px){
+    .tl-btn-grid{grid-template-columns:1fr !important;width:100% !important}
+    .tl-btn-grid a{width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .rv,.rv--blur{opacity:1 !important;transform:none !important;filter:none !important;transition:none !important}
+    .ds-hero-enter{animation:none !important}
+  }
+</style>
+<noscript><style>.rv,.rv--blur{opacity:1;transform:none;filter:none}</style></noscript>
+<script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+<div style="position:relative;width:100%;background:var(--ds-color-bg-page);color:var(--ds-color-text-primary);font-family:var(--ds-font-sans);overflow-x:clip">
+
+  <div class="ds-header-wrapper">
+    <div class="ds-header-bar" id="tl-header-bar" style="max-width:1280px">
+      <a href="#" style="display:flex;align-items:center;gap:8px;min-width:0;color:var(--ds-color-brand-medium-reverse)">
+        <span style="flex-shrink:0;display:inline-flex;align-items:center;gap:8px">
+          <svg width="24" height="24" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="tlg-hd" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#6366F1"></stop><stop offset="1" stop-color="#14B8A6"></stop></linearGradient></defs><rect width="56" height="56" rx="15" fill="url(#tlg-hd)"></rect><g transform="translate(13 13) scale(1.25)"><path d="M2 12h3l2.5-6 5 12 2.5-6h3" stroke="#FFFFFF" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+          <span class="tl-brand-word" style="font-size:17px;color:var(--ds-color-text-primary)">tracelayer</span>
+        </span>
+        <span style="display:inline-flex;align-items:flex-start;gap:5px;min-width:0">
+          <span style="flex-shrink:0;display:inline-flex;align-items:center;border-radius:8px;padding:1px;min-width:0;max-width:100%;background:linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.04) 65%, rgba(255,255,255,0.5) 100%);box-shadow:0 0 16px rgba(255,255,255,0.08), 0 0 32px rgba(255,255,255,0.04)">
+            <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:4px 9px 3px;border-radius:7px;font-family:var(--ds-font-mono);font-size:11px;font-weight:500;line-height:1;background:rgba(0,0,0,.25);color:rgba(255,255,255,.95)">Harness</span>
+          </span>
+          <span class="tl-devprev-chip tl-scroll-reveal">Developer preview</span>
+        </span>
+      </a>
+      <div style="display:flex;align-items:center;gap:16px">
+        <a class="ds-btn-primary tl-header-github tl-scroll-reveal" href="#">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+          GitHub
+        </a>
+        <div class="tl-locale" style="margin-left:4px">
+          <div class="ds-locale-toggle">
+            <button class="ds-locale-toggle-item" type="button">中文</button>
+            <button class="ds-locale-toggle-item is-active" type="button">EN</button>
+          </div>
+        </div>
+        <button class="tl-menu-btn" id="tl-menu-btn" type="button" aria-label="Open menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <nav class="tl-menu ds-glass-dropdown" id="tl-menu" aria-label="Site menu">
+    <a href="#"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>View on GitHub</a>
+    <a href="#"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M8 3.25C6.75 2.25 4.8 1.95 2.25 2.25V12.75C4.8 12.45 6.75 12.75 8 13.75C9.25 12.75 11.2 12.45 13.75 12.75V2.25C11.2 1.95 9.25 2.25 8 3.25Z"></path><path d="M8 3.25V13.75"></path></svg>Developer docs</a>
+    <a href="#"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.5" y="2.5" width="4.6" height="4.6" rx="1.2"></rect><rect x="8.9" y="2.5" width="4.6" height="4.6" rx="1.2"></rect><rect x="2.5" y="8.9" width="4.6" height="4.6" rx="1.2"></rect><rect x="8.9" y="8.9" width="4.6" height="4.6" rx="1.2"></rect></svg>Community plugins</a>
+    <a href="#"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h5.5L12.5 5.5V13.5H4z"></path><path d="M6 8h4M6 10.5h4"></path></svg>Cordis paper</a>
+    <a href="mailto:hello@tracelayer.com"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.8" y="3" width="12.4" height="10" rx="1.6"></rect><path d="m2.5 4.2 5.5 4.6 5.5-4.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>hello@tracelayer.com</a>
+  </nav>
+
+  <main style="position:relative;display:flex;flex-direction:column;width:100%">
+
+    <section class="ds-hero-height" style="position:relative;display:flex;align-items:center;width:100%">
+      <div id="tl-hero-bg" style="position:absolute;inset:0;z-index:0;overflow:hidden;mask:linear-gradient(rgba(0,0,0,.99) 0%, rgba(0,0,0,.91) 8.98%, transparent 100%);-webkit-mask:linear-gradient(rgba(0,0,0,.99) 0%, rgba(0,0,0,.91) 8.98%, transparent 100%)">
+        <div class="ds-grid-bg" style="position:absolute;inset:0;opacity:.55"></div>
+        <canvas id="tl-hero-particles" style="position:absolute;top:0;left:0;width:100%;height:100%"></canvas>
+      </div>
+      <div id="tl-fx-layer" style="position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;mix-blend-mode:screen">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <div id="tl-orb" style="width:800px;height:800px;margin-left:100px;flex-shrink:0;border-radius:50%;background:radial-gradient(circle at 36% 42%, rgba(94,234,212,.5) 0%, transparent 52%),radial-gradient(circle at 62% 56%, rgba(99,102,241,.42) 0%, transparent 56%),radial-gradient(circle at 50% 50%, rgba(45,212,191,.3) 0%, transparent 68%);filter:blur(64px);animation:tl-orb-drift 16s ease-in-out infinite alternate;opacity:1"></div>
+        </div>
+        <canvas id="tl-logo-pixels" style="position:absolute;inset:0;width:100%;height:100%"></canvas>
+      </div>
+      <div class="ds-container tl-hero-grid" style="position:relative;z-index:10;display:grid;grid-template-columns:60fr 40fr;gap:80px;align-items:center;padding-top:clamp(110px,16vh,160px);padding-bottom:clamp(64px,12vh,160px)">
+        <div style="display:flex;flex-direction:column;gap:40px;min-width:0">
+          <div class="ds-hero-enter" style="--enter-y:24px;--enter-blur:10px;animation-duration:0.9s;display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+            <p class="tl-eyebrow" style="white-space:nowrap;font-size:18px;font-weight:500;line-height:1;letter-spacing:-.01em;color:var(--ds-color-text-primary);padding-left:3px">TraceLayer Harness developer preview</p>
+            <h1 class="ds-text-hero" style="line-height:1.2;color:var(--ds-color-text-primary)">Everything is a <span id="tl-anchor">plugin</span></h1>
+          </div>
+          <div class="ds-hero-enter" style="--enter-y:20px;--enter-blur:8px;animation-delay:0.15s;max-width:580px;display:flex;flex-direction:column;gap:8px">
+            <p class="ds-text-body" style="color:var(--ds-color-text-description)">TraceLayer Harness is now in developer preview for agent harness developers worldwide — source code included.</p>
+            <p class="ds-text-body" style="color:var(--ds-color-text-description)">Every capability is a plugin that can be swapped or recomposed: models, tools, skills, sessions, sandboxes, storage, loops, scheduling, and the UI.</p>
+          </div>
+          <div class="ds-hero-enter tl-btn-grid" style="--enter-y:16px;animation-duration:0.7s;animation-delay:0.3s;display:grid;grid-template-columns:auto auto;width:fit-content;gap:14px">
+            <a class="ds-btn-primary ds-btn-m" href="#">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+              View on GitHub
+            </a>
+            <a class="ds-btn-secondary ds-btn-m" href="#">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M8 3.25C6.75 2.25 4.8 1.95 2.25 2.25V12.75C4.8 12.45 6.75 12.75 8 13.75C9.25 12.75 11.2 12.45 13.75 12.75V2.25C11.2 1.95 9.25 2.25 8 3.25Z"></path><path d="M8 3.25V13.75"></path></svg>
+              Developer docs
+            </a>
+            <a class="ds-btn-secondary ds-btn-m" href="#">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.5" y="2.5" width="4.6" height="4.6" rx="1.2"></rect><rect x="8.9" y="2.5" width="4.6" height="4.6" rx="1.2"></rect><rect x="2.5" y="8.9" width="4.6" height="4.6" rx="1.2"></rect><rect x="8.9" y="8.9" width="4.6" height="4.6" rx="1.2"></rect></svg>
+              Community plugins
+            </a>
+            <a class="ds-btn-secondary ds-btn-m" href="#">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h5.5L12.5 5.5V13.5H4z"></path><path d="M6 8h4M6 10.5h4"></path></svg>
+              Cordis paper
+            </a>
+          </div>
+        </div>
+        <div class="ds-hero-enter" style="--enter-y:20px;animation-duration:0.9s;animation-delay:0.4s;display:flex;flex-direction:column;gap:12px;min-width:0">
+          <div style="display:flex;gap:4px;padding:0 4px;margin-left:6px">
+            <button id="tl-tab-npx" type="button" style="padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;border-radius:8px 8px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:0;color:var(--ds-color-text-primary);background:rgba(0,0,0,.2);backdrop-filter:blur(24px);transition:all .2s">Quick start</button>
+            <button id="tl-tab-git" type="button" style="padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;border-radius:8px 8px 0 0;border:1px solid transparent;border-bottom:0;color:var(--ds-color-text-description);background:transparent;backdrop-filter:blur(24px);transition:all .2s">Install from source</button>
+          </div>
+          <div style="border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.2);backdrop-filter:blur(24px);overflow:hidden;margin-top:-13px">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--ds-color-border-default)">
+              <div style="display:flex;align-items:center;gap:7px">
+                <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57"></span>
+                <span style="width:11px;height:11px;border-radius:50%;background:#febc2e"></span>
+                <span style="width:11px;height:11px;border-radius:50%;background:#28c840"></span>
+              </div>
+              <button class="tl-copy-btn" id="tl-copy-hero" type="button" style="display:flex;align-items:center;gap:8px;color:var(--ds-color-text-description);font-size:12px;cursor:pointer"><span data-label>Copy</span>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"></rect><path d="M10.5 5.5v-2A1.5 1.5 0 0 0 9 2H4A1.5 1.5 0 0 0 2.5 3.5V9A1.5 1.5 0 0 0 4 10.5h1.5" stroke-linecap="round"></path></svg>
+              </button>
+            </div>
+            <div style="padding:24px;display:grid;align-items:center">
+              <pre id="tl-cmd-npx" style="grid-column-start:1;grid-row-start:1;font-family:var(--ds-font-mono);font-size:14px;color:var(--ds-color-text-primary);line-height:1.625;white-space:pre-wrap;visibility:visible"><span style="user-select:none;color:var(--ds-color-brand)">$ </span>npx @tracelayer/tlh web<span style="display:inline-block;width:8px;height:15px;background:var(--ds-color-text-primary);opacity:.65;margin-left:7px;vertical-align:-2px;animation:blink 1.2s step-end infinite"></span></pre>
+              <pre id="tl-cmd-git" style="grid-column-start:1;grid-row-start:1;font-family:var(--ds-font-mono);font-size:14px;color:var(--ds-color-text-primary);line-height:1.625;white-space:pre-wrap;visibility:hidden"><span style="user-select:none;color:var(--ds-color-brand)">$ </span>git clone https://github.com/tracelayer/harness<span style="display:inline-block;width:8px;height:15px;background:var(--ds-color-text-primary);opacity:.65;margin-left:7px;vertical-align:-2px;animation:blink 1.2s step-end infinite"></span></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ds-container" style="padding-top:80px;padding-bottom:160px">
+      <div class="rv" style="max-width:820px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:32px;text-align:center">
+        <span style="display:inline-flex;align-items:center;border-radius:8px;padding:1px;background:linear-gradient(135deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.04) 65%, rgba(255,255,255,0.3) 100%)">
+          <span style="padding:6px 9px 5px;border-radius:7px;background:rgba(0,0,0,.25);font-family:var(--ds-font-mono);font-size:12px;font-weight:500;color:rgba(255,255,255,.95);line-height:1;letter-spacing:.05em;text-transform:uppercase">Agent = Model + Harness</span>
+        </span>
+        <h2 class="ds-text-heading1" style="color:var(--ds-color-text-primary)"><span class="ds-font-harness tl-px-word" style="color:var(--ds-color-brand);display:inline-block;vertical-align:middle;transform:translateY(-0.08em)">Harness</span><br>keeps agents working in real-world environments</h2>
+        <div style="max-width:760px;display:flex;flex-direction:column">
+          <p class="ds-text-body" style="color:var(--ds-color-text-description);line-height:1.75">The model is the soul of an agent.</p>
+          <p class="ds-text-body" style="color:var(--ds-color-text-description);line-height:1.75">A harness lets an agent understand its environment, use tools, and keep working in real-world settings.</p>
+        </div>
+      </div>
+      <div class="rv" style="margin-top:56px">
+        <div class="tl-cards3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+          <div class="tl-tilt" style="position:relative;border-radius:12px;height:100%">
+            <div style="background:var(--ds-color-bg-surface-3);border:1px solid var(--ds-color-border-default);border-radius:12px;padding:32px;display:flex;flex-direction:column;align-items:center;text-align:center;height:100%;box-sizing:border-box">
+              <div style="color:var(--ds-color-text-primary);opacity:.7;margin-bottom:16px">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="36" cy="36" r="7"></circle><circle cx="36" cy="36" r="17" stroke-dasharray="4 5"></circle><circle cx="36" cy="36" r="27" opacity=".5"></circle><circle cx="53" cy="19" r="3" fill="currentColor" stroke="none"></circle><circle cx="16" cy="42" r="3" fill="currentColor" stroke="none"></circle><circle cx="49" cy="53" r="3" fill="currentColor" stroke="none"></circle></svg>
+              </div>
+              <h3 class="ds-text-title" style="color:var(--ds-color-text-primary);margin-bottom:8px"><a class="tl-dashed-link" href="#">Cordis kernel</a></h3>
+              <p class="ds-text-caption" style="color:var(--ds-color-text-description);line-height:1.65">The Cordis kernel manages plugin mounting, unmounting, and dependencies. Agent capabilities live in the plugins.</p>
+            </div>
+            <div data-glow="1" style="position:absolute;inset:0;border-radius:12px;pointer-events:none;transition:opacity 0.3s ease;opacity:0"></div>
+          </div>
+          <div class="tl-tilt" style="position:relative;border-radius:12px;height:100%">
+            <div style="background:var(--ds-color-bg-surface-3);border:1px solid var(--ds-color-border-default);border-radius:12px;padding:32px;display:flex;flex-direction:column;align-items:center;text-align:center;height:100%;box-sizing:border-box">
+              <div style="color:var(--ds-color-text-primary);opacity:.7;margin-bottom:16px">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="14" y="14" width="19" height="19" rx="4"></rect><rect x="39" y="14" width="19" height="19" rx="4"></rect><rect x="14" y="39" width="19" height="19" rx="4"></rect><rect x="39" y="39" width="19" height="19" rx="4" stroke-dasharray="4 4"></rect><path d="M33 23.5h6M23.5 33v6M48.5 33v6" stroke-linecap="round"></path></svg>
+              </div>
+              <h3 class="ds-text-title" style="color:var(--ds-color-text-primary);margin-bottom:8px">Capabilities as plugins</h3>
+              <p class="ds-text-caption" style="color:var(--ds-color-text-description);line-height:1.65">Plugins provide every agent capability, including models, tools, skills, sessions, sandboxes, storage, loops, scheduling, and the UI. Cordis services and events let the plugins work together.</p>
+            </div>
+            <div data-glow="1" style="position:absolute;inset:0;border-radius:12px;pointer-events:none;transition:opacity 0.3s ease;opacity:0"></div>
+          </div>
+          <div class="tl-tilt" style="position:relative;border-radius:12px;height:100%">
+            <div style="background:var(--ds-color-bg-surface-3);border:1px solid var(--ds-color-border-default);border-radius:12px;padding:32px;display:flex;flex-direction:column;align-items:center;text-align:center;height:100%;box-sizing:border-box">
+              <div style="color:var(--ds-color-text-primary);opacity:.7;margin-bottom:16px">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M16 24h24M52 24h4M16 36h8M36 36h20M16 48h30M56 48h0"></path><circle cx="45" cy="24" r="5"></circle><circle cx="29" cy="36" r="5"></circle><circle cx="51" cy="48" r="5"></circle></svg>
+              </div>
+              <h3 class="ds-text-title" style="color:var(--ds-color-text-primary);margin-bottom:8px">Compose with configuration</h3>
+              <p class="ds-text-caption" style="color:var(--ds-color-text-description);line-height:1.65">Developers can select, swap, or extend any capability in configuration without changing the TraceLayer Harness source code.</p>
+            </div>
+            <div data-glow="1" style="position:absolute;inset:0;border-radius:12px;pointer-events:none;transition:opacity 0.3s ease;opacity:0"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ds-container" style="padding-top:120px;padding-bottom:120px">
+      <div class="rv">
+        <span style="display:inline-flex;align-items:center;border-radius:8px;padding:1px;background:linear-gradient(135deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.04) 65%, rgba(255,255,255,0.3) 100%)">
+          <span style="padding:6px 9px 5px;border-radius:7px;background:rgba(0,0,0,.25);font-family:var(--ds-font-mono);font-size:12px;font-weight:500;color:rgba(255,255,255,.95);line-height:1;letter-spacing:.05em;text-transform:uppercase">Design approach</span>
+        </span>
+        <h2 class="ds-text-heading1" style="color:var(--ds-color-text-primary);margin-top:16px;margin-bottom:80px;max-width:680px;white-space:pre-line">Everything is a plugin.
+Every run is traceable.</h2>
+      </div>
+      <div class="tl-show-grid" style="display:grid;grid-template-columns:42fr 58fr;gap:80px;width:100%">
+        <div style="display:flex;flex-direction:column">
+          <div id="tl-feat-0" class="tl-feat-block" style="display:flex;flex-direction:column;justify-content:center;gap:16px;min-height:35vh;padding:11vh 0;cursor:pointer;transition:opacity .5s;opacity:1">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div data-feat-icon style="transition:color .5s;color:var(--ds-color-text-primary)">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="8" height="8" rx="2"></rect><rect x="16" y="4" width="8" height="8" rx="2"></rect><rect x="4" y="16" width="8" height="8" rx="2"></rect><rect x="16" y="16" width="8" height="8" rx="2" stroke-dasharray="3 3"></rect></svg>
+              </div>
+              <h3 class="ds-text-subtitle" style="font-size:22px;font-weight:400;color:var(--ds-color-text-primary)">Everything is a plugin</h3>
+            </div>
+            <p class="ds-text-body" style="color:var(--ds-color-text-description);line-height:1.7">TraceLayer Harness is built on <a class="tl-dashed-link" href="#">Cordis</a>'s plugin system. Plugins provide every agent capability, including models, tools, skills, sessions, sandboxes, storage, loops, scheduling, and the UI. Cordis services and events let the plugins work together. Developers can select, swap, or extend any capability in configuration without changing the TraceLayer Harness source code.</p>
+          </div>
+          <div id="tl-feat-1" class="tl-feat-block" style="display:flex;flex-direction:column;justify-content:center;gap:16px;min-height:35vh;padding:11vh 0;cursor:pointer;transition:opacity .5s;opacity:0.3">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div data-feat-icon style="transition:color .5s;color:var(--ds-color-text-description)">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 6.5h13M5 11h18M5 15.5h10M5 20h15"></path><circle cx="22.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"></circle></svg>
+              </div>
+              <h3 class="ds-text-subtitle" style="font-size:22px;font-weight:400;color:var(--ds-color-text-primary)">Every run is traceable</h3>
+            </div>
+            <p class="ds-text-body" style="color:var(--ds-color-text-description);line-height:1.7">Everything the model sees is recorded in an append-only session log: system prompts, reasoning, tool calls and results, subagent scheduling, and every context injection. In the Trajectory view, you can inspect these records by source. Resume, fork, search, and replay all operate on the same event stream.</p>
+          </div>
+          <div id="tl-feat-2" class="tl-feat-block" style="display:flex;flex-direction:column;justify-content:center;gap:16px;min-height:35vh;padding:11vh 0;cursor:pointer;transition:opacity .5s;opacity:0.3">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div data-feat-icon style="transition:color .5s;color:var(--ds-color-text-description)">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M14 4 25 9.5 14 15 3 9.5Z"></path><path d="M25 14.5 14 20 3 14.5" opacity=".65"></path><path d="M25 19 14 24.5 3 19" opacity=".35"></path></svg>
+              </div>
+              <h3 class="ds-text-subtitle" style="font-size:22px;font-weight:400;color:var(--ds-color-text-primary)">Multiple runtime modes</h3>
+            </div>
+            <p class="ds-text-body" style="color:var(--ds-color-text-description);line-height:1.7">Standard mode includes the full toolset. Code mode uses model-generated code to orchestrate multiple rounds of tool calls. Minimal mode keeps only a shell tool and a file editor for benchmarking models in a minimal environment. Creator mode lets you inspect the current runtime, test Cordis plugins in memory, and combine them into new modes.</p>
+          </div>
+        </div>
+        <div>
+          <div class="tl-sticky-panel" style="position:sticky;top:238px">
+            <div style="display:grid;min-width:0;max-width:760px;aspect-ratio:8/5;background:var(--ds-color-bg-surface-3);border:1px solid var(--ds-color-border-default);border-radius:12px;overflow:hidden">
+              <div id="tl-panel-0" style="grid-column-start:1;grid-row-start:1;min-width:0;transition:opacity .5s;opacity:1;pointer-events:auto">
+                <div style="width:100%;height:100%;display:flex;align-items:center;overflow:hidden;background:#101113">
+                  <img src="/assets/harness/feat-plugin.png" alt="TraceLayer Harness settings showing installed plugins and their status" style="display:block;width:100%;height:100%;object-fit:contain">
+                </div>
+              </div>
+              <div id="tl-panel-1" style="grid-column-start:1;grid-row-start:1;min-width:0;transition:opacity .5s;opacity:0;pointer-events:none">
+                <div style="width:100%;height:100%;display:flex;align-items:center;overflow:hidden;background:#101113">
+                  <img src="/assets/harness/trajectory-view.png" alt="Reconstruct a complete run from a single session log" style="display:block;width:100%;height:100%;object-fit:contain">
+                </div>
+              </div>
+              <div id="tl-panel-2" style="grid-column-start:1;grid-row-start:1;min-width:0;transition:opacity .5s;opacity:0;pointer-events:none">
+                <div role="img" aria-label="The new-session mode picker listing Standard, Code, Minimal, and Creator modes" style="width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;font-family:var(--ds-font-sans);user-select:text;container-type:inline-size">
+                  <div style="display:grid;font-size:clamp(9px, 2.2cqw, 12.5px);padding:1em 2.4em 1.1em">
+                    <div style="grid-column-start:1;grid-row-start:1;min-width:0">
+                      <div style="display:flex;align-items:center;gap:0.5em">
+                        <span style="display:inline-flex;align-items:center;gap:0.25em;min-height:2.1em;padding:0 0.75em;border-radius:1.05em;font-size:0.8125em;line-height:1.25em;font-weight:500;color:#e6e8ea;white-space:nowrap"><svg viewBox="0 0 16 16" fill="none" style="width:1.23em;height:1.23em"><path d="M2 4.5C2 3.7 2.7 3 3.5 3H6.2L7.7 4.8H12.5C13.3 4.8 14 5.5 14 6.3V11.5C14 12.3 13.3 13 12.5 13H3.5C2.7 13 2 12.3 2 11.5V4.5Z" stroke="#e6e8ea" stroke-width="1.3" stroke-linejoin="round"></path></svg>tlh-demo<svg viewBox="0 0 12 12" fill="none" style="width:0.75em;height:0.75em;flex-shrink:0"><path d="M3 4.5L6 7.5L9 4.5" stroke="#81858c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                        <span style="display:inline-flex;align-items:center;gap:0.25em;min-height:2.1em;padding:0 0.75em;border-radius:1.05em;font-size:0.8125em;line-height:1.25em;font-weight:500;color:#e6e8ea;white-space:nowrap;background:rgba(255,255,255,0.08)"><svg viewBox="0 0 16 16" fill="none" style="width:1.23em;height:1.23em"><path d="M8 2.5 9.3 6 12.8 7.3 9.3 8.6 8 12.1 6.7 8.6 3.2 7.3 6.7 6Z" fill="#e6e8ea"></path><circle cx="12.6" cy="3.4" r="1.1" fill="#e6e8ea"></circle></svg>Creator mode<svg viewBox="0 0 12 12" fill="none" style="width:0.75em;height:0.75em;flex-shrink:0;transform:rotate(180deg)"><path d="M3 4.5L6 7.5L9 4.5" stroke="#81858c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                      </div>
+                      <div style="display:flex;flex-direction:column;margin-top:0.9em;gap:0.75em;padding-top:0.625em;border-radius:1.375em;background:#1f2126;border:1px solid rgba(255,255,255,0.06)">
+                        <div style="min-height:3.25em;padding:0.25em 0.75em 0 1em;color:#81858c;line-height:1.5">Describe what you want to build</div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:0.125em 0.5em 0.375em;gap:0.75em">
+                          <div style="display:flex;align-items:center;gap:1em">
+                            <span style="display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;width:1.75em;height:1.75em;background:rgba(255,255,255,0.08)"><svg viewBox="0 0 12 12" fill="none" style="width:0.75em;height:0.75em"><path d="M6 2v8M2 6h8" stroke="#e6e8ea" stroke-width="1.4" stroke-linecap="round"></path></svg></span>
+                          </div>
+                          <span style="display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;width:2.125em;height:2.125em;background:#2dd4bf;transform:translateY(-0.125em)"><svg viewBox="0 0 12 12" fill="none" style="width:0.9em;height:0.9em"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" stroke="#04211d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="grid-column-start:1;grid-row-start:1;min-width:0;position:relative;z-index:10;padding-top:2.35em;padding-left:min(7.2em, 12%)">
+                      <div style="display:flex;flex-direction:column;width:min(30em, 100%);padding:0.45em;border:1px solid rgba(255,255,255,0.06);border-radius:1em;background:#17181c;box-shadow:0 1.2em 3em rgba(0,0,0,.55)">
+                        <div style="display:flex;align-items:center;gap:0.5em;padding:0.5em 0.625em;border-radius:0.625em">
+                          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:0.125em">
+                            <div style="color:#e6e8ea;font-size:0.875em;line-height:1.55;font-weight:500">Standard mode</div>
+                            <div style="color:#81858c;font-size:0.8125em;line-height:1.55">Full coding agent with file editing, shell, file and web search, skills, planning, goals, subagents, and workflows.</div>
+                          </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:0.5em;padding:0.5em 0.625em;border-radius:0.625em">
+                          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:0.125em">
+                            <div style="color:#e6e8ea;font-size:0.875em;line-height:1.55;font-weight:500">Code mode</div>
+                            <div style="color:#81858c;font-size:0.8125em;line-height:1.55">All Standard mode capabilities, with tools exposed through the Code Mode SDK so the model can combine multi-step operations in one TypeScript program.</div>
+                          </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:0.5em;padding:0.5em 0.625em;border-radius:0.625em">
+                          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:0.125em">
+                            <div style="color:#e6e8ea;font-size:0.875em;line-height:1.55;font-weight:500">Minimal mode</div>
+                            <div style="color:#81858c;font-size:0.8125em;line-height:1.55">Two-tool coding agent with persistent bash and str_replace_editor.</div>
+                          </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:0.5em;padding:0.8em 0.75em;border-radius:0.625em;background:rgba(255,255,255,0.07)">
+                          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:0.125em">
+                            <div style="color:#e6e8ea;font-size:0.875em;line-height:1.55;font-weight:500">Creator mode</div>
+                            <div style="color:#81858c;font-size:0.8125em;line-height:1.55">Built for creating custom agent presets, with all Standard mode capabilities plus runtime inspection, plugin experiments, and preset-authoring guidance.</div>
+                          </div>
+                          <svg viewBox="0 0 16 16" fill="none" style="width:1em;height:1em;flex-shrink:0"><path d="M3 8.5 6.5 12 13 4.5" stroke="#2dd4bf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ds-container" style="padding-top:120px;padding-bottom:120px">
+      <div class="rv" style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <h2 class="ds-text-heading1" style="color:var(--ds-color-text-primary);max-width:820px">Customize your TraceLayer Harness</h2>
+      </div>
+      <div class="rv" style="margin-top:80px;border-radius:16px;border:1px solid var(--ds-color-border-default);background:var(--ds-color-bg-surface-3);overflow:hidden">
+        <div style="width:100%;aspect-ratio:16/9;position:relative;background:#0b0c0e;display:flex;align-items:center;justify-content:center">
+          <button class="tl-play-btn" type="button" aria-label="play" style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,.95)"><path d="M8 5.5v13l11-6.5z"></path></svg>
+          </button>
+          <span style="position:absolute;left:16px;bottom:12px;font-family:var(--ds-font-mono);font-size:12px;color:rgba(255,255,255,.35)">demo.mp4 — product feature demo</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="ds-container" style="padding-top:120px;padding-bottom:120px">
+      <div class="rv">
+        <span style="display:inline-flex;align-items:center;border-radius:8px;padding:1px;background:linear-gradient(135deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.04) 65%, rgba(255,255,255,0.3) 100%)">
+          <span style="padding:6px 9px 5px;border-radius:7px;background:rgba(0,0,0,.25);font-family:var(--ds-font-mono);font-size:12px;font-weight:500;color:rgba(255,255,255,.95);line-height:1;letter-spacing:.05em;text-transform:uppercase">Get started</span>
+        </span>
+        <h2 class="ds-text-heading1" style="color:var(--ds-color-text-primary);margin-top:16px;margin-bottom:80px;max-width:600px">Try it now or install from source</h2>
+      </div>
+      <div class="tl-get-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch">
+        <div class="rv" style="min-width:0;display:flex;flex-direction:column;border-radius:10px;background:var(--ds-color-bg-surface-3);border:1px solid var(--ds-color-border-default)">
+          <div style="min-width:0;display:flex;flex-direction:column;gap:12px;padding:40px">
+            <h3 class="ds-text-subtitle" style="color:var(--ds-color-text-primary)">Quick start</h3>
+            <p class="ds-text-body" style="color:var(--ds-color-text-description);line-height:1.7">Install Node.js, then launch the Web UI with npx.</p>
+            <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:10px;border:1px solid var(--ds-color-border-default);background:var(--ds-color-bg-surface-1);padding:14px 16px;font-family:var(--ds-font-mono);font-size:14px;color:var(--ds-color-text-primary)">
+              <code style="min-width:0;white-space:pre-wrap;word-break:break-all"><span style="user-select:none;color:var(--ds-color-brand)">$ </span>npx @tracelayer/tlh web</code>
+              <button class="tl-copy-btn" id="tl-copy-gnpx" type="button" style="flex-shrink:0;font-family:var(--ds-font-sans);font-size:12px;color:var(--ds-color-text-description);cursor:pointer"><span data-label>Copy</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="rv" style="min-width:0;display:flex;flex-direction:column;border-radius:10px;background:var(--ds-color-bg-surface-3);border:1px solid var(--ds-color-border-default)">
+          <div style="min-width:0;display:flex;flex-direction:column;gap:12px;padding:40px">
+            <h3 class="ds-text-subtitle" style="color:var(--ds-color-text-primary)">Install from source</h3>
+            <p class="ds-text-body" style="color:var(--ds-color-text-description);line-height:1.7">Clone the full source and follow the setup instructions in the repository.</p>
+            <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:10px;border:1px solid var(--ds-color-border-default);background:var(--ds-color-bg-surface-1);padding:14px 16px;font-family:var(--ds-font-mono);font-size:14px;color:var(--ds-color-text-primary)">
+              <code style="min-width:0;white-space:pre-wrap;word-break:break-all"><span style="user-select:none;color:var(--ds-color-brand)">$ </span>git clone https://github.com/tracelayer/harness</code>
+              <button class="tl-copy-btn" id="tl-copy-ggit" type="button" style="flex-shrink:0;font-family:var(--ds-font-sans);font-size:12px;color:var(--ds-color-text-description);cursor:pointer"><span data-label>Copy</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div style="position:relative;overflow:hidden;max-height:720px">
+      <div style="position:absolute;inset:-30%;z-index:0;pointer-events:none;mix-blend-mode:screen;transform:translateY(-8%);mask:radial-gradient(ellipse 60% 60% at center, black 0%, transparent 70%);-webkit-mask:radial-gradient(ellipse 60% 60% at center, black 0%, transparent 70%)">
+        <canvas id="tl-eco-particles" style="position:absolute;top:0;left:0;width:100%;height:100%"></canvas>
+      </div>
+      <div style="position:absolute;top:80px;left:0;width:100%;height:500px;pointer-events:none;z-index:0">
+        <div style="position:absolute;bottom:-100px;left:10%;width:500px;height:500px;opacity:.3;background:radial-gradient(circle, #134E4A 0%, transparent 70%);filter:blur(80px)"></div>
+        <div style="position:absolute;bottom:-50px;left:50%;transform:translateX(-50%);width:700px;height:400px;opacity:.4;background:radial-gradient(ellipse at center, #0F766E 0%, #134E4A 40%, transparent 70%);filter:blur(60px)"></div>
+        <div style="position:absolute;bottom:-80px;right:10%;width:400px;height:400px;opacity:.2;background:radial-gradient(circle, #2DD4BF 0%, #0F766E 30%, transparent 70%);filter:blur(60px)"></div>
+      </div>
+      <section id="products" class="ds-container rv rv--blur" style="position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:160px;padding-bottom:240px;min-height:min(60vh,720px);box-sizing:border-box">
+        <h2 class="ds-text-heading1" style="color:var(--ds-color-text-primary)">Join the TLH plugin ecosystem</h2>
+        <p class="ds-text-body" style="color:var(--ds-color-text-description);max-width:652px;margin-top:24px">TraceLayer Harness remains in developer preview and is still being tested by developers building agent harnesses. Its core plugins and APIs will continue to evolve. We look forward to exploring the limits of intelligence with developers worldwide using open-source infrastructure that is reusable and composable.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;margin-top:32px">
+          <a class="ds-btn-primary ds-btn-m" href="#">View on GitHub
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"></path></svg>
+          </a>
+          <a class="ds-btn-secondary ds-btn-m" href="#">Developer docs
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M8 3.25C6.75 2.25 4.8 1.95 2.25 2.25V12.75C4.8 12.45 6.75 12.75 8 13.75C9.25 12.75 11.2 12.45 13.75 12.75V2.25C11.2 1.95 9.25 2.25 8 3.25Z"></path><path d="M8 3.25V13.75"></path></svg>
+          </a>
+          <a class="ds-btn-secondary ds-btn-m" href="#">Community plugins
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.5" y="2.5" width="4.6" height="4.6" rx="1.2"></rect><rect x="8.9" y="2.5" width="4.6" height="4.6" rx="1.2"></rect><rect x="2.5" y="8.9" width="4.6" height="4.6" rx="1.2"></rect><rect x="8.9" y="8.9" width="4.6" height="4.6" rx="1.2"></rect></svg>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <footer class="ds-container" style="padding-bottom:32px">
+      <div style="width:100%;height:1px;background:var(--ds-color-border-subtle)"></div>
+      <div class="tl-footer-grid" style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding-top:24px">
+        <div style="display:flex;align-items:center;gap:32px;justify-self:start">
+          <a class="tl-soc" href="mailto:hello@tracelayer.com" style="display:flex;align-items:center;gap:8px">
+            <span style="width:20px;height:20px;display:flex;align-items:center;justify-content:center" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.8" y="3" width="12.4" height="10" rx="1.6"></rect><path d="m2.5 4.2 5.5 4.6 5.5-4.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </span>
+            <span class="ds-text-caption" style="white-space:nowrap">hello@tracelayer.com</span>
+          </a>
+          <a class="tl-soc" href="#" style="display:flex;align-items:center;gap:8px">
+            <span style="width:20px;height:20px;display:flex;align-items:center;justify-content:center" aria-label="X/Twitter">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M9.5 6.8 15 .5h-1.3L8.9 6 5.1.5H.7l5.8 8.4L.7 15.5H2l5.1-5.8 4 5.8h4.4L9.5 6.8Zm-1.8 2-.6-.8L2.5 1.5h2l3.8 5.4.6.8 4.9 7h-2L7.7 8.8Z"></path></svg>
+            </span>
+            <span class="ds-text-caption" style="white-space:nowrap">X (Twitter)</span>
+          </a>
+        </div>
+        <p class="ds-text-caption" style="color:var(--ds-color-text-description);text-align:center">Open source · MIT · © 2026 TraceLayer. All rights reserved.</p>
+        <nav style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:12px;row-gap:8px;justify-self:end" aria-label="Policies and statements">
+          <a class="ds-text-caption tl-foot-link" href="/legal" style="white-space:nowrap">Legal</a>
+        </nav>
+      </div>
+    </footer>
+  </main>
+
+  <div class="ds-cursor-ring" id="tl-cursor"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NPX = 'npx @tracelayer/tlh web';
+  var GIT = 'git clone https://github.com/tracelayer/harness';
+  var state = { scrolled: false, tab: 'npx', feat: 0 };
+  var featClicked = false, fcTimer = null, copyTimer = null, sy = 0, lastSy = null, jolt = 0;
+
+  function readSy() {
+    return (document.scrollingElement || document.documentElement).scrollTop || window.scrollY || 0;
+  }
+
+  // header glass
+  var headerBar = document.getElementById('tl-header-bar');
+  function applyScrolled() {
+    headerBar.classList.toggle('is-scrolled', state.scrolled);
+  }
+
+  // terminal tabs
+  var tabNpx = document.getElementById('tl-tab-npx');
+  var tabGit = document.getElementById('tl-tab-git');
+  var cmdNpx = document.getElementById('tl-cmd-npx');
+  var cmdGit = document.getElementById('tl-cmd-git');
+  function applyTab() {
+    var act = { color: 'var(--ds-color-text-primary)', background: 'rgba(0,0,0,.2)', borderColor: 'rgba(255,255,255,.08)' };
+    var ina = { color: 'var(--ds-color-text-description)', background: 'transparent', borderColor: 'transparent' };
+    var a = state.tab === 'npx' ? tabNpx : tabGit;
+    var b = state.tab === 'npx' ? tabGit : tabNpx;
+    a.style.color = act.color; a.style.background = act.background; a.style.borderColor = act.borderColor;
+    b.style.color = ina.color; b.style.background = ina.background; b.style.borderColor = ina.borderColor;
+    cmdNpx.style.visibility = state.tab === 'npx' ? 'visible' : 'hidden';
+    cmdGit.style.visibility = state.tab === 'git' ? 'visible' : 'hidden';
+  }
+  tabNpx.addEventListener('click', function () { state.tab = 'npx'; applyTab(); });
+  tabGit.addEventListener('click', function () { state.tab = 'git'; applyTab(); });
+
+  // copy buttons
+  var copied = null;
+  var copyBtns = {
+    hero: document.getElementById('tl-copy-hero'),
+    gnpx: document.getElementById('tl-copy-gnpx'),
+    ggit: document.getElementById('tl-copy-ggit')
+  };
+  function applyCopied() {
+    Object.keys(copyBtns).forEach(function (id) {
+      copyBtns[id].querySelector('[data-label]').textContent = copied === id ? 'Copied' : 'Copy';
+    });
+  }
+  function doCopy(id, text) {
+    try { if (navigator.clipboard) navigator.clipboard.writeText(text); } catch (e) {}
+    copied = id;
+    applyCopied();
+    clearTimeout(copyTimer);
+    copyTimer = setTimeout(function () { copied = null; applyCopied(); }, 1600);
+  }
+  copyBtns.hero.addEventListener('click', function () { doCopy('hero', state.tab === 'npx' ? NPX : GIT); });
+  copyBtns.gnpx.addEventListener('click', function () { doCopy('gnpx', NPX); });
+  copyBtns.ggit.addEventListener('click', function () { doCopy('ggit', GIT); });
+
+  // scrolly-telling showcase
+  function applyFeat() {
+    for (var i = 0; i < 3; i++) {
+      var block = document.getElementById('tl-feat-' + i);
+      var panel = document.getElementById('tl-panel-' + i);
+      var on = state.feat === i;
+      block.style.opacity = on ? '1' : '0.3';
+      block.querySelector('[data-feat-icon]').style.color = on ? 'var(--ds-color-text-primary)' : 'var(--ds-color-text-description)';
+      panel.style.opacity = on ? '1' : '0';
+      panel.style.pointerEvents = on ? 'auto' : 'none';
+    }
+  }
+  function pickFeat(i) {
+    return function () {
+      featClicked = true;
+      clearTimeout(fcTimer);
+      fcTimer = setTimeout(function () { featClicked = false; }, 1200);
+      state.feat = i;
+      applyFeat();
+      var el = document.getElementById('tl-feat-' + i);
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.3, behavior: reduced ? 'auto' : 'smooth' });
+    };
+  }
+  for (var fi = 0; fi < 3; fi++) document.getElementById('tl-feat-' + fi).addEventListener('click', pickFeat(fi));
+
+  // scroll handling (capture phase — works if an inner container scrolls too)
+  function onScroll() {
+    var sc = sy > 8;
+    if (sc !== state.scrolled) { state.scrolled = sc; applyScrolled(); }
+    if (!featClicked) {
+      var mid = window.innerHeight * 0.45;
+      var best = state.feat, bestD = Infinity;
+      for (var i = 0; i < 3; i++) {
+        var el = document.getElementById('tl-feat-' + i);
+        if (!el) continue;
+        var r = el.getBoundingClientRect();
+        var d = Math.abs((r.top + r.bottom) / 2 - mid);
+        if (d < bestD) { bestD = d; best = i; }
+      }
+      if (best !== state.feat) { state.feat = best; applyFeat(); }
+    }
+  }
+  document.addEventListener('scroll', function (e) {
+    var t = e.target;
+    sy = (t && t.nodeType === 1 && typeof t.scrollTop === 'number' && t.scrollTop > 0) ? t.scrollTop : readSy();
+    onScroll();
+  }, { capture: true, passive: true });
+  sy = readSy();
+  onScroll();
+
+  // reveal on view
+  if ('IntersectionObserver' in window && !reduced) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.rv').forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // card tilt + glow
+  document.querySelectorAll('.tl-tilt').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.style.transform = 'perspective(800px) rotateX(' + ((0.5 - y) * 7).toFixed(2) + 'deg) rotateY(' + ((x - 0.5) * 7).toFixed(2) + 'deg) scale(1.015)';
+      card.style.transition = 'transform .12s ease-out';
+      var glow = card.querySelector('[data-glow]');
+      if (glow) {
+        glow.style.background = 'radial-gradient(320px circle at ' + (x * 100).toFixed(1) + '% ' + (y * 100).toFixed(1) + '%, rgba(45,212,191,.12), transparent 65%)';
+        glow.style.opacity = '1';
+      }
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      card.style.transition = 'transform .45s ease';
+      var glow = card.querySelector('[data-glow]');
+      if (glow) glow.style.opacity = '0';
+    });
+  });
+
+  // cursor ring
+  var ring = document.getElementById('tl-cursor');
+  if (ring && window.matchMedia('(hover: hover)').matches) {
+    window.addEventListener('mousemove', function (e) {
+      ring.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
+    }, { passive: true });
+    window.addEventListener('mouseover', function (e) {
+      if (e.target.closest('a,button')) ring.classList.add('is-blend'); else ring.classList.remove('is-blend');
+    }, { passive: true });
+  }
+
+  // ambient particles
+  function initParticles(id, count) {
+    var canvas = document.getElementById(id);
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var pal = ['45,212,191', '99,102,241', '255,255,255'];
+    var w, h, dpr, parts = [];
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function seed() {
+      parts = [];
+      for (var i = 0; i < count; i++) {
+        parts.push({
+          x: Math.random() * w, y: Math.random() * h,
+          r: 0.6 + Math.random() * 1.4,
+          vx: (Math.random() - 0.5) * 0.12, vy: -0.06 - Math.random() * 0.22,
+          ci: Math.random() < 0.55 ? 0 : (Math.random() < 0.5 ? 1 : 2),
+          a: 0.15 + Math.random() * 0.5, ph: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    size(); seed();
+    new ResizeObserver(function () { size(); seed(); }).observe(canvas);
+    var t = 0;
+    (function tick() {
+      t += 0.016;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.y < -4) { p.y = h + 4; p.x = Math.random() * w; }
+        if (p.x < -4) p.x = w + 4; else if (p.x > w + 4) p.x = -4;
+        var tw = p.a * (0.55 + 0.45 * Math.sin(t * 1.4 + p.ph));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + pal[p.ci] + ',' + tw.toFixed(3) + ')';
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    })();
+  }
+
+
+  // mobile menu
+  var menuBtn = document.getElementById('tl-menu-btn');
+  var menu = document.getElementById('tl-menu');
+  if (menuBtn && menu) {
+    var closeMenu = function () { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); };
+    menuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = menu.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', function (e) {
+      if (menu.classList.contains('open') && !menu.contains(e.target)) closeMenu();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+    menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+  }
+
+  // pixel logo, interactive dot grid, and fluid glow live in /assets/harness/fx.js
+  if (!reduced) {
+    initParticles('tl-hero-particles', 70);
+    initParticles('tl-eco-particles', 90);
+  }
+})();
+</script>
+<script src="/assets/harness/fx.js" defer></script>
+</body>
+</html>
