@@ -24,4 +24,4 @@ No production deployment performed.
 
 Hosted comparison inspected after show: mobile selector loaded both captures, the
 Open proposal link resolved, and its heading loaded. Hosting rewrote the base URL and broke shared asset paths;
-the preview now restores the correct repository-relative base before assets load.
+the preview now carries its shared assets beside the isolated pages, without relying on a base URL.

@@ -1,0 +1,130 @@
+/* ---------------------------------------------------------------------------
+   tracelayer — coming-soon page styles
+   --------------------------------------------------------------------------- */
+
+/* Self-hosted type: Onest — wordmark (600) + "COMING SOON" label (500). */
+@font-face {
+    font-family: 'Onest';
+    font-style: normal; font-weight: 500; font-display: swap;
+    src: url('../vendor/fonts/onest-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Onest';
+    font-style: normal; font-weight: 600; font-display: swap;
+    src: url('../vendor/fonts/onest-latin-600-normal.woff2') format('woff2');
+}
+
+:root {
+    --bg: #04070a;
+    --teal: #2ff0c8;
+    --text: #e8f6f2;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0; padding: 0; height: 100%;
+    overflow: hidden;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Onest', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Deep-space backdrop: ground-lift vignette so the orb has something to sit
+   against and reads brighter, near-black at the edges. */
+#backdrop {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+        radial-gradient(115% 78% at 50% 41%, rgba(20, 78, 72, 0.22) 0%, rgba(7, 17, 20, 0.5) 44%, #05080b 78%),
+        radial-gradient(40% 32% at 50% 41%, rgba(31, 220, 180, 0.05) 0%, rgba(0,0,0,0) 60%);
+}
+
+#stars { position: fixed; inset: 0; z-index: 0; opacity: 0.7; pointer-events: none; }
+
+/* Very faint horizontal bloom behind the orb. */
+#streak {
+    position: fixed; left: 0; right: 0; top: 41%; height: 2px;
+    transform: translateY(-50%); z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg,
+        rgba(47,240,200,0) 0%, rgba(47,240,200,0.02) 40%,
+        rgba(90,200,190,0.06) 50%, rgba(47,240,200,0.02) 60%, rgba(47,240,200,0) 100%);
+    filter: blur(3px);
+}
+
+/* WebGL orb canvas — transparent so the backdrop shows through. */
+#orb-canvas { position: fixed; inset: 0; z-index: 2; display: block; }
+
+/* Static CSS orb — only revealed when WebGL can't run. */
+#orb-fallback {
+    position: fixed; top: 41%; left: 50%;
+    width: min(48vw, 34vh); aspect-ratio: 1;
+    transform: translate(-50%, -50%); z-index: 2;
+    border-radius: 50%; display: none;
+    background: radial-gradient(circle at 40% 34%, #7ff6da 0%, #2fd3b3 32%, #148f9a 60%, #123a6e 100%);
+    box-shadow: 0 0 90px 10px rgba(47, 240, 200, 0.4), inset 0 0 60px rgba(10, 30, 60, 0.6);
+    animation: floaty 6s ease-in-out infinite;
+}
+body.no-webgl #orb-fallback { display: block; }
+@keyframes floaty {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50%      { transform: translate(-50%, -52%) scale(1.02); }
+}
+
+/* --- Overlay: logo + wordmark + coming soon --- */
+.overlay {
+    position: fixed; inset: 0; z-index: 3;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding-bottom: clamp(60px, 18vh, 160px);
+    pointer-events: none; text-align: center;
+}
+.brand {
+    display: flex; align-items: center; gap: 19px; opacity: 0;
+    animation: rise 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+.brand-icon {
+    width: clamp(40px, 5.4vw, 56px); height: clamp(40px, 5.4vw, 56px);
+    filter: drop-shadow(0 0 10px rgba(47, 240, 200, 0.4));
+}
+.brand-name {
+    font-family: 'Onest', system-ui, sans-serif;
+    font-size: clamp(32px, 5.9vw, 56px); font-weight: 600; letter-spacing: -0.02em;
+    color: #dce8e3; text-shadow: 0 0 16px rgba(47, 240, 200, 0.12);
+}
+.tagline {
+    margin-top: 22px; font-family: 'Onest', system-ui, sans-serif;
+    font-size: clamp(11px, 1.5vw, 13px); font-weight: 500;
+    letter-spacing: 0.22em; text-indent: 0.22em; color: #a7c3bd;
+    display: flex; align-items: center; gap: 13px; opacity: 0;
+    animation: rise 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+}
+.tagline .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 10px var(--teal);
+    animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+/* Loading state */
+#loader {
+    position: fixed; inset: 0; z-index: 4;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); transition: opacity 0.8s ease;
+}
+#loader.hidden { opacity: 0; pointer-events: none; }
+#loader .ring {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 2px solid rgba(47, 240, 200, 0.15); border-top-color: var(--teal);
+    animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 600px) {
+    .brand { gap: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brand, .tagline { animation-duration: 0.01ms; opacity: 1; }
+    .tagline .dot, #orb-fallback { animation: none; }
+}

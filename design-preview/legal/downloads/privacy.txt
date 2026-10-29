@@ -1,0 +1,140 @@
+# Privacy policy
+
+2026
+
+TraceLayer processes the information needed to coordinate agent work and preserve a record of what happened. This policy explains how we handle personal information when you use the service.
+
+## 01 / Who is responsible
+
+**Sway Labs Ltd**, trading as TraceLayer and referred to here as we or us, provides the service. For privacy enquiries, contact [hello@tracelayer.com](mailto:hello@tracelayer.com).
+
+Our correspondence address is Sway Labs, 4th Floor, Silverstream House, 45 Fitzroy Street, Fitzrovia, London, W1T 6EB, United Kingdom.
+
+We act as controller when we determine the purposes and means of processing, such as managing service accounts, responding to support requests and protecting our service. Where an organisation directs us to process personal data in its workspace on its behalf, we act as processor to the extent defined by the actual service arrangement and an applicable data processing agreement. Contact that organisation about its use of your data; we will assist it as required by our agreement and law.
+
+TraceLayer provides software for coordinating AI engines and connected tools. You or your organisation determine the purposes of the work you request and must have the authority and lawful basis needed to submit personal data and direct its use. Using your own AI subscription does not remove TraceLayer’s obligations for personal data we process. Roles depend on the actual processing activities. The risk allocations and liability limits in the Terms do not waive individuals’ mandatory privacy rights or restrict a regulator’s powers.
+
+This notice covers the hosted workspace, related TraceLayer applications, website interactions and support described below. A self-hosted installation is controlled by its operator. TraceLayer receives data from it only to the extent a connected hosted feature, reporting function or support interaction sends data to us. Independently operated model providers, websites and tools have their own notices.
+
+## 02 / Information we process
+
+The information depends on what you use and authorise. We receive it from you, your workspace’s authorised users, connected accounts, devices and services, public sources used for a task, and records generated as the service operates.
+
+| Category | Examples and source | Why it is used |
+| --- | --- | --- |
+| Account and contact information | Sign-in details, account identifiers, contact information, membership and support correspondence you provide | Account access, service communications and support |
+| Task and workspace content | Instructions, conversations, files, repository contents, attachments, guidance and generated outputs | Carrying out your work and presenting results |
+| Run and action records | Tool inputs and results, execution logs, approvals, failures, recovery records, timestamps, checkpoints and saved outputs | Continuing work, explaining actions and investigating problems |
+| Connected-service and browser data | Granted account identifiers and credentials, permitted page content, screenshots, downloads and tool responses | Accessing and using the connections you authorise |
+| Device and technical records | Device or browser information, IP addresses, session records, request events and security logs, where generated | Authentication, abuse prevention and operating the service |
+| Website measurement | Page categories, pseudonymous browser/session identifiers, bounded campaign tags, referring host and selected engagement events | Understanding website use, subject to applicable choices and law |
+| Billing information, if a paid plan is offered | Order, invoice and payment-status information supplied by you or a payment provider | Administering purchases and meeting accounting obligations |
+
+Connected content can contain information about other people, including sensitive information you did not intend to expose. You control what you submit and the access you grant. Limit connections and task context to what the work needs. Do not place passwords or secret keys in ordinary prompts when a supported credential connection is available.
+
+## 03 / Why we use information
+
+We use personal data for the purposes below. Where the GDPR or equivalent rules apply, the lawful basis depends on the service, the affected person and the processing, as set out below. A contract with an organisation does not automatically provide a contractual basis for every employee’s or third party’s data.
+
+| Purpose | Basis when we act as controller |
+| --- | --- |
+| Set up and provide an individual’s account and requested service | Performance of a contract with that individual, or steps they request before entering one |
+| Administer business accounts, provide support and maintain service records | Legitimate interests in providing and administering the service, with a balancing assessment |
+| Protect accounts, investigate misuse and maintain reliability | Legitimate interests in security and reliable operation; legal obligation where specifically applicable |
+| Meet tax, accounting or other legal requirements | Compliance with the identified legal obligation |
+| Send optional marketing or use non-essential measurement where consent is required | Consent, which can be withdrawn; any permitted alternative requires a documented assessment |
+| Establish, exercise or defend legal claims | Legitimate interests, with any additional conditions required for sensitive data |
+
+Customer-directed workspace processing follows the customer’s documented instructions and applicable data processing terms. We do not rely on your acceptance of the Terms as consent for every use of personal data. If optional information is withheld, the related feature may not work. Information necessary for account access and task execution is required to provide those functions.
+
+## 04 / Models and tools receive context
+
+When a task uses a model or connected tool, relevant context is sent to that provider. It can include instructions, conversation history, files, source code, browser content and tool results. Provider responses can return to TraceLayer and become part of the stored task record. A locally running browser or Companion does not mean its task content stays on the device.
+
+Provider handling depends on the provider, account, product, region and settings. A personal subscription, commercial API and enterprise account may have different training and retention terms. Using your own credentials does not by itself prevent provider processing, retention or human review. Review the terms of the services you connect.
+
+Before authorising a connection, check that your provider plan permits the integration and the intended processing, and that you have permission to share the task content. A provider you independently contract with may act as a separate controller for its own purposes. A provider we engage to process personal data on our behalf is subject to our applicable service-provider obligations. Connecting an account does not, by itself, determine either party’s legal role or transfer all privacy responsibility to you.
+
+We will not use Customer Content, as defined in the [Terms](../index.html#your-content-and-outputs), to train shared or general-purpose models without a separate, informed opt-in. Improving operational reliability does not create a general permission to train on private work.
+
+## 05 / The trace is a stored record
+
+TraceLayer preserves task conversations, run records, tool activity, approvals and saved results so that work can be resumed and reviewed. These records can include personal data, source code, file contents and information returned by connected services. A record may preserve information that has since changed in its source system.
+
+Redacting information from a displayed trace is not the same as deleting the underlying record. Deleting a conversation, Task or Space may leave repository history, immutable output snapshots, run evidence and backup copies. This distinction also applies when an agent’s temporary working environment is removed.
+
+These records remain subject to the retention criteria and deletion process described below. Their technical design does not override privacy rights.
+
+## 06 / Who can receive information
+
+Information may be received by authorised people with workspace access; personnel and contracted providers who need access to operate, secure or support the service; the model and tool providers used for a task; and recipients you instruct an agent to contact or publish to. Access should be limited to the relevant purpose and permissions. Hosted previews and shared output links have their own access rules. An unlisted link is not private merely because it is hard to guess. Check the access settings before sharing sensitive information.
+
+Our service-provider categories include hosting and storage, backup, authentication, transactional email, operational monitoring and website measurement. Contact [hello@tracelayer.com](mailto:hello@tracelayer.com) for information about service providers and their processing arrangements.
+
+We may disclose information where legally required, to protect people or the service against unlawful activity, or in connection with a business transaction subject to appropriate confidentiality and lawful safeguards. We will not treat such a transaction as permission for unrelated uses inconsistent with this policy.
+
+We do not sell personal data or disclose Customer Content for third-party advertising. We do not promise that only you can ever access service data.
+
+## 07 / Hosting and international transfers
+
+Hosted work is processed in the locations used by our infrastructure and the providers involved in your task. Choosing a European hosting location does not by itself keep all model, tool, support or backup processing in Europe.
+
+Where a transfer requires safeguards, we must use a valid mechanism, such as an applicable adequacy decision or approved contractual clauses with any required supplementary measures. Contact [hello@tracelayer.com](mailto:hello@tracelayer.com) for information about processing locations and applicable transfer safeguards, including how to obtain a copy.
+
+## 08 / Retention and deletion
+
+We retain information only for as long as needed for its stated purpose and any applicable legal requirements. The criteria below guide how long each category is kept. We consider the purpose of the record, the duration of the service relationship, outstanding requests or disputes, and legal obligations.
+
+| Record | Retention criteria |
+| --- | --- |
+| Account and support records | For the account relationship and resolution of support requests, with further retention only where needed for legal obligations or disputes |
+| Workspace content, traces and saved outputs | For workspace history and continuity of your work, subject to deletion requests and any lawful need to preserve evidence |
+| Connection credentials and sessions | While needed for a valid connection or session, subject to revocation or expiry |
+| Security and operational logs | A bounded period justified by incident response and reliability needs |
+| Website measurement | A bounded period appropriate to the measurement purpose and applicable choices |
+| Invoices and legal records | The period required by the applicable law or a documented legal hold |
+| Backups and snapshots | Until backup rotation, with restrictions on use and deletion requests reapplied after a restore |
+
+Stopping a task, revoking an account connection and erasing previously stored information are separate operations. Revoking a connection stops future authorised access as revocation takes effect; it does not automatically remove information already included in a trace or delete copies held by an independent provider.
+
+You may request deletion at [hello@tracelayer.com](mailto:hello@tracelayer.com). We will verify authority, assess the request under applicable law, explain any lawful exception and act within the applicable deadline. Where immediate backup deletion is not feasible, retained copies must be isolated from ordinary use and removed through backup rotation.
+
+## 09 / Cookies and website measurement
+
+Authentication cookies and similar storage support sign-in and session security. Local preferences may remember choices such as appearance. Non-essential analytics must be distinguished from these functions and handled under the applicable consent or exemption rules.
+
+Website measurement uses PostHog hosted in the EU and covers page categories, pseudonymous session identifiers, page exits, foreground engagement and selected link clicks, along with bounded campaign tags and the referring host. It excludes form contents, full query strings, fragments and raw link targets. Autocapture and session replay are disabled in the website configuration. The configuration also supports Do Not Track, Global Privacy Control and opt-out flags.
+
+Where consent is required, non-essential storage and collection must wait for it, and you must be able to withdraw consent. You can also use your browser’s storage controls and supported privacy signals. Contact [hello@tracelayer.com](mailto:hello@tracelayer.com) for help with your privacy choices.
+
+## 10 / Security
+
+We use measures appropriate to the nature and risks of the processing, including applicable access controls, permission boundaries and operational safeguards. No claim of end-to-end encryption, a specific certification or immunity from data loss is made here.
+
+AI agents and connected tools introduce risks including mistaken instructions, malicious content and unexpected disclosure through an authorised action. Use proportionate access and review consequential work. We will assess personal-data incidents and notify affected customers, individuals or authorities where required by law or contract.
+
+## 11 / Your rights and choices
+
+Depending on your location and the applicable law, you may have rights to access and obtain a copy of personal data, correct inaccuracies, request erasure, restrict processing, receive portable data, object to processing based on legitimate interests, and withdraw consent without affecting prior lawful processing. You can object to direct marketing at any time.
+
+Send requests to [hello@tracelayer.com](mailto:hello@tracelayer.com). We may ask for proportionate information to verify identity or authority. We will respond within the applicable legal period, explain any permitted extension or refusal, and tell you about available review or complaint routes. Under the GDPR the usual response period is one month, subject to its conditions and permitted extensions.
+
+You may complain to a competent data protection authority, including the authority where you live or work when applicable. We will not penalise you for exercising protected rights. If your organisation controls the workspace data, direct your request to it; we will assist it where required.
+
+Disconnecting a service, stopping recurring work and withdrawing optional consent affect different processing. A withdrawal does not automatically undo an external action or require erasure of records that we must lawfully retain.
+
+## 12 / Automated processing
+
+Agents use automated processing to generate outputs and carry out authorised work. This can affect files, messages, websites and connected systems. It should not be treated as a substitute for qualified human judgment about people’s legal rights or similarly significant interests.
+
+Where applicable law gives you rights concerning solely automated decisions with legal or similarly significant effects, you may request information about the decision, contest it and seek human review. Contact [hello@tracelayer.com](mailto:hello@tracelayer.com) to exercise those rights.
+
+## 13 / Children
+
+The service is intended for people aged 18 and over. It is not directed at children. If you believe a child has provided personal data contrary to this policy, contact us so that we can investigate and take appropriate action. Information about children may also appear in connected content; that does not remove the customer’s or TraceLayer’s obligations for that information.
+
+## 14 / Updates and contact
+
+We will identify when this policy is updated and explain material changes through the service or an appropriate account contact. A policy update will not silently authorise a new, incompatible use of previously collected information. We will provide any additional notice and obtain consent where the law requires it.
+
+For privacy enquiries and requests, contact Sway Labs Ltd, trading as TraceLayer, at [hello@tracelayer.com](mailto:hello@tracelayer.com), or write to our correspondence address: Sway Labs, 4th Floor, Silverstream House, 45 Fitzroy Street, Fitzrovia, London, W1T 6EB, United Kingdom.
