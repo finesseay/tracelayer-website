@@ -23,4 +23,5 @@ docs/analytics/verify.cjs and infra/waitlist.test.mjs. Test service submissions 
 No production deployment performed.
 
 Hosted comparison inspected after show: mobile selector loaded both captures, the
-Open proposal link resolved, and its heading and images loaded successfully.
+Open proposal link resolved, and its heading loaded. Hosting rewrote the base URL and broke shared asset paths;
+the preview now restores the correct repository-relative base before assets load.
