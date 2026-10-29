@@ -1,0 +1,174 @@
+TAP version 13
+# Subtest: website analytics browser contract
+    # Subtest: real SDK sends sanitized capable pageviews and keeps anonymous/session identity
+    ok 1 - real SDK sends sanitized capable pageviews and keeps anonymous/session identity
+      ---
+      duration_ms: 6706.984107
+      type: 'test'
+      ...
+    # Subtest: only real signup/download destinations count, including keyboard and middle clicks
+    ok 2 - only real signup/download destinations count, including keyboard and middle clicks
+      ---
+      duration_ms: 5287.054911
+      type: 'test'
+      ...
+    # Subtest: canceled clicks do not count and arbitrary property enrichment is stripped
+    ok 3 - canceled clicks do not count and arbitrary property enrichment is stripped
+      ---
+      duration_ms: 2055.235155
+      type: 'test'
+      ...
+    # Subtest: referrer is host only and sensitive campaign tags are rejected
+    ok 4 - referrer is host only and sensitive campaign tags are rejected
+      ---
+      duration_ms: 1384.014414
+      type: 'test'
+      ...
+    # Subtest: preview, mockup, unknown/private paths, internal and test visits load no SDK
+    ok 5 - preview, mockup, unknown/private paths, internal and test visits load no SDK
+      ---
+      duration_ms: 9708.035769
+      type: 'test'
+      ...
+    # Subtest: dnt prevents collection and downloads still redirect
+    ok 6 - dnt prevents collection and downloads still redirect
+      ---
+      duration_ms: 1305.960194
+      type: 'test'
+      ...
+    # Subtest: gpc prevents collection and downloads still redirect
+    ok 7 - gpc prevents collection and downloads still redirect
+      ---
+      duration_ms: 1306.97784
+      type: 'test'
+      ...
+    # Subtest: local-optout prevents collection and downloads still redirect
+    ok 8 - local-optout prevents collection and downloads still redirect
+      ---
+      duration_ms: 1348.843672
+      type: 'test'
+      ...
+    # Subtest: sdk-optout prevents collection and downloads still redirect
+    ok 9 - sdk-optout prevents collection and downloads still redirect
+      ---
+      duration_ms: 1371.152259
+      type: 'test'
+      ...
+    # Subtest: revoking privacy choice stops later clicks and pageleave
+    ok 10 - revoking privacy choice stops later clicks and pageleave
+      ---
+      duration_ms: 1679.840235
+      type: 'test'
+      ...
+    # Subtest: engagement measures visible time, scroll and deduplicated leave/resume
+    ok 11 - engagement measures visible time, scroll and deduplicated leave/resume
+      ---
+      duration_ms: 2150.924536
+      type: 'test'
+      ...
+    # Subtest: automatic download redirect is not a click; SDK {}
+    ok 12 - automatic download redirect is not a click; SDK {}
+      ---
+      duration_ms: 208.74466
+      type: 'test'
+      ...
+    # Subtest: automatic download redirect is not a click; SDK {"blockSdk":true}
+    ok 13 - automatic download redirect is not a click; SDK {"blockSdk":true}
+      ---
+      duration_ms: 130.22371
+      type: 'test'
+      ...
+    # Subtest: automatic download redirect is not a click; SDK {"slowSdk":true}
+    ok 14 - automatic download redirect is not a click; SDK {"slowSdk":true}
+      ---
+      duration_ms: 1629.526816
+      type: 'test'
+      ...
+    # Subtest: unavailable browser storage does not break page use
+    ok 15 - unavailable browser storage does not break page use
+      ---
+      duration_ms: 1902.700935
+      type: 'test'
+      ...
+    1..15
+ok 1 - website analytics browser contract
+  ---
+  duration_ms: 38460.159708
+  type: 'test'
+  ...
+# Subtest: selected source assets and preserved archives
+ok 2 - selected source assets and preserved archives
+  ---
+  duration_ms: 65.897409
+  type: 'test'
+  ...
+# Subtest: homepage, archives, navigation, newsletter and native video in Chromium
+    # Subtest: layout and interactions at 1440px
+    ok 1 - layout and interactions at 1440px
+      ---
+      duration_ms: 3111.926176
+      type: 'test'
+      ...
+    # Subtest: layout and interactions at 768px
+    ok 2 - layout and interactions at 768px
+      ---
+      duration_ms: 2090.249946
+      type: 'test'
+      ...
+    # Subtest: layout and interactions at 390px
+    ok 3 - layout and interactions at 390px
+      ---
+      duration_ms: 2427.950061
+      type: 'test'
+      ...
+    # Subtest: mobile navigation, focus and footer at 320px
+    ok 4 - mobile navigation, focus and footer at 320px
+      ---
+      duration_ms: 1565.46828
+      type: 'test'
+      ...
+    # Subtest: mobile navigation, focus and footer at 390px
+    ok 5 - mobile navigation, focus and footer at 390px
+      ---
+      duration_ms: 1213.684341
+      type: 'test'
+      ...
+    # Subtest: mobile navigation, focus and footer at 600px
+    ok 6 - mobile navigation, focus and footer at 600px
+      ---
+      duration_ms: 1176.132408
+      type: 'test'
+      ...
+    # Subtest: mobile navigation, focus and footer at 760px
+    ok 7 - mobile navigation, focus and footer at 760px
+      ---
+      duration_ms: 1257.247949
+      type: 'test'
+      ...
+    # Subtest: mobile navigation links stay available without JavaScript
+    ok 8 - mobile navigation links stay available without JavaScript
+      ---
+      duration_ms: 452.973128
+      type: 'test'
+      ...
+    1..8
+ok 3 - homepage, archives, navigation, newsletter and native video in Chromium
+  ---
+  duration_ms: 13533.097197
+  type: 'test'
+  ...
+# Subtest: waitlist permits the saved preview only on public POST /waitlist
+ok 4 - waitlist permits the saved preview only on public POST /waitlist
+  ---
+  duration_ms: 354.949438
+  type: 'test'
+  ...
+1..4
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 38767.698399
