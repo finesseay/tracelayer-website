@@ -2,7 +2,7 @@
 
 Applied the registry's product-specific-design v3 after reading it in full.
 Scope: isolated copies in design-preview; the root homepage and shared assets are unchanged.
-Baseline: repository homepage at 25273984b04508911b2555f81475622e2cf54c3b (source available in before.html).
+Baseline: repository homepage at 5c12e343c972e2340f486e99f7008dc0f91f0fd4 (source available in before.html).
 
 Kept the existing font, mint emphasis, dark gradient, tool orbit, agent demonstration,
 feature illustrations, video, landscape footer and desktop composition. Shortened the
@@ -21,3 +21,6 @@ The original analytics loader is omitted in both isolated copies.
 Repository checks: 27 passed, 0 failed across docs/website/verify.cjs,
 docs/analytics/verify.cjs and infra/waitlist.test.mjs. Test service submissions are intercepted.
 No production deployment performed.
+
+Hosted comparison inspected after show: mobile selector loaded both captures, the
+Open proposal link resolved, and its heading and images loaded successfully.
