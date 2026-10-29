@@ -75,6 +75,11 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)missing.push(r.url());});
       await page.goto(base+'/');await page.evaluate(()=>document.fonts.ready);
       assert.match((await page.locator('h1').innerText()).replace(/\s+/g,' '),/Imagine if you could effortlessly integrate AI agents into your team/);
+      const logos = page.locator('#orbit-hero .tool');
+      assert.equal(await logos.count(),8);
+      assert.equal(await page.locator('#orbit-hero button.tool, #orbit-hero .orbit-controls').count(),0);
+      assert.equal(await page.locator('#team-benefits .detail, #team-benefits .caption').count(),0);
+      assert(await logos.evaluateAll(nodes=>nodes.every(node=>getComputedStyle(node).touchAction==='auto' && !node.hasAttribute('tabindex'))));
       assert.equal(await page.locator('#tl2Dock').isVisible(),false);
       if(viewport.width>760) {
         await page.locator('#tl-header-bar > a[aria-label="TraceLayer home"]').focus();

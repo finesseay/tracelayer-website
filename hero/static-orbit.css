@@ -1,0 +1,4 @@
+/* The homepage logos are static decoration and allow native touch scrolling. */
+.orbit-study .tool { cursor: default; touch-action: auto; pointer-events: none; }
+.orbit-study .tool:hover .tool-icon { transform: none; box-shadow: 0 4px 0 #8fabc52e, 0 14px 30px #0003, inset 0 0 0 1px #fff6; }
+.orbit-spark ellipse { animation: none; }
