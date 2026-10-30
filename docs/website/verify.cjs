@@ -74,7 +74,7 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       page.on('pageerror',e=>errors.push(e.message));
       page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)missing.push(r.url());});
       await page.goto(base+'/');await page.evaluate(()=>document.fonts.ready);
-      assert.match((await page.locator('h1').innerText()).replace(/\s+/g,' '),/Imagine if you could effortlessly integrate AI agents into your team/);
+      assert.match((await page.locator('h1').innerText()).replace(/\s+/g,' '),/The easiest way to integrate AI agents into your team/);
       const logos = page.locator('#orbit-hero .tool');
       assert.equal(await logos.count(),8);
       assert.equal(await page.locator('#orbit-hero button.tool, #orbit-hero .orbit-controls').count(),0);
