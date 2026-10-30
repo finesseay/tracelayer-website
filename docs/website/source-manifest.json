@@ -97,7 +97,7 @@
     {
       "path": "features/animation.js",
       "bytes": 3759,
-      "sha256": "6b90b3f48711ccd624437a20ef357201dad85940e37454f908ff8d3b43e04cbf"
+      "sha256": "e9bddb6a871337af2f87ee6ee3a426f2ac894a096439555f6db78f2a420d6929"
     },
     {
       "path": "features/assets/logo.svg",
@@ -197,7 +197,7 @@
     {
       "path": "platform/motion.js",
       "bytes": 881,
-      "sha256": "ce930b5006a0dc7fc66fbfbae7107e6a870334394881d75d50ce170267b14fb1"
+      "sha256": "049515dbb050efe4512bc9ea9ea8c58691c82e625ef549b1eefd6aed45ffb7bf"
     },
     {
       "path": "platform/style.css",

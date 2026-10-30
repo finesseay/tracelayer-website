@@ -40,7 +40,6 @@ const knowledgeResize=new ResizeObserver(drawKnowledge);
 document.fonts.ready.then(drawKnowledge);
 
 
-const button = root.querySelector('#motion');
 const surface = root.querySelector('.features-content');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let paused = reduced.matches;
@@ -56,11 +55,8 @@ const events = [
 function stopped() { return paused || !visible || document.hidden; }
 function update() {
   surface.classList.toggle('paused', stopped());
-  button.setAttribute('aria-pressed', String(paused));
-  button.textContent = paused ? 'Play animation' : 'Pause animation';
   root.querySelectorAll('svg.lines').forEach(svg => stopped() ? svg.pauseAnimations() : svg.unpauseAnimations());
 }
-button.addEventListener('click', () => { paused = !paused; update(); });
 reduced.addEventListener('change', () => { paused = reduced.matches; update(); });
 document.addEventListener('visibilitychange', update);
 new IntersectionObserver(entries => {
