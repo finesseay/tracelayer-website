@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-11-07T17:38:26.151Z",
+  "network": "all requests intercepted; synthetic download only",
+  "installationProven": false,
+  "checks": [
+    {
+      "scenario": "javascript-disabled",
+      "destination": "https://app.tracelayer.com/download/tracelayer.apk",
+      "downloadCompleted": true,
+      "elapsedMs": 2079
+    },
+    {
+      "scenario": "analytics-script-blocked",
+      "destination": "https://app.tracelayer.com/download/tracelayer.apk",
+      "downloadCompleted": true,
+      "elapsedMs": 2101
+    },
+    {
+      "scenario": "fallback-link",
+      "destination": "https://app.tracelayer.com/download/tracelayer.apk",
+      "downloadCompleted": true,
+      "elapsedMs": 148
+    }
+  ]
+}

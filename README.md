@@ -71,6 +71,12 @@ Downloads remain independent of analytics. The Android page retains its bounded
 SDK wait and no-JavaScript redirect. An automatic redirect is not a download click
 or proof of installation. A waitlist button is not an account signup.
 
+All Android download paths use the unversioned application URL
+`https://app.tracelayer.com/download/tracelayer.apk`. The application release owns
+the published APK and serves it with `Cache-Control: no-store`. Do not add a fixed
+version query or infer a package version from this website. Publishing this page
+does not build, sign or install an Android release.
+
 The homepage links directly to account signup. Its newsletter popup is a waitlist
 subscription, which is not reported as an account signup click. Archive paths are
 excluded from collection; `/v2/` redirects without loading analytics.

@@ -1,0 +1,41 @@
+{
+  "publicationPerformed": false,
+  "installationProven": false,
+  "observations": [
+    {
+      "checkedAt": "2026-11-07T17:38:43.992948+00:00",
+      "url": "https://tracelayer.com/download/android/",
+      "status": 200,
+      "cacheControl": "max-age=600",
+      "bytes": 1172,
+      "sha256": "e084c2a9f98827b90e96af147d79250b4e66358d153291d362d90d559da5407d",
+      "html": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<meta name=\"robots\" content=\"noindex\">\n<title>TraceLayer for Android</title>\n<!-- The APK lives on the app's own origin and is republished by every deploy\n     (ADR-0042's same-origin rule) \u2014 this page is only the stable address.\n     GitHub Pages cannot 302, so it redirects the polite way. -->\n<meta http-equiv=\"refresh\" content=\"2;url=https://app.tracelayer.com/download/tracelayer.apk?v=0.2.3\">\n<style>\n  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#07090d;color:#c2cdce;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif}\n  main{text-align:center;padding:24px}\n  a{color:#2dd4bf}\n  p{font-size:14px;line-height:1.6}\n</style>\n<script src=\"/assets/analytics.js\" defer data-download-url=\"https://app.tracelayer.com/download/tracelayer.apk?v=0.2.3\"></script>\n</head>\n<body>\n<main>\n  <p>Downloading TraceLayer for Android\u2026</p>\n  <p>If nothing happens, <a href=\"https://app.tracelayer.com/download/tracelayer.apk?v=0.2.3\">download the APK directly</a>.</p>\n</main>\n\n</body>\n</html>\n"
+    },
+    {
+      "checkedAt": "2026-11-07T17:38:44.064508+00:00",
+      "url": "https://app.tracelayer.com/download/tracelayer.apk",
+      "status": 200,
+      "cacheControl": "no-store",
+      "bytes": 626608,
+      "sha256": "453b5f5ccd53f8fbd992e973ee247eef5ec74b9c9cdeae4e23df042a867d63c1"
+    },
+    {
+      "checkedAt": "2026-11-07T17:38:44.116502+00:00",
+      "url": "https://app.tracelayer.com/download/installer.json",
+      "status": 200,
+      "cacheControl": "no-store",
+      "bytes": 385,
+      "sha256": "3cc055e02f0ce02a0a9f6928f8c79e3f919fb53aec79aae6cb791f92338d7ecb",
+      "manifest": {
+        "file": "TraceLayer-Companion-d8255cdeb72d7dee.exe",
+        "release": "df3b8b3b0d1dde4c9413ea4fa53b08f73b2e1ef0",
+        "builtAt": "2026-11-04T21:17:11.910Z",
+        "version": "0.1.0-build.20261104211711",
+        "bytes": 385076584,
+        "sha256": "d8255cdeb72d7dee72533497cf091838c90ac02d8fdd12d241d342cd5742a2da",
+        "signing": "development",
+        "signer": "704CA0F6719AC03761A6B01969A6FAC5853B06CE"
+      }
+    }
+  ]
+}

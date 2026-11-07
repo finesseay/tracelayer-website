@@ -190,7 +190,7 @@ test('website analytics browser contract', async t => {
         assert.equal(f.events.length,0);
         if (signal !== 'sdk-optout') assert(!f.requests.includes(sdkUrl));
         await f.page.goto('https://tracelayer.com/download/android/');
-        await f.page.waitForURL('https://app.tracelayer.com/download/tracelayer.apk?*');
+        await f.page.waitForURL('https://app.tracelayer.com/download/tracelayer.apk');
         assert.equal(f.events.length,0);
       } finally { await f.context.close(); }
     });
@@ -241,7 +241,7 @@ test('website analytics browser contract', async t => {
       const f = await fixture(undefined,options);
       try {
         await f.page.goto('https://tracelayer.com/download/android/');
-        await f.page.waitForURL('https://app.tracelayer.com/download/tracelayer.apk?*');
+        await f.page.waitForURL('https://app.tracelayer.com/download/tracelayer.apk');
         assert.equal(f.events.filter(e => e.event === 'website_download').length,0);
         if (!options.blockSdk && !options.slowSdk) assert.equal(f.events.filter(e => e.event === '$pageview').length,1);
       } finally { await f.context.close(); }
