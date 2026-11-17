@@ -74,12 +74,16 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       page.on('pageerror',e=>errors.push(e.message));
       page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)missing.push(r.url());});
       await page.goto(base+'/');await page.evaluate(()=>document.fonts.ready);
-      assert.match((await page.locator('h1').innerText()).replace(/\s+/g,' '),/The easiest way to integrate AI agents into your team/);
-      const logos = page.locator('#orbit-hero .tool');
-      assert.equal(await logos.count(),8);
-      assert.equal(await page.locator('#orbit-hero button.tool, #orbit-hero .orbit-controls').count(),0);
+      // First screen: one picture, one headline, the positioning line and one button.
+      assert.match((await page.locator('h1').innerText()).replace(/\s+/g,' '),/Your AI team\. One workspace\./);
+      assert.equal(await page.locator('#hero .hero-copy p').innerText(),'The easiest way to integrate AI agents into your team.');
+      const heroSignup=page.locator('#hero a[href="https://tracelayer.com/signup"]');
+      assert.equal(await heroSignup.count(),1);
+      const heroButton=await heroSignup.boundingBox();
+      assert(heroButton.y+heroButton.height<=viewport.height,'the hero button is below the first screen');
+      assert.equal(await page.locator('#hero .facts li').count(),4);
+      assert.equal(await page.locator('#hero button, #orbit-hero').count(),0);
       assert.equal(await page.locator('#team-benefits .detail, #team-benefits .caption').count(),0);
-      assert(await logos.evaluateAll(nodes=>nodes.every(node=>getComputedStyle(node).touchAction==='auto' && !node.hasAttribute('tabindex'))));
       assert.equal(await page.locator('#tl2Dock').isVisible(),false);
       if(viewport.width>760) {
         await page.locator('#tl-header-bar > a[aria-label="TraceLayer home"]').focus();
@@ -94,6 +98,11 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
         const popupPromise=context.waitForEvent('page');await link.click();const popup=await popupPromise;
         await popup.waitForURL(`https://tracelayer.com/${target}`);await popup.close();
       }
+      // The platform list shows one description and one picture at a time.
+      assert.equal(await page.locator('.platform-view:visible').count(),1);
+      await page.getByRole('button',{name:'Choose your models',exact:true}).click();
+      assert.deepEqual(await page.locator('.platform-view:visible, .platform-desc:visible').evaluateAll(els=>els.map(el=>el.id)),['view-models','desc-models']);
+      assert.equal(await page.getByRole('button',{name:'One workspace',exact:true}).getAttribute('aria-expanded'),'false');
       await page.locator('#demo').scrollIntoViewIfNeeded();
       const video=page.locator('video');assert.equal(await video.count(),1);
       await video.evaluate(v=>{v.muted=true;v.load();});

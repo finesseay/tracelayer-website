@@ -4,14 +4,19 @@ Static source for **https://tracelayer.com**. No build step is required.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Accepted Final Website Version, snapshot `fe13630279ebd592ab847e81cbf2eacafe239030440e231cae2a618e4bb82281`. |
-| `hero/`, `features/`, `platform/`, `waitlist/`, `footer-options/` | Website animations, styles, fonts and newsletter popup. |
+| `index.html` | Homepage in the editorial style modelled on modelml.com (2026-11-17). Awaiting operator review; not deployed. |
+| `home/` | The homepage's stylesheet, script, fonts (Newsreader and Inter, both OFL) and WebP hero image. |
+| `hero/`, `features/`, `platform/`, `waitlist/`, `footer-options/` | The previous homepage (snapshot `fe13630279ebd592ab847e81cbf2eacafe239030440e231cae2a618e4bb82281`). The homepage no longer loads their styles or scripts, only the avatar images in `hero/assets/`. Kept so `git checkout <commit> -- index.html` restores that design. |
 | `assets/` | Current images/video plus preserved legacy assets and privacy-aware analytics. |
 | `archive1/` | Previous production homepage, preserved from commit `8793369`. |
 | `archive2/` | Previous `/v2/` page, preserved from the same production commit. |
 | `v2/` | Redirect to `/archive2/`, preserving query and fragment in JavaScript. |
 | `legal/` | Existing approved terms/privacy pages and downloads. |
 | `download/android/` | Existing Android download redirect. |
+
+The homepage keeps the native video player, the newsletter popup (ported unchanged in
+behaviour to `home/site.js`), the mobile menu (`assets/mobile-navigation.js`) and the
+analytics include. `docs/reality/2026-11-17-modelml-style-homepage.md` records the change.
 
 The homepage uses the selected native video player. Its explainer was updated to
 operator-selected snapshot `b4404469ddadc613ec9d1611de597e4be71a636fc9f603a53d1f8c003470d61f`,
