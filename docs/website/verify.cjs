@@ -83,7 +83,7 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       assert.equal(await page.locator('#tl2Dock').isVisible(),false);
       if(viewport.width>760) {
         await page.locator('#tl-header-bar > a[aria-label="TraceLayer home"]').focus();
-        for(const label of ['How It Works','Platform','Log In','Sign Up']) {
+        for(const label of ['How It Works','Platform','Pricing','Log In','Sign Up']) {
           await page.keyboard.press('Tab');
           assert.equal(await page.evaluate(()=>document.activeElement.textContent.trim()),label);
         }
@@ -93,6 +93,39 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
         const link=page.locator(`#tl-header-bar a[href="https://tracelayer.com/${target}"]`).first();
         const popupPromise=context.waitForEvent('page');await link.click();const popup=await popupPromise;
         await popup.waitForURL(`https://tracelayer.com/${target}`);await popup.close();
+      }
+      // Pricing: plain sign-up links, Monthly/Yearly, and Compare plans and Questions opened in place.
+      const pricing=page.locator('#pricing');
+      assert.equal(await page.locator('#tl-header-links a[href="#pricing"]').innerText(),'Pricing');
+      assert.deepEqual(await page.locator('main ~ .waitlist-area > section').evaluateAll(els=>els.map(el=>el.id)),['demo','pricing']);
+      assert.deepEqual(await pricing.locator('.tl-plan h3').allInnerTexts(),['Free','Pro','Team','Enterprise']);
+      assert.deepEqual(await pricing.locator('.tl-plan-cta').evaluateAll(els=>els.map(el=>el.getAttribute('href'))),
+        ['https://tracelayer.com/signup?plan=pro','https://tracelayer.com/signup?plan=pro','https://tracelayer.com/signup?plan=team','mailto:hello@tracelayer.com']);
+      assert.equal(await pricing.locator('.is-popular .tl-plan-badge').innerText(),'Most popular');
+      const prices=()=>pricing.locator('.tl-plan-price').evaluateAll(els=>els.map(el=>el.innerText.replace(/\s+/g,' ').trim()));
+      assert.deepEqual(await prices(),['€0 always','€49 a month','€199 a month','Talk to us']);
+      assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, €35 for each extra');
+      await pricing.getByRole('button',{name:/Yearly/}).click();
+      assert.deepEqual(await prices(),['€0 always','€490 a year','€1,990 a year','Talk to us']);
+      assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, €350 for each extra');
+      await pricing.getByRole('button',{name:'Monthly'}).click();
+      assert.equal(await pricing.getByRole('button',{name:'Monthly'}).getAttribute('aria-pressed'),'true');
+      const compare=pricing.locator('.tl-compare-toggle'),table=page.locator('#tl-compare-table');
+      assert.equal(await table.isVisible(),false);
+      await compare.click();
+      assert.equal(await compare.getAttribute('aria-expanded'),'true');assert.equal(await table.isVisible(),true);
+      assert(await table.getByRole('rowheader',{name:'Security and support'}).count());
+      assert(!(await pricing.innerText()).includes('SOC 2'));
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+      await compare.click();assert.equal(await table.isVisible(),false);
+      const question=pricing.getByRole('button',{name:'What counts as a Task?'}),answer=page.locator('#tl-faq-0');
+      assert.equal(await answer.isVisible(),false);
+      await question.click();assert.equal(await answer.isVisible(),true);
+      await question.click();assert.equal(await answer.isVisible(),false);
+      if(viewport.width<=640)assert.equal(new Set(await pricing.locator('.tl-plan').evaluateAll(els=>els.map(el=>Math.round(el.getBoundingClientRect().x)))).size,1);
+      for(const plan of ['pro','team']){
+        const popupPromise=context.waitForEvent('page');await pricing.locator(`a[href$="?plan=${plan}"]`).first().click();
+        const popup=await popupPromise;await popup.waitForURL(`https://tracelayer.com/signup?plan=${plan}`);await popup.close();
       }
       await page.locator('#demo').scrollIntoViewIfNeeded();
       const video=page.locator('video');assert.equal(await video.count(),1);
@@ -151,11 +184,11 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       await toggle.click();await page.mouse.click(viewport.width-4,viewport.height-8);
       assert.equal(await links.isVisible(),false);
       await toggle.focus();await page.keyboard.press('Space');
-      for(let i=0;i<4;i++)await page.keyboard.press('Tab');
+      for(let i=0,count=await links.locator('a').count();i<=count;i++)await page.keyboard.press('Tab');
       assert.equal(await links.isVisible(),false);
       assert.equal(await links.evaluate(el=>el.contains(document.activeElement)),false);
 
-      for(const id of ['team-benefits','platform']) {
+      for(const id of ['team-benefits','platform','pricing']) {
         await toggle.click();await links.locator(`a[href="#${id}"]`).click();
         assert.equal(await links.isVisible(),false);
         assert.equal(new URL(page.url()).hash,'#'+id);
@@ -199,6 +232,7 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
     const page=await context.newPage();await page.goto(base+'/');
     assert.equal(await page.locator('.tl-menu-toggle').isVisible(),false);
     for(const link of await page.locator('#tl-header-links a,.tl-header-join').all())assert(await link.isVisible());
+    for(const panel of ['#tl-compare-table','#tl-faq-0'])assert(await page.locator(panel).isVisible());
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
     await context.close();
   });

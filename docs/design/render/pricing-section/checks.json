@@ -1,0 +1,51 @@
+{
+  "steps": [
+    {
+      "step": 2,
+      "viewport": "1440x900",
+      "label": "Header with the Pricing link",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "step": 3,
+      "viewport": "1440x900",
+      "label": "Pricing, monthly",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "step": 4,
+      "viewport": "1440x900",
+      "label": "Pricing, yearly",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "step": 5,
+      "viewport": "1440x900",
+      "label": "Compare plans opened",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "step": 6,
+      "viewport": "1440x900",
+      "label": "Questions opened",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "step": 50,
+      "viewport": "390x844",
+      "label": "Phone, 390 wide",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    }
+  ],
+  "requests": {
+    "before": [],
+    "after": [],
+    "newExternal": []
+  }
+}

@@ -121,10 +121,13 @@ test('website analytics browser contract', async t => {
       await f.click('https://tracelayer.com/signup?token=SECRET#SECRET', true);
       await f.click('https://tracelayer.com/signup');
       await f.click('https://www.tracelayer.com/signup/');
+      // Pricing cards link to the same route with a plan query.
+      await f.click('https://tracelayer.com/signup?plan=pro');
+      await f.click('https://tracelayer.com/signup?plan=team');
       await f.click('/download/android/');
       await f.click('https://app.tracelayer.com/download/tracelayer.apk?token=SECRET');
       await f.page.locator('#analytics-test-link').click({button:'middle'}); await f.settle();
-      assert.equal(f.events.filter(e => e.event === 'website_signup_click').length, 3);
+      assert.equal(f.events.filter(e => e.event === 'website_signup_click').length, 5);
       assert.equal(f.events.filter(e => e.event === 'website_download').length, 3);
       const stableEvents = () => f.events.filter(e => e.event !== 'website_engaged').length;
       const count = stableEvents();

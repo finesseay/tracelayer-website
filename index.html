@@ -51,6 +51,8 @@ header nav{display:flex;align-items:center;gap:28px}header nav>a{white-space:now
 .opening{background:#101626;background-image:radial-gradient(ellipse at 3% 65%,#13404a80,transparent 56%),radial-gradient(ellipse at 100% 48%,#4d367777,transparent 64%)}.opening:before{display:none}.opening>header{max-width:1392px;padding-inline:36px}.opening>header .brand{font-family:Onest,Arial,sans-serif}@media(min-width:1600px){.opening>header{max-width:1512px}}@media(max-width:760px){.opening>header{padding-inline:20px}}</style><style>@font-face{font-family:FeatureOnest;src:url('features/assets/onest.woff2');font-weight:100 900;font-display:swap}</style><link rel="stylesheet" href="waitlist/style.css"><link rel="stylesheet" href="footer-options/layouts.css"><script>document.documentElement.dataset.footer=new URLSearchParams(location.search).get("footer")||"1";</script><link rel="stylesheet" href="platform/style.css">
 <link rel="stylesheet" href="assets/mobile-layout.css">
 <script src="assets/mobile-navigation.js" defer></script>
+<link rel="stylesheet" href="assets/pricing.css">
+<script src="assets/pricing.js" defer></script>
 <link rel="canonical" href="https://tracelayer.com/"><meta name="description" content="The easiest way to integrate AI agents into your team. Bring your people, expert AI agents and tools together with TraceLayer."><script src="/assets/analytics.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a>
   <div class="ds-header-wrapper waitlist-theme">
     <div class="ds-header-bar" id="tl-header-bar" role="navigation" aria-label="Main navigation" style="max-width:1280px">
@@ -69,6 +71,7 @@ header nav{display:flex;align-items:center;gap:28px}header nav>a{white-space:now
       <div class="tl-header-links" id="tl-header-links">
         <a href="#team-benefits">How It Works</a>
         <a href="#platform">Platform</a>
+        <a href="#pricing">Pricing</a>
         <a href="https://tracelayer.com/login" target="_blank" rel="noopener">Log In</a>
       </div>
       <a class="ds-btn-secondary tl-header-join" href="https://tracelayer.com/signup" target="_blank" rel="noopener">Sign Up</a>
@@ -192,6 +195,93 @@ header nav{display:flex;align-items:center;gap:28px}header nav>a{white-space:now
           <source src="assets/tracelayer-explainer-subtitled.mp4?v=55f26724476b" type="video/mp4">
           <a href="assets/tracelayer-explainer-subtitled.mp4?v=55f26724476b">Watch the TraceLayer explainer video</a>
         </video>
+      </div>
+    </section>
+    <section id="pricing" class="ds-container tl-pricing" aria-labelledby="pricing-title" data-billing="monthly">
+      <div class="tl-pricing-eyebrow">PRICING</div>
+      <h2 id="pricing-title" class="ds-text-heading1">Start free.<br>Grow when the work does.</h2>
+      <p class="tl-pricing-lead">Every plan uses your own AI account. Every new account gets Pro free for 14 days.</p>
+      <div class="tl-billing" role="group" aria-label="Billing">
+        <button type="button" data-set-billing="monthly" aria-pressed="true">Monthly</button>
+        <button type="button" data-set-billing="yearly" aria-pressed="false">Yearly <span class="tl-billing-save">2 months free</span></button>
+      </div>
+      <div class="tl-plans">
+        <article class="tl-plan" data-plan="free">
+          <h3>Free</h3>
+          <p class="tl-plan-for">For trying TraceLayer</p>
+          <div class="tl-plan-price"><b>€0</b><span>always</span></div>
+          <ul>
+            <li>1 Space</li><li>1 person</li><li>1 Task at once</li><li>10 Tasks started a month</li><li>1 repository</li><li>Your own AI account</li>
+          </ul>
+          <a class="ds-btn-secondary ds-btn-m tl-plan-cta" href="https://tracelayer.com/signup?plan=pro" target="_blank" rel="noopener">Start free</a>
+        </article>
+        <article class="tl-plan is-popular" data-plan="pro">
+          <span class="tl-plan-badge">Most popular</span>
+          <h3>Pro</h3>
+          <p class="tl-plan-for">For one person's daily work</p>
+          <div class="tl-plan-price"><b class="tl-m">€49</b><b class="tl-y">€490</b><span class="tl-m">a month</span><span class="tl-y">a year</span></div>
+          <ul>
+            <li>5 Spaces</li><li>3 Tasks at once</li><li>100 Tasks started a month</li><li>10 scheduled Tasks</li><li>2 browsers at once</li><li>5 repositories</li>
+          </ul>
+          <a class="ds-btn-primary ds-btn-m tl-plan-cta" href="https://tracelayer.com/signup?plan=pro" target="_blank" rel="noopener">Start 14-day trial</a>
+        </article>
+        <article class="tl-plan" data-plan="team">
+          <h3>Team</h3>
+          <p class="tl-plan-for">For a small team working together</p>
+          <div class="tl-plan-price"><b class="tl-m">€199</b><b class="tl-y">€1,990</b><span class="tl-m">a month</span><span class="tl-y">a year</span></div>
+          <p class="tl-plan-extra">5 people included, <span class="tl-m">€35</span><span class="tl-y">€350</span> for each extra</p>
+          <ul>
+            <li>20 Spaces</li><li>6 Tasks at once</li><li>400 Tasks started a month</li><li>50 scheduled Tasks</li><li>Access per person</li><li>Choose who can deploy</li>
+          </ul>
+          <a class="ds-btn-secondary ds-btn-m tl-plan-cta" href="https://tracelayer.com/signup?plan=team" target="_blank" rel="noopener">Start 14-day trial</a>
+        </article>
+        <article class="tl-plan" data-plan="enterprise">
+          <h3>Enterprise</h3>
+          <p class="tl-plan-for">For larger teams and companies</p>
+          <div class="tl-plan-price"><b class="tl-talk">Talk to us</b></div>
+          <ul>
+            <li>Single sign-on (SSO)</li><li>Data processing agreement (DPA)</li><li>Security review</li><li>Invoice billing</li><li>Dedicated capacity</li><li>Priority support</li>
+          </ul>
+          <a class="ds-btn-secondary ds-btn-m tl-plan-cta" href="mailto:hello@tracelayer.com">Talk to us</a>
+        </article>
+      </div>
+      <div class="tl-compare">
+        <button type="button" class="ds-btn-secondary ds-btn-m tl-compare-toggle" aria-expanded="true" aria-controls="tl-compare-table">Compare plans <svg class="tl-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 4.5 3.5 3.5 3.5-3.5"/></svg></button>
+        <div class="tl-compare-wrap" id="tl-compare-table">
+          <table class="tl-compare-table"><thead><tr><th scope="col"><span class="sr-only">What you get</span></th><th scope="col">Free</th><th scope="col">Pro</th><th scope="col">Team</th><th scope="col">Enterprise</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Spaces</th><td>1</td><td>5</td><td>20</td><td>20+</td></tr>
+              <tr><th scope="row">People</th><td>1</td><td>1</td><td>5 included, add more</td><td>Any number</td></tr>
+              <tr><th scope="row">Tasks at once</th><td>1</td><td>3</td><td>6</td><td>6+</td></tr>
+              <tr><th scope="row">Tasks started a month</th><td>10</td><td>100</td><td>400</td><td>400+</td></tr>
+              <tr><th scope="row">Scheduled Tasks</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td>10</td><td>50</td><td>50+</td></tr>
+              <tr><th scope="row">Browsers at once</th><td>1</td><td>2</td><td>4</td><td>4+</td></tr>
+              <tr><th scope="row">Repositories</th><td>1</td><td>5</td><td>10</td><td>10+</td></tr>
+              <tr><th scope="row">Access per person and a &quot;can deploy&quot; switch</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+              <tr><th scope="row">Full agent team, guidance, memory, review, deploy, phone and Companion</th><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+              <tr><th scope="row">Your own AI account</th><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+            </tbody>
+            <tbody><tr class="tl-compare-group"><th scope="rowgroup" colspan="5">Security and support</th></tr>
+              <tr><th scope="row">Data processing agreement (DPA)</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+              <tr><th scope="row">Single sign-on (SSO)</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+              <tr><th scope="row">Audit log export</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+              <tr><th scope="row">Invoice billing</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+              <tr><th scope="row">Dedicated capacity</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+              <tr><th scope="row">Uptime commitment (SLA)</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+              <tr><th scope="row">Priority support</th><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-dash" role="img" aria-label="Not included">–</span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td><td><span class="tl-tick" role="img" aria-label="Included"></span></td></tr>
+            </tbody></table>
+        </div>
+      </div>
+      <div class="tl-faq">
+        <h3 class="tl-faq-title">Questions</h3>
+        <div class="tl-faq-item"><button type="button" aria-expanded="true" aria-controls="tl-faq-0">What counts as a Task? <span aria-hidden="true" class="tl-chev">+</span></button>
+          <p id="tl-faq-0">A Task counts once, when it first starts. Drafts, follow-up messages, review and deploy are free. A Task that failed because of TraceLayer does not count.</p></div>
+        <div class="tl-faq-item"><button type="button" aria-expanded="true" aria-controls="tl-faq-1">Do I pay for AI here? <span aria-hidden="true" class="tl-chev">+</span></button>
+          <p id="tl-faq-1">No. You connect your own AI account, and your AI provider bills you for it.</p></div>
+        <div class="tl-faq-item"><button type="button" aria-expanded="true" aria-controls="tl-faq-2">What happens at a limit? <span aria-hidden="true" class="tl-chev">+</span></button>
+          <p id="tl-faq-2">Nothing you made is removed, and running Tasks finish. You just can't add more until next month, or until you upgrade.</p></div>
+        <div class="tl-faq-item"><button type="button" aria-expanded="true" aria-controls="tl-faq-3">Can I cancel? <span aria-hidden="true" class="tl-chev">+</span></button>
+          <p id="tl-faq-3">Yes, any time. You keep your plan until the end of the period you paid for.</p></div>
       </div>
     </section>
     <div class="ares-closing">

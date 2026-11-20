@@ -289,12 +289,23 @@
       "path": "waitlist/assets/font-6.woff2",
       "bytes": 14032,
       "sha256": "71f028fd2349990b3f8aa643abe767e82e0f596be407ae66f0004ff164121bdb"
+    },
+    {
+      "path": "assets/pricing.css",
+      "bytes": 5722,
+      "sha256": "c97d2fa56074ec13a4bc08d118b560d78726d4465f70ebaeafbf078a81c86b42"
+    },
+    {
+      "path": "assets/pricing.js",
+      "bytes": 1013,
+      "sha256": "aab7c33b92854d37cf64ac0f5a636e173a2592a7027394b569522cf0116d3577"
     }
   ],
   "adaptations": [
     "Homepage: decoded Cloudflare email transport markup, removed noindex, added canonical/description and unchanged analytics include.",
     "Existing legal directory retained: same approved content with decoded emails and licensed Inter font.",
     "Auth logo: exact existing brand SVG also served at auth-design/logo.svg.",
-    "Explainer updated from operator-selected snapshot b4404469ddadc613ec9d1611de597e4be71a636fc9f603a53d1f8c003470d61f; video is byte-identical and poster uses its embedded cover."
+    "Explainer updated from operator-selected snapshot b4404469ddadc613ec9d1611de597e4be71a636fc9f603a53d1f8c003470d61f; video is byte-identical and poster uses its embedded cover.",
+    "Pricing section (Task tsk_c0f8baf3-e73b-4788-98f9-9603a87bca9a): approved preview markup in index.html with assets/pricing.css and assets/pricing.js; preview-only marks and the SOC 2 claims removed."
   ]
 }
