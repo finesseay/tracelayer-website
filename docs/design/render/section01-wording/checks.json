@@ -1,0 +1,38 @@
+{
+  "baseline": "af01319",
+  "results": [
+    {
+      "version": "before",
+      "viewport": "desktop",
+      "heading": "Your company,\nin every agent.",
+      "paragraph": "Your culture, your decisions, the details only your team knows. Capture them in company documents and lasting guidance. Agents read it before each task, then apply it to the work.",
+      "kicker": "01 SHARED UNDERSTANDING",
+      "errors": []
+    },
+    {
+      "version": "before",
+      "viewport": "phone",
+      "heading": "Your company,\nin every agent.",
+      "paragraph": "Your culture, your decisions, the details only your team knows. Capture them in company documents and lasting guidance. Agents read it before each task, then apply it to the work.",
+      "kicker": "01 SHARED UNDERSTANDING",
+      "errors": []
+    },
+    {
+      "version": "after",
+      "viewport": "desktop",
+      "heading": "Give agents your\ncompany context.",
+      "paragraph": "Keep company decisions and working methods in shared guidance. Agents read it before each task.",
+      "kicker": "01 SHARED UNDERSTANDING",
+      "errors": []
+    },
+    {
+      "version": "after",
+      "viewport": "phone",
+      "heading": "Give agents your\ncompany context.",
+      "paragraph": "Keep company decisions and working methods in shared guidance. Agents read it before each task.",
+      "kicker": "01 SHARED UNDERSTANDING",
+      "errors": []
+    }
+  ],
+  "otherTextUnchanged": true
+}
