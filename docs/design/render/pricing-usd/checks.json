@@ -1,0 +1,108 @@
+{
+  "baseline": "af01319",
+  "shots": [
+    {
+      "shot": "desktop-monthly",
+      "when": "before",
+      "viewport": "1440x900",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "desktop-monthly",
+      "when": "after",
+      "viewport": "1440x900",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "desktop-yearly",
+      "when": "before",
+      "viewport": "1440x900",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "desktop-yearly",
+      "when": "after",
+      "viewport": "1440x900",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "desktop-compare",
+      "when": "before",
+      "viewport": "1440x900",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "desktop-compare",
+      "when": "after",
+      "viewport": "1440x900",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "phone-monthly",
+      "when": "before",
+      "viewport": "390x844",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "phone-monthly",
+      "when": "after",
+      "viewport": "390x844",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "phone-yearly",
+      "when": "before",
+      "viewport": "390x844",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "phone-yearly",
+      "when": "after",
+      "viewport": "390x844",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "phone-compare",
+      "when": "before",
+      "viewport": "390x844",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "phone-compare",
+      "when": "after",
+      "viewport": "390x844",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "phone-compare-right",
+      "when": "before",
+      "viewport": "390x844",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    },
+    {
+      "shot": "phone-compare-right",
+      "when": "after",
+      "viewport": "390x844",
+      "horizontalScroll": false,
+      "pageErrors": 0
+    }
+  ],
+  "requests": {
+    "before": [],
+    "after": [],
+    "newExternal": []
+  }
+}

@@ -103,11 +103,14 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
         ['https://tracelayer.com/signup?plan=pro','https://tracelayer.com/signup?plan=pro','https://tracelayer.com/signup?plan=team','mailto:hello@tracelayer.com']);
       assert.equal(await pricing.locator('.is-popular .tl-plan-badge').innerText(),'Most popular');
       const prices=()=>pricing.locator('.tl-plan-price').evaluateAll(els=>els.map(el=>el.innerText.replace(/\s+/g,' ').trim()));
-      assert.deepEqual(await prices(),['€0 always','€49 a month','€199 a month','Talk to us']);
-      assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, €35 for each extra');
+      assert.deepEqual(await prices(),['$0 always','$49 a month','$199 a month','Talk to us']);
+      assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, $35 for each extra');
       await pricing.getByRole('button',{name:/Yearly/}).click();
-      assert.deepEqual(await prices(),['€0 always','€490 a year','€1,990 a year','Talk to us']);
-      assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, €350 for each extra');
+      assert.deepEqual(await prices(),['$0 always','$490 a year','$1,990 a year','Talk to us']);
+      assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, $350 for each extra');
+      // US dollars, no VAT wording, and 1 Task at once on every plan: only Free's card lists it.
+      assert(!/€|VAT|\btax\b/i.test(await pricing.evaluate(el=>el.textContent)));
+      assert.deepEqual(await pricing.locator('.tl-plan li').evaluateAll(els=>els.map(el=>el.textContent).filter(t=>/at once/.test(t)&&!/browser/.test(t))),['1 Task at once']);
       await pricing.getByRole('button',{name:'Monthly'}).click();
       assert.equal(await pricing.getByRole('button',{name:'Monthly'}).getAttribute('aria-pressed'),'true');
       const compare=pricing.locator('.tl-compare-toggle'),table=page.locator('#tl-compare-table');
@@ -115,6 +118,7 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       await compare.click();
       assert.equal(await compare.getAttribute('aria-expanded'),'true');assert.equal(await table.isVisible(),true);
       assert(await table.getByRole('rowheader',{name:'Security and support'}).count());
+      assert.deepEqual(await table.locator('tr',{has:page.getByRole('rowheader',{name:'Tasks at once',exact:true})}).locator('td').allInnerTexts(),['1','1','1','6+']);
       assert(!(await pricing.innerText()).includes('SOC 2'));
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       await compare.click();assert.equal(await table.isVisible(),false);
