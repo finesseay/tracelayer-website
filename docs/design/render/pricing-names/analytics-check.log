@@ -1,0 +1,107 @@
+TAP version 13
+# Subtest: website analytics browser contract
+    # Subtest: real SDK sends sanitized capable pageviews and keeps anonymous/session identity
+    ok 1 - real SDK sends sanitized capable pageviews and keeps anonymous/session identity
+      ---
+      duration_ms: 4316.444109
+      type: 'test'
+      ...
+    # Subtest: only real signup/download destinations count, including keyboard and middle clicks
+    ok 2 - only real signup/download destinations count, including keyboard and middle clicks
+      ---
+      duration_ms: 4891.863859
+      type: 'test'
+      ...
+    # Subtest: canceled clicks do not count and arbitrary property enrichment is stripped
+    ok 3 - canceled clicks do not count and arbitrary property enrichment is stripped
+      ---
+      duration_ms: 1779.215983
+      type: 'test'
+      ...
+    # Subtest: referrer is host only and sensitive campaign tags are rejected
+    ok 4 - referrer is host only and sensitive campaign tags are rejected
+      ---
+      duration_ms: 1363.379754
+      type: 'test'
+      ...
+    # Subtest: preview, mockup, unknown/private paths, internal and test visits load no SDK
+    ok 5 - preview, mockup, unknown/private paths, internal and test visits load no SDK
+      ---
+      duration_ms: 11638.887625
+      type: 'test'
+      ...
+    # Subtest: dnt prevents collection and downloads still redirect
+    ok 6 - dnt prevents collection and downloads still redirect
+      ---
+      duration_ms: 1788.194483
+      type: 'test'
+      ...
+    # Subtest: gpc prevents collection and downloads still redirect
+    ok 7 - gpc prevents collection and downloads still redirect
+      ---
+      duration_ms: 1992.06167
+      type: 'test'
+      ...
+    # Subtest: local-optout prevents collection and downloads still redirect
+    ok 8 - local-optout prevents collection and downloads still redirect
+      ---
+      duration_ms: 1740.556305
+      type: 'test'
+      ...
+    # Subtest: sdk-optout prevents collection and downloads still redirect
+    ok 9 - sdk-optout prevents collection and downloads still redirect
+      ---
+      duration_ms: 1876.602668
+      type: 'test'
+      ...
+    # Subtest: revoking privacy choice stops later clicks and pageleave
+    ok 10 - revoking privacy choice stops later clicks and pageleave
+      ---
+      duration_ms: 2105.652533
+      type: 'test'
+      ...
+    # Subtest: engagement measures visible time, scroll and deduplicated leave/resume
+    ok 11 - engagement measures visible time, scroll and deduplicated leave/resume
+      ---
+      duration_ms: 2242.714754
+      type: 'test'
+      ...
+    # Subtest: automatic download redirect is not a click; SDK {}
+    ok 12 - automatic download redirect is not a click; SDK {}
+      ---
+      duration_ms: 272.406218
+      type: 'test'
+      ...
+    # Subtest: automatic download redirect is not a click; SDK {"blockSdk":true}
+    ok 13 - automatic download redirect is not a click; SDK {"blockSdk":true}
+      ---
+      duration_ms: 224.080439
+      type: 'test'
+      ...
+    # Subtest: automatic download redirect is not a click; SDK {"slowSdk":true}
+    ok 14 - automatic download redirect is not a click; SDK {"slowSdk":true}
+      ---
+      duration_ms: 1672.381551
+      type: 'test'
+      ...
+    # Subtest: unavailable browser storage does not break page use
+    ok 15 - unavailable browser storage does not break page use
+      ---
+      duration_ms: 1733.362683
+      type: 'test'
+      ...
+    1..15
+ok 1 - website analytics browser contract
+  ---
+  duration_ms: 39989.012121
+  type: 'test'
+  ...
+1..1
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 40285.890011

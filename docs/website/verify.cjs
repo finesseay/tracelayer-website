@@ -21,6 +21,7 @@ test('selected source assets and preserved archives', () => {
   assert(!homepage.includes('name="robots" content="noindex'));
   assert(!homepage.includes('/cdn-cgi/'));
   assert(homepage.includes('href="mailto:hello@tracelayer.com"'));
+  assert(!/trial|14.day|free for 14|try pro/i.test(homepage));
   assert.equal((homepage.match(/src="\/assets\/analytics.js"/g)||[]).length,1);
   assert(!homepage.includes('waitlist/demo.js'));
   for (const [archive,original] of [['archive1','index.html'],['archive2','v2/index.html']]) {
@@ -98,10 +99,15 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       const pricing=page.locator('#pricing');
       assert.equal(await page.locator('#tl-header-links a[href="#pricing"]').innerText(),'Pricing');
       assert.deepEqual(await page.locator('main ~ .waitlist-area > section').evaluateAll(els=>els.map(el=>el.id)),['demo','pricing']);
-      assert.deepEqual(await pricing.locator('.tl-plan h3').allInnerTexts(),['Free','Pro','Team','Enterprise']);
+      assert.deepEqual(await pricing.locator('.tl-plan h3').allInnerTexts(),['Free','Start','Professional','Enterprise']);
+      assert.deepEqual(await pricing.locator('.tl-compare-table thead th[scope="col"]').evaluateAll(els=>els.map(el=>el.textContent)),['What you get','Free','Start','Professional','Enterprise']);
+      // No trial: paid plans start free too, and the sign-up links keep their original plan queries.
+      assert.deepEqual(await pricing.locator('.tl-plan-cta').allInnerTexts(),['Start free','Start free','Start free','Talk to us']);
+      assert(!/\bPro\b|\bTeam\b/.test(await pricing.evaluate(el=>el.textContent)));
       assert.deepEqual(await pricing.locator('.tl-plan-cta').evaluateAll(els=>els.map(el=>el.getAttribute('href'))),
         ['https://tracelayer.com/signup?plan=pro','https://tracelayer.com/signup?plan=pro','https://tracelayer.com/signup?plan=team','mailto:hello@tracelayer.com']);
       assert.equal(await pricing.locator('.is-popular .tl-plan-badge').innerText(),'Most popular');
+      assert.equal(await pricing.locator('.is-popular h3').innerText(),'Start');
       const prices=()=>pricing.locator('.tl-plan-price').evaluateAll(els=>els.map(el=>el.innerText.replace(/\s+/g,' ').trim()));
       assert.deepEqual(await prices(),['$0 always','$49 a month','$199 a month','Talk to us']);
       assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, $35 for each extra');
