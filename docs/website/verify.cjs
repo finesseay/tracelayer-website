@@ -152,7 +152,7 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       await page.locator('#dockEmail').fill('website-test@example.invalid');await page.locator('#dockSend').click();
       await page.waitForFunction(()=>document.querySelector('#tl2Dock').dataset.state==='done');assert.equal(submissions,1);
       await page.keyboard.press('Escape');assert.equal(await page.locator('#tl2Dock').isVisible(),false);
-      for(const href of ['legal/index.html','legal/privacy.html','https://www.linkedin.com/company/143889446/','https://x.com/tracelayer'])assert(await page.locator(`footer a[href$="${href}"]`).count());
+      for(const href of ['legal/terms.html','legal/privacy.html','https://www.linkedin.com/company/143889446/','https://x.com/tracelayer'])assert(await page.locator(`footer a[href$="${href}"]`).count());
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       assert.deepEqual(await page.locator('img').evaluateAll(imgs=>imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src)),[]);
       for(const route of ['/archive1','/archive2']){
