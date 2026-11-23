@@ -101,19 +101,18 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       assert.deepEqual(await page.locator('main ~ .waitlist-area > section').evaluateAll(els=>els.map(el=>el.id)),['demo','pricing']);
       assert.deepEqual(await pricing.locator('.tl-plan h3').allInnerTexts(),['Free','Start','Professional','Enterprise']);
       assert.deepEqual(await pricing.locator('.tl-compare-table thead th[scope="col"]').evaluateAll(els=>els.map(el=>el.textContent)),['What you get','Free','Start','Professional','Enterprise']);
-      // No trial: paid plans start free too, and the sign-up links keep their original plan queries.
-      assert.deepEqual(await pricing.locator('.tl-plan-cta').allInnerTexts(),['Start free','Start free','Start free','Talk to us']);
+      assert.deepEqual(await pricing.locator('.tl-plan-cta').allInnerTexts(),['Start free','Choose Start','Choose Professional','Talk to us']);
       assert(!/\bPro\b|\bTeam\b/.test(await pricing.evaluate(el=>el.textContent)));
       assert.deepEqual(await pricing.locator('.tl-plan-cta').evaluateAll(els=>els.map(el=>el.getAttribute('href'))),
-        ['https://tracelayer.com/signup?plan=pro','https://tracelayer.com/signup?plan=pro','https://tracelayer.com/signup?plan=team','mailto:hello@tracelayer.com']);
+        ['https://tracelayer.com/signup','https://tracelayer.com/signup?plan=start&interval=month','https://tracelayer.com/signup?plan=professional&interval=month','mailto:hello@tracelayer.com']);
       assert.equal(await pricing.locator('.is-popular .tl-plan-badge').innerText(),'Most popular');
       assert.equal(await pricing.locator('.is-popular h3').innerText(),'Start');
       const prices=()=>pricing.locator('.tl-plan-price').evaluateAll(els=>els.map(el=>el.innerText.replace(/\s+/g,' ').trim()));
       assert.deepEqual(await prices(),['$0 always','$49 a month','$199 a month','Talk to us']);
-      assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, $35 for each extra');
+      assert.equal(await pricing.locator('.tl-plan-extra:not(.tl-plan-terms)').innerText(),'5 people included, $35 for each extra');
       await pricing.getByRole('button',{name:/Yearly/}).click();
       assert.deepEqual(await prices(),['$0 always','$490 a year','$1,990 a year','Talk to us']);
-      assert.equal(await pricing.locator('.tl-plan-extra').innerText(),'5 people included, $350 for each extra');
+      assert.equal(await pricing.locator('.tl-plan-extra:not(.tl-plan-terms)').innerText(),'5 people included, $350 for each extra');
       // US dollars, no VAT wording, and 1 Task at once on every plan: only Free's card lists it.
       assert(!/€|VAT|\btax\b/i.test(await pricing.evaluate(el=>el.textContent)));
       assert.deepEqual(await pricing.locator('.tl-plan li').evaluateAll(els=>els.map(el=>el.textContent).filter(t=>/at once/.test(t)&&!/browser/.test(t))),['1 Task at once']);
@@ -133,9 +132,18 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       await question.click();assert.equal(await answer.isVisible(),true);
       await question.click();assert.equal(await answer.isVisible(),false);
       if(viewport.width<=640)assert.equal(new Set(await pricing.locator('.tl-plan').evaluateAll(els=>els.map(el=>Math.round(el.getBoundingClientRect().x)))).size,1);
-      for(const plan of ['pro','team']){
-        const popupPromise=context.waitForEvent('page');await pricing.locator(`a[href$="?plan=${plan}"]`).first().click();
-        const popup=await popupPromise;await popup.waitForURL(`https://tracelayer.com/signup?plan=${plan}`);await popup.close();
+      for (const [button, interval, amounts] of [['Yearly','year',['$490','$1,990']], ['Monthly','month',['$49','$199']]]) {
+        await pricing.getByRole('button',{name:new RegExp(button)}).click();
+        for (const [index, plan] of ['start','professional'].entries()) {
+          const link = pricing.locator(`a[data-paid-plan="${plan}"]`);
+          const terms = link.locator('..').locator('.tl-plan-terms');
+          assert.equal(await terms.innerText(), `${amounts[index]} due today. Renews at ${amounts[index]} per ${interval}.`);
+          const popupPromise = context.waitForEvent('page');
+          await link.click();
+          const popup = await popupPromise;
+          await popup.waitForURL(`https://tracelayer.com/signup?plan=${plan}&interval=${interval}`);
+          await popup.close();
+        }
       }
       await page.locator('#demo').scrollIntoViewIfNeeded();
       const video=page.locator('video');assert.equal(await video.count(),1);

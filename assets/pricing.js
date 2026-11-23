@@ -7,6 +7,12 @@
   const billing = section.querySelectorAll('[data-set-billing]');
   billing.forEach(button => button.addEventListener('click', () => {
     section.dataset.billing = button.dataset.setBilling;
+    const interval = section.dataset.billing === 'yearly' ? 'year' : 'month';
+    section.querySelectorAll('a[data-paid-plan]').forEach(link => {
+      const destination = new URL(link.href);
+      destination.searchParams.set('interval', interval);
+      link.href = destination.href;
+    });
     billing.forEach(other => other.setAttribute('aria-pressed', String(other === button)));
   }));
 
