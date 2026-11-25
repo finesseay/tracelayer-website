@@ -23,6 +23,8 @@
 .tl-pricing[data-billing="yearly"] .tl-y{display:inline}
 .tl-pricing[data-billing="yearly"] .tl-m{display:none}
 .tl-plan-extra{margin:0 0 4px;color:#5eead4;font-size:13px;line-height:1.5}
+.tl-plan-terms{margin:0 0 4px;color:#9e9ab8;font-size:13px;line-height:1.5}
+.tl-addon{color:#5eead4;font-size:12.5px;white-space:nowrap}
 .tl-plan ul{list-style:none;margin:14px 0 22px;padding:16px 0 0;border-top:1px solid hsla(0,0%,100%,.08);display:grid;gap:10px;flex:1;align-content:start}
 .tl-plan li{position:relative;padding-left:22px;color:#e3e1f1;font-size:14px;line-height:1.45}
 .tl-plan li:before{content:"";position:absolute;left:2px;top:5px;width:9px;height:5px;border-left:1.6px solid #5eead4;border-bottom:1.6px solid #5eead4;transform:rotate(-45deg)}

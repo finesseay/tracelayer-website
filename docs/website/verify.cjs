@@ -109,13 +109,15 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       assert.equal(await pricing.locator('.is-popular h3').innerText(),'Start');
       const prices=()=>pricing.locator('.tl-plan-price').evaluateAll(els=>els.map(el=>el.innerText.replace(/\s+/g,' ').trim()));
       assert.deepEqual(await prices(),['$0 always','$49 a month','$199 a month','Talk to us']);
-      assert.equal(await pricing.locator('.tl-plan-extra:not(.tl-plan-terms)').innerText(),'5 people included, $35 for each extra');
+      const addons=()=>pricing.locator('.tl-addon').evaluateAll(els=>els.map(el=>el.innerText.replace(/\s+/g,' ').trim()));
+      assert.deepEqual(await addons(),['+$25/mo extra','+$29/mo extra','+$35/mo extra','+$29/mo extra']);
       await pricing.getByRole('button',{name:/Yearly/}).click();
       assert.deepEqual(await prices(),['$0 always','$490 a year','$1,990 a year','Talk to us']);
-      assert.equal(await pricing.locator('.tl-plan-extra:not(.tl-plan-terms)').innerText(),'5 people included, $350 for each extra');
-      // US dollars, no VAT wording, and 1 Task at once on every plan: only Free's card lists it.
+      assert.deepEqual(await addons(),['+$250/yr extra','+$290/yr extra','+$350/yr extra','+$290/yr extra']);
+      // US dollars, no VAT wording, and Tasks at once listed on Free, Start and Professional.
       assert(!/€|VAT|\btax\b/i.test(await pricing.evaluate(el=>el.textContent)));
-      assert.deepEqual(await pricing.locator('.tl-plan li').evaluateAll(els=>els.map(el=>el.textContent).filter(t=>/at once/.test(t)&&!/browser/.test(t))),['1 Task at once']);
+      assert.deepEqual(await pricing.locator('.tl-plan li').evaluateAll(els=>els.map(el=>el.innerText.replace(/\s+/g,' ').trim()).filter(t=>/at once/.test(t)&&!/browser/.test(t))),
+        ['1 Task at once','2 Tasks at once +$290/yr extra','4 Tasks at once +$290/yr extra']);
       await pricing.getByRole('button',{name:'Monthly'}).click();
       assert.equal(await pricing.getByRole('button',{name:'Monthly'}).getAttribute('aria-pressed'),'true');
       const compare=pricing.locator('.tl-compare-toggle'),table=page.locator('#tl-compare-table');
@@ -123,7 +125,8 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       await compare.click();
       assert.equal(await compare.getAttribute('aria-expanded'),'true');assert.equal(await table.isVisible(),true);
       assert(await table.getByRole('rowheader',{name:'Security and support'}).count());
-      assert.deepEqual(await table.locator('tr',{has:page.getByRole('rowheader',{name:'Tasks at once',exact:true})}).locator('td').allInnerTexts(),['1','1','1','6+']);
+      assert.deepEqual(await table.locator('tr',{has:page.getByRole('rowheader',{name:'People',exact:true})}).locator('td').allInnerTexts(),['1','1 included, add more','5 included, add more','Any number']);
+      assert.deepEqual(await table.locator('tr',{has:page.getByRole('rowheader',{name:'Tasks at once',exact:true})}).locator('td').allInnerTexts(),['1','2 included, add more','4 included, add more','8+']);
       assert(!(await pricing.innerText()).includes('SOC 2'));
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       await compare.click();assert.equal(await table.isVisible(),false);
@@ -132,12 +135,12 @@ test('homepage, archives, navigation, newsletter and native video in Chromium', 
       await question.click();assert.equal(await answer.isVisible(),true);
       await question.click();assert.equal(await answer.isVisible(),false);
       if(viewport.width<=640)assert.equal(new Set(await pricing.locator('.tl-plan').evaluateAll(els=>els.map(el=>Math.round(el.getBoundingClientRect().x)))).size,1);
-      for (const [button, interval, amounts] of [['Yearly','year',['$490','$1,990']], ['Monthly','month',['$49','$199']]]) {
+      for (const [button, interval, expectedTerms] of [['Yearly','year','Billed yearly · cancel anytime'], ['Monthly','month','Billed monthly · cancel anytime']]) {
         await pricing.getByRole('button',{name:new RegExp(button)}).click();
-        for (const [index, plan] of ['start','professional'].entries()) {
+        for (const plan of ['start','professional']) {
           const link = pricing.locator(`a[data-paid-plan="${plan}"]`);
           const terms = link.locator('..').locator('.tl-plan-terms');
-          assert.equal(await terms.innerText(), `${amounts[index]} due today. Renews at ${amounts[index]} per ${interval}.`);
+          assert.equal(await terms.innerText(), expectedTerms);
           const popupPromise = context.waitForEvent('page');
           await link.click();
           const popup = await popupPromise;

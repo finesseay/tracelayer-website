@@ -1,0 +1,3 @@
+# Pricing cards: concise billing terms and add-on rates
+
+Replaced the repetitive due-today/renewal price sentence on Start and Professional with a single muted billing subline (`Billed monthly · cancel anytime` / `Billed yearly · cancel anytime`) aligned across all four cards. Added extra-user and extra-worker price points directly on Start (`1 person +$25/mo extra`, `2 Tasks at once +$29/mo extra`; yearly `$250`/`$290`) and Professional (`5 people +$35/mo extra`, `4 Tasks at once +$29/mo extra`; yearly `$350`/`$290`), and synced the comparison table (`People` and `Tasks at once` rows) with the application plans.
